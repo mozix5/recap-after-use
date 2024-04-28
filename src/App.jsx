@@ -2,53 +2,66 @@ import React, { useRef } from "react";
 import cap from "./assets/cap.png";
 import body from "./assets/body.png";
 import { useScroll, useTransform, motion } from "framer-motion";
+import Profile from "./pages/Profile";
+import Projects from "./pages/Projects";
+import Contact from "./pages/Contact";
+import Footer from "./components/Footer";
 const App = () => {
   const scrollContainerRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: scrollContainerRef,
     offset: ["0 0.42", "end start"],
   });
-  const y = useTransform(scrollYProgress, [0, 1], [0, 4678]);
+  const y = useTransform(scrollYProgress, [0, 1], [0, 5080]);
   const x1 = useTransform(scrollYProgress, [0, 1], [0, -460]);
   const x3 = useTransform(
     scrollYProgress,
-    [0, 0.2, 0.4, 0.6, 0.8, 1],
-    [0, -460, -460, -460, -460, 0],
+    [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1],
+    [0, -460, -460, -460, -460, -460, -460, -460, -460, -460, 0],
     { clamp: false }
   );
   const x2 = useTransform(
     scrollYProgress,
-    [0, 0.2, 0.4, 0.6, 0.8, 1],
-    [0, 980, 980, 980, 980, 0],
+    [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1],
+    [0, 980, 980, 980, 980, 980, 980, 980, 980, 980, 0],
     { clamp: false }
   );
   // const x2 = useTransform(scrollYProgress, [0, 1], [0, 980]);
   return (
-    <div className=" bg-black overflow-x-hidden">
-      <div className="bg-red-500 h-screen"></div>
-
-      {/* <div className="min-h-screen flex items-center justify-center bg-black"> */}
-      <div className="relative w-screen h-[600vh]" ref={scrollContainerRef}>
+    <div className=" bg-primary overflow-x-hidden">
+      <div className="bg-primary h-screen flex justify-center items-center">
+        <div className=" font-bebas text-[11rem] leading-none font-[1000] flex flex-col text-white -rotate-[10deg] tracking-wider">
+          <span>recap</span>
+          <span className=" pl-16">after</span>
+          <span className="pl-56">use</span>
+        </div>
+      </div>
+      <div className="relative w-screen h-full" ref={scrollContainerRef}>
         <div className="">
           <motion.div
-            className="absolute left-80 z-10 w-[20%]"
+            className="absolute left-80 z-20 w-[20%]"
             style={{ y: y, x: x3 }}
           >
             <img className=" object-contain h-full w-full " src={cap}></img>
           </motion.div>
           <motion.div
-            className="absolute right-[318px]  w-[56.5%] "
+            className="absolute right-[318px] z-10 w-[56.5%] "
             style={{ x: x2, y: y }}
           >
             <img className=" object-contain h-full w-full" src={body}></img>
           </motion.div>
-      <div className="bg-yellow-500 h-[140vh]"></div>
-      <div className="bg-blue-500 h-screen"></div>
-
+          <div className="bg-primary h-screen"></div>
+          <Profile />
+          <Projects />
+          <Contact />
         </div>
       </div>
-      {/* </div> */}
-      <div className="bg-red-500 h-screen"></div>
+      <div className=" h-screen relative">
+        <div className=" bg-primary w-screen text-white absolute bottom-0 left-0 right-0 ">
+          {/* <div>mozix</div> */}
+          <Footer />
+        </div>
+      </div>
     </div>
   );
 };
