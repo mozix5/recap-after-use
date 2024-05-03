@@ -1,11 +1,12 @@
 import React, { useRef } from "react";
 import cap from "./assets/cap.png";
 import body from "./assets/body.png";
-import { useScroll, useTransform, motion } from "framer-motion";
+import { useScroll, useTransform, motion} from "framer-motion";
 import Profile from "./pages/Profile";
 import Projects from "./pages/Projects";
 import Contact from "./pages/Contact";
 import Footer from "./components/Footer";
+import Experience from "./pages/Experience";
 const App = () => {
   const scrollContainerRef = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -30,9 +31,9 @@ const App = () => {
   return (
     <div className=" bg-primary overflow-x-hidden">
       <div className="bg-primary h-screen flex justify-center items-center">
-        <div className=" font-bebas text-[11rem] leading-none font-[1000] flex flex-col text-white -rotate-[10deg] tracking-wider">
+        <div className=" font-bebas text-[11rem] leading-none font-bold flex flex-col text-white tracking-widest">
           <span>recap</span>
-          <span className=" pl-16">after</span>
+          <span className=" pl-16 ">after</span>
           <span className="pl-56">use</span>
         </div>
       </div>
@@ -53,12 +54,12 @@ const App = () => {
           <div className="bg-primary h-screen"></div>
           <Profile />
           <Projects />
+          <Experience/>
           <Contact />
         </div>
       </div>
       <div className=" h-screen relative">
         <div className=" bg-primary w-screen text-white absolute bottom-0 left-0 right-0 ">
-          {/* <div>mozix</div> */}
           <Footer />
         </div>
       </div>

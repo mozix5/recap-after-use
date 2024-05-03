@@ -16,7 +16,7 @@ const Footer = () => {
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
         style={{ fontFamily: "Mixiwa" }}
-        className={` text-xl text-caret cursor-pointer flex gap-2 ${
+        className={` text-xl  cursor-pointer flex gap-2 ${
           hover ? "justify-between flex-1 " : "justify-center"
         }`}
       >

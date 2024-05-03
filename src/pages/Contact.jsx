@@ -1,11 +1,11 @@
 import React from "react";
 import { FaCode, FaGithubAlt, FaLinkedinIn } from "react-icons/fa";
-
+import me2 from '../assets/me2.png'
 const Contact = () => {
   return (
-    <div className="h-screen  mx-[269px] font-bebas flex items-center justify-center pr-16">
+    <div className="h-screen  mx-[269px] font-bebas flex items-center justify-center ">
       <div className=" flex">
-        <div className="uppercase text-[12rem] flex flex-col font-emibold pr-4 text-white ">
+        <div className="uppercase text-[12rem] flex flex-col font-semibold pr-4 text-white ">
           <span className=" leading-none">Drop me</span>
           <span className=" leading-none">a line</span>
         </div>
@@ -33,6 +33,9 @@ const Contact = () => {
               </a>
             </div>
           </div>
+        </div>
+        <div className="h-96 pl-8">
+          <img className="h-full" src={me2}/>
         </div>
       </div>
     </div>
