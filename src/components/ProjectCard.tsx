@@ -1,6 +1,15 @@
 import { useState, useRef, useEffect } from "react";
 import PlanetBadge from "@/components/PlanetBadge";
 
+type ProjectCardProps = {
+  title: string;
+  description: string;
+  techStack: string[];
+  image: string;
+  planet: string;
+  color: string;
+  index: number;
+};
 const ProjectCard = ({
   title,
   description,
@@ -9,7 +18,7 @@ const ProjectCard = ({
   planet,
   color,
   index,
-}) => {
+}: ProjectCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isInView, setIsInView] = useState(false);
   const cardRef = useRef(null);

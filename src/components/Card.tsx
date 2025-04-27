@@ -1,13 +1,11 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import screen from "../../../../../Documents/Project/recap after use/src/assets/screen.svg";
 import hoverScreen from "../../../../../Documents/Project/recap after use/src/assets/hoverScreen.svg";
 import hoverKeyboard from "../../../../../Documents/Project/recap after use/src/assets/hoverKeyboard.svg";
 import keyboard from "../../../../../Documents/Project/recap after use/src/assets/5f560373b66385163d918256_comp_4-1-w.svg";
 import turboText from "../../../../../Documents/Project/recap after use/src/assets/turboText.png";
-import { BorderBeam } from "@/components/ui/border-beam.tsx";
-// import CardButton from "../../../../../Documents/Project/recap after use/src/components/CardButton.jsx";
+
 const Card = () => {
-  const targetRef = useRef();
   const [isHovered, setIsHovered] = useState(false);
 
   return (
