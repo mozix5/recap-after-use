@@ -1,5 +1,5 @@
 import { FaCode, FaGithubAlt, FaLinkedinIn } from "react-icons/fa";
-import me2 from "../../../../../Documents/Project/recap after use/src/assets/me2.png";
+import me2 from "@/assets/me2.png";
 const Contact = () => {
   return (
     <div className="h-screen  mx-[269px] font-bebas flex items-center justify-center">

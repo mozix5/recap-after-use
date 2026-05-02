@@ -1,63 +1,132 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import ProjectCard from "@/components/ProjectCard";
 import SpaceshipNavigation from "@/components/SpaceshipNavigation";
+import bodyPreview from "@/assets/body.png";
+import mePreview from "@/assets/me3.png";
+import turboTextPreview from "@/assets/turboText.png";
 
 const Projects = () => {
-  const [scrollPosition, setScrollPosition] = useState(0);
   const [activeProject, setActiveProject] = useState(0);
-  const containerRef = useRef(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const projectRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  // Handle scroll to update spaceship position and active project
   useEffect(() => {
-    const handleScroll = () => {
-      if (containerRef.current) {
-        setScrollPosition(window.scrollY);
+    let animationFrame = 0;
 
-        // Calculate which project is currently in view
-        const projectElements = document.querySelectorAll(".project-card");
-        projectElements.forEach((element, index) => {
-          const rect = element.getBoundingClientRect();
-          if (
-            rect.top < window.innerHeight / 2 &&
-            rect.bottom > window.innerHeight / 2
-          ) {
-            setActiveProject(index);
-          }
-        });
-      }
+    const updateActiveProject = () => {
+      const viewportCenter = window.innerHeight / 2;
+      let closestProject = 0;
+      let closestDistance = Number.POSITIVE_INFINITY;
+
+      projectRefs.current.forEach((projectElement, index) => {
+        if (!projectElement) {
+          return;
+        }
+
+        const rect = projectElement.getBoundingClientRect();
+        const projectCenter = rect.top + rect.height / 2;
+        const distance = Math.abs(projectCenter - viewportCenter);
+
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          closestProject = index;
+        }
+      });
+
+      setActiveProject((currentProject) => {
+        if (currentProject === closestProject) {
+          return currentProject;
+        }
+
+        return closestProject;
+      });
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const scheduleUpdate = () => {
+      if (animationFrame) {
+        return;
+      }
+
+      animationFrame = window.requestAnimationFrame(() => {
+        animationFrame = 0;
+        updateActiveProject();
+      });
+    };
+
+    updateActiveProject();
+    window.addEventListener("scroll", scheduleUpdate, { passive: true });
+    window.addEventListener("resize", scheduleUpdate);
+
+    return () => {
+      window.removeEventListener("scroll", scheduleUpdate);
+      window.removeEventListener("resize", scheduleUpdate);
+
+      if (animationFrame) {
+        window.cancelAnimationFrame(animationFrame);
+      }
+    };
   }, []);
 
   const projects = [
     {
       title: "turboText",
       description:
-        "The Innovation Collaboration Group - a PropTech collective providing new solutions for the property industry.",
-      techStack: ["React", "TypeScript", "Node.js"],
-      image: "/turboText.png", // Replace with your actual image path
+        "A focused writing interface built to make drafting, editing, and reviewing text feel fast instead of noisy.",
+      role: "Frontend build, interaction design",
+      timeline: "2025",
+      status: "Live concept",
+      techStack: ["React", "TypeScript", "Tailwind", "Framer Motion"],
+      image: turboTextPreview,
       planet: "Mercury",
       color: "amber",
+      highlights: [
+        "Built a responsive dashboard-style layout with clear writing actions.",
+        "Designed hover states and visual feedback for a more tactile workflow.",
+        "Structured reusable UI pieces so the interface can grow into more editor tools.",
+      ],
+      metrics: ["Responsive UI", "Motion polish", "Reusable components"],
+      liveUrl: "https://portfolyo-amber.vercel.app/",
+      sourceUrl: "https://github.com/mozix5",
     },
     {
-      title: "Nebula Navigator",
+      title: "Portfolio System",
       description:
-        "A spatial visualization tool for complex data structures with interactive 3D mapping capabilities.",
-      techStack: ["Three.js", "D3", "WebGL"],
-      image: "/nebula.png", // Replace with your actual image path
+        "A personal portfolio experience with scroll-led animation, themed sections, and a memorable visual identity.",
+      role: "Creative direction, frontend engineering",
+      timeline: "2026",
+      status: "In progress",
+      techStack: ["React", "TypeScript", "Tailwind", "Framer Motion"],
+      image: bodyPreview,
       planet: "Neptune",
       color: "blue",
+      highlights: [
+        "Created a cinematic hero with a pen split animation tied to scroll progress.",
+        "Added section navigation, project tracking, and responsive content layouts.",
+        "Balanced decorative motion with readable project, skills, and contact sections.",
+      ],
+      metrics: ["Scroll animation", "Responsive sections", "Portfolio storytelling"],
+      liveUrl: "https://portfolyo-amber.vercel.app/",
+      sourceUrl: "https://github.com/mozix5",
     },
     {
-      title: "Quantum Quill",
+      title: "Developer Profile",
       description:
-        "An AI-powered content creation platform that generates text with the unpredictability of quantum mechanics.",
-      techStack: ["Python", "TensorFlow", "GPT-4"],
-      image: "/quantum.png", // Replace with your actual image path
+        "A characterful profile section that presents background, stack, and creative direction through a comic-inspired interface.",
+      role: "UI design, component implementation",
+      timeline: "2026",
+      status: "Shipped section",
+      techStack: ["React", "Canvas", "Tailwind", "CSS Animation"],
+      image: mePreview,
       planet: "Mars",
       color: "red",
+      highlights: [
+        "Built a distinctive comic-panel layout that avoids a generic about section.",
+        "Used animated states to make skills and mission details feel interactive.",
+        "Kept the section modular so future experience and resume content can plug in.",
+      ],
+      metrics: ["Visual identity", "Interactive panels", "Personal brand"],
+      liveUrl: "https://portfolyo-amber.vercel.app/",
+      sourceUrl: "https://github.com/mozix5",
     },
   ];
 
@@ -110,31 +179,44 @@ const Projects = () => {
             </div>
           </div>
         </header>
-        <div className="flex relative h-[300vh]">
+        <div className="relative flex">
           {/*<div className="relative">*/}
           {/*<div className="sticky h-20 top-6 left-0">*/}
           <SpaceshipNavigation
             projects={projects}
             activeProject={activeProject}
-            scrollPosition={scrollPosition}
           />
           {/*</div>*/}
           {/*</div>*/}
           {/* Project cards */}
-          <div className="space-y-64 container mx-auto px-6">
+          <div className="container mx-auto space-y-40 px-6 pt-[100vh]">
             {projects.map((project, index) => (
-              <div key={index} className="">
+              <div
+                key={project.title}
+                ref={(element) => {
+                  projectRefs.current[index] = element;
+                }}
+                className="project-card"
+              >
                 <ProjectCard
                   title={project.title}
                   description={project.description}
+                  role={project.role}
+                  timeline={project.timeline}
+                  status={project.status}
                   techStack={project.techStack}
                   image={project.image}
                   planet={project.planet}
                   color={project.color}
+                  highlights={project.highlights}
+                  metrics={project.metrics}
+                  liveUrl={project.liveUrl}
+                  sourceUrl={project.sourceUrl}
                   index={index}
                 />
               </div>
             ))}
+            <div className="h-screen" aria-hidden="true" />
           </div>
         </div>
       </div>

@@ -1,9 +1,9 @@
 import { useState } from "react";
-import screen from "../../../../../Documents/Project/recap after use/src/assets/screen.svg";
-import hoverScreen from "../../../../../Documents/Project/recap after use/src/assets/hoverScreen.svg";
-import hoverKeyboard from "../../../../../Documents/Project/recap after use/src/assets/hoverKeyboard.svg";
-import keyboard from "../../../../../Documents/Project/recap after use/src/assets/5f560373b66385163d918256_comp_4-1-w.svg";
-import turboText from "../../../../../Documents/Project/recap after use/src/assets/turboText.png";
+import screen from "@/assets/screen.svg";
+import hoverScreen from "@/assets/hoverScreen.svg";
+import hoverKeyboard from "@/assets/hoverKeyboard.svg";
+import keyboard from "@/assets/5f560373b66385163d918256_comp_4-1-w.svg";
+import turboText from "@/assets/turboText.png";
 
 const Card = () => {
   const [isHovered, setIsHovered] = useState(false);

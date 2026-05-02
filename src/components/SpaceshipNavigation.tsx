@@ -1,20 +1,26 @@
-import { useRef, useEffect } from "react";
+type ProjectNavigationItem = {
+  title: string;
+  planet: string;
+};
 
-const SpaceshipNavigation = ({ projects, activeProject, scrollPosition }) => {
-  const spaceshipRef = useRef(null);
+type SpaceshipNavigationProps = {
+  projects: ProjectNavigationItem[];
+  activeProject: number;
+};
 
-  // Calculate spaceship position based on active project and scroll
-  useEffect(() => {
-    if (spaceshipRef.current) {
-      // Position logic for the spaceship
-      const totalHeight = document.body.scrollHeight - window.innerHeight;
-      const scrollPercentage = scrollPosition / totalHeight;
+const getMarkerPosition = (index: number, projectCount: number) => {
+  if (projectCount <= 1) {
+    return 50;
+  }
 
-      // Calculate spaceship position (8% to 92% of screen height)
-      const position = 8 + scrollPercentage * 84;
-      spaceshipRef.current.style.top = `${position}%`;
-    }
-  }, [scrollPosition]);
+  return 8 + (index / (projectCount - 1)) * 84;
+};
+
+const SpaceshipNavigation = ({
+  projects,
+  activeProject,
+}: SpaceshipNavigationProps) => {
+  const spaceshipPosition = getMarkerPosition(activeProject, projects.length);
 
   return (
     <div className="sticky left-0 top-0 w-16 z-20 pointer-events-none h-[100vh]">
@@ -22,14 +28,13 @@ const SpaceshipNavigation = ({ projects, activeProject, scrollPosition }) => {
       <div className="absolute left-8 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-gray-700 to-transparent">
         {/* Project markers */}
         {projects.map((project, index) => {
-          // Calculate marker position based on project count and viewport
-          const position = 8 + (index / (projects.length - 1)) * 84;
+          const position = getMarkerPosition(index, projects.length);
           const isActive = index === activeProject;
 
           return (
             <div
               key={index}
-              className={`absolute w-3 h-3 left-1/2 transform -translate-x-1/2 rounded-full transition-all duration-300
+              className={`absolute w-3 h-3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full transition-all duration-300
                           ${isActive ? "scale-150 bg-white shadow-lg shadow-white/50" : "bg-gray-600"}`}
               style={{ top: `${position}%` }}
             >
@@ -47,8 +52,8 @@ const SpaceshipNavigation = ({ projects, activeProject, scrollPosition }) => {
 
       {/* Spaceship indicator */}
       <div
-        ref={spaceshipRef}
         className="absolute left-8 transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300 ease-out"
+        style={{ top: `${spaceshipPosition}%` }}
       >
         <div className="relative">
           {/* Spaceship icon */}

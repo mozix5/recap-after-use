@@ -1,14 +1,14 @@
-import { OrbitingCircles } from "@/components/ui/orbiting-circles.tsx";
-import JavaScript from "@/svg/JavaScript.tsx";
-import Github from "@/svg/Github.tsx";
-import Mongodb from "@/svg/Mongodb.tsx";
-import React from "@/svg/React.tsx";
-import Next from "@/svg/Next.tsx";
-import Redux from "@/svg/Redux.tsx";
-import Node from "@/svg/Node.tsx";
-import Sql from "@/svg/Sql.tsx";
-import TypeScript from "@/svg/TypeScript.tsx";
-import Vercel from "@/svg/Vercel.tsx";
+import { OrbitingCircles } from "@/components/ui/orbiting-circles";
+import JavaScript from "@/svg/JavaScript";
+import Github from "@/svg/Github";
+import Mongodb from "@/svg/Mongodb";
+import React from "@/svg/React";
+import Next from "@/svg/Next";
+import Redux from "@/svg/Redux";
+import Node from "@/svg/Node";
+import Sql from "@/svg/Sql";
+import TypeScript from "@/svg/TypeScript";
+import Vercel from "@/svg/Vercel";
 
 const TechStack = () => {
   return (
