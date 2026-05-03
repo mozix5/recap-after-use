@@ -79,10 +79,17 @@ function Entry({ item, index }: { item: (typeof timeline)[0]; index: number }) {
         {/* Icon node */}
         <motion.div
           className="relative z-10 flex h-10 w-10 items-center justify-center shrink-0"
-          style={{ border: "1px solid var(--rule-light)", background: "var(--bg)" }}
+          style={{
+            border: "1px solid var(--rule-light)",
+            background: "var(--bg)",
+          }}
           initial={{ scale: 0 }}
           animate={inView ? { scale: 1 } : {}}
-          transition={{ type: "spring", stiffness: 200, delay: index * 0.1 + 0.05 }}
+          transition={{
+            type: "spring",
+            stiffness: 200,
+            delay: index * 0.1 + 0.05,
+          }}
           whileHover={{ borderColor: "var(--gold)" }}
         >
           <Icon className="h-4 w-4" style={{ color: "var(--fg-dim)" }} />
@@ -96,7 +103,10 @@ function Entry({ item, index }: { item: (typeof timeline)[0]; index: number }) {
         </motion.div>
         {/* Connector line (not on last item) */}
         {index < timeline.length - 1 && (
-          <div className="w-px flex-1 mt-1" style={{ background: "var(--rule-light)", minHeight: 80 }} />
+          <div
+            className="w-px flex-1 mt-1"
+            style={{ background: "var(--rule-light)", minHeight: 80 }}
+          />
         )}
       </div>
 
@@ -138,22 +148,34 @@ function EntryCard({
       {/* Gold top bar on hover */}
       <div
         className="absolute top-0 inset-x-0 h-[2px] origin-left transition-transform duration-300 scale-x-0 group-hover:scale-x-100"
-        style={{ background: "linear-gradient(to right, var(--gold), transparent)" }}
+        style={{
+          background: "linear-gradient(to right, var(--gold), transparent)",
+        }}
       />
 
       {/* Issue + period */}
       <div className="flex items-baseline gap-3 mb-4">
         <span
           className="font-bebas leading-none"
-          style={{ fontSize: "3.5rem", color: "var(--rule-light)", lineHeight: 1 }}
+          style={{
+            fontSize: "3.5rem",
+            color: "var(--rule-light)",
+            lineHeight: 1,
+          }}
         >
           {item.period}
         </span>
         <div className="flex flex-col">
-          <span className="font-mono text-[9px] uppercase tracking-[0.4em]" style={{ color: "var(--fg-dim)" }}>
+          <span
+            className="font-mono text-[9px] uppercase tracking-[0.4em]"
+            style={{ color: "var(--fg-dim)" }}
+          >
             Issue {item.issue}
           </span>
-          <span className="font-mono text-[9px] uppercase tracking-[0.3em] mt-0.5" style={{ color: "var(--gold)", opacity: 0.7 }}>
+          <span
+            className="font-mono text-[9px] uppercase tracking-[0.3em] mt-0.5"
+            style={{ color: "var(--gold)", opacity: 0.7 }}
+          >
             {item.label}
           </span>
         </div>
@@ -173,7 +195,10 @@ function EntryCard({
         {item.title}
       </motion.h3>
 
-      <p className="font-lora text-sm leading-relaxed mb-4" style={{ color: "var(--fg-muted)" }}>
+      <p
+        className="font-lora text-sm leading-relaxed mb-4"
+        style={{ color: "var(--fg-muted)" }}
+      >
         {item.description}
       </p>
 
@@ -217,12 +242,13 @@ const Experience = () => {
       <div
         className="pointer-events-none absolute inset-0 opacity-30"
         style={{
-          backgroundImage: "radial-gradient(circle, var(--rule-light) 1px, transparent 1px)",
+          backgroundImage:
+            "radial-gradient(circle, var(--rule-light) 1px, transparent 1px)",
           backgroundSize: "32px 32px",
         }}
       />
 
-      <div className="relative mx-auto max-w-5xl px-4 sm:px-8 lg:px-16 py-24">
+      <div className="relative mx-auto max-w-6xl px-4 sm:px-8 lg:px-16 py-24">
         {/* ── Header ── */}
         <div className="mb-20">
           <motion.p
@@ -238,7 +264,10 @@ const Experience = () => {
           <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
             <motion.h2
               className="font-bebas leading-none tracking-tight"
-              style={{ fontSize: "clamp(4.5rem,13vw,9rem)", color: "var(--fg)" }}
+              style={{
+                fontSize: "clamp(4.5rem,13vw,9rem)",
+                color: "var(--fg)",
+              }}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -246,7 +275,14 @@ const Experience = () => {
             >
               Exper
               <br />
-              <span style={{ WebkitTextStroke: "1px var(--fg)", color: "transparent" }}>ience</span>
+              <span
+                style={{
+                  WebkitTextStroke: "1px var(--fg)",
+                  color: "transparent",
+                }}
+              >
+                ience
+              </span>
             </motion.h2>
 
             <motion.p
@@ -269,11 +305,12 @@ const Experience = () => {
             whileInView={{ scaleX: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            style={{ 
-              transformOrigin: "left", 
-              background: "linear-gradient(to right, var(--gold), var(--rule-light) 40%, transparent)", 
-              height: "1px", 
-              marginTop: "2rem" 
+            style={{
+              transformOrigin: "left",
+              background:
+                "linear-gradient(to right, var(--gold), var(--rule-light) 40%, transparent)",
+              height: "1px",
+              marginTop: "2rem",
             }}
           />
         </div>
@@ -287,7 +324,12 @@ const Experience = () => {
           >
             <motion.div
               className="w-full origin-top"
-              style={{ scaleY: lineScaleY, height: "100%", background: "linear-gradient(to bottom, var(--gold), var(--fg-dim))" }}
+              style={{
+                scaleY: lineScaleY,
+                height: "100%",
+                background:
+                  "linear-gradient(to bottom, var(--gold), var(--fg-dim))",
+              }}
             />
           </div>
 
@@ -303,12 +345,21 @@ const Experience = () => {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
         >
-          <div className="h-px flex-1" style={{ background: "var(--rule-light)" }} />
-          <span className="font-mono text-[9px] uppercase tracking-[0.4em]" style={{ color: "var(--fg-dim)" }}>
+          <div
+            className="h-px flex-1"
+            style={{ background: "var(--rule-light)" }}
+          />
+          <span
+            className="font-mono text-[9px] uppercase tracking-[0.4em]"
+            style={{ color: "var(--fg-dim)" }}
+          >
             Still in print
           </span>
           <span style={{ color: "var(--gold)", fontSize: 8 }}>◆</span>
-          <div className="h-px flex-1" style={{ background: "var(--rule-light)" }} />
+          <div
+            className="h-px flex-1"
+            style={{ background: "var(--rule-light)" }}
+          />
         </motion.div>
       </div>
     </section>

@@ -13,7 +13,7 @@ import { motion } from "framer-motion";
 
 const TechStack = () => (
   <section
-    className="relative overflow-hidden py-24 px-4 sm:px-8 lg:px-16 border-t"
+    className="relative overflow-hidden border-t"
     style={{ background: "var(--bg)", borderColor: "var(--rule)" }}
   >
     {/* Dot grid bg */}
@@ -26,7 +26,7 @@ const TechStack = () => (
       }}
     />
 
-    <div className="relative mx-auto max-w-5xl">
+    <div className="relative mx-auto max-w-6xl px-4 sm:px-8 lg:px-16 py-24">
       {/* Header */}
       <motion.div
         className="mb-6"
