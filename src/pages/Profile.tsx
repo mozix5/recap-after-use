@@ -2,20 +2,7 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import me from "@/assets/me.png";
 
-/* Horizontal rule with optional label */
-function Rule({ label }: { label?: string }) {
-  return (
-    <div className="flex items-center gap-4 my-8">
-      <div className="h-px flex-1" style={{ background: "var(--rule-light)" }} />
-      {label && (
-        <span className="font-mono text-[9px] uppercase tracking-[0.4em]" style={{ color: "var(--fg-dim)" }}>
-          {label}
-        </span>
-      )}
-      <div className="h-px flex-1" style={{ background: "var(--rule-light)" }} />
-    </div>
-  );
-}
+
 
 /* Stat block — editorial number + label */
 function StatBlock({ value, label, delay, inView }: { value: string; label: string; delay: number; inView: boolean }) {
