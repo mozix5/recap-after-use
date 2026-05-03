@@ -26,12 +26,14 @@ const App = () => {
     measureFrameRef.current = window.requestAnimationFrame(() => {
       measureFrameRef.current = 0;
 
-    if (capRef.current && bodyRef.current) {
-      const capRect = capRef.current.getBoundingClientRect();
-      const bodyRect = bodyRef.current.getBoundingClientRect();
-      setSpaceLeft(capRect.left + capRect.width / 2.1);
-      setSpaceRight(window.innerWidth - bodyRect.right + bodyRect.width / 1.25);
-    }
+      if (capRef.current && bodyRef.current) {
+        const capRect = capRef.current.getBoundingClientRect();
+        const bodyRect = bodyRef.current.getBoundingClientRect();
+        setSpaceLeft(capRect.left + capRect.width / 2.1);
+        setSpaceRight(
+          window.innerWidth - bodyRect.right + bodyRect.width / 1.25,
+        );
+      }
     });
   }, []);
 
@@ -177,6 +179,19 @@ const App = () => {
               alt="body"
               style={{ filter: "brightness(0.9) contrast(1.05)" }}
             />
+            {/* Signature */}
+            <div
+              className="absolute top-2 left-1/2 -translate-x-1/2 pointer-events-none opacity-40 whitespace-nowrap mix-blend-overlay"
+              style={{
+                fontFamily: "'Mr De Haviland', cursive",
+                fontSize: "clamp(1.2rem, 3.5vw, 3.5rem)",
+                color: "var(--fg)",
+                transform: "rotate(-8deg)",
+                filter: "blur(0.3px)",
+              }}
+            >
+              Mosin
+            </div>
           </motion.div>
         </div>
         <div className="h-[100vh]" />
