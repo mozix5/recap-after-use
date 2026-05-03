@@ -1,250 +1,170 @@
 import { useState, useRef, useEffect } from "react";
-import PlanetBadge from "@/components/PlanetBadge";
-import { ArrowUpRight, Github, Radar } from "lucide-react";
+import { ArrowUpRight, Github } from "lucide-react";
+import { motion } from "framer-motion";
 
 type ProjectCardProps = {
-  title: string;
-  description: string;
-  role: string;
-  timeline: string;
-  status: string;
-  techStack: string[];
-  image: string;
-  planet: string;
-  color: string;
-  highlights: string[];
-  metrics: string[];
-  liveUrl: string;
-  sourceUrl: string;
-  index: number;
+  title: string; description: string; role: string; timeline: string;
+  status: string; techStack: string[]; image: string;
+  color: string; highlights: string[]; metrics: string[];
+  liveUrl: string; sourceUrl: string; index: number;
 };
-const ProjectCard = ({
-  title,
-  description,
-  role,
-  timeline,
-  status,
-  techStack,
-  image,
-  planet,
-  color,
-  highlights,
-  metrics,
-  liveUrl,
-  sourceUrl,
-  index,
-}: ProjectCardProps) => {
+
+// Editorial accent per card — only gold or white/dim
+const accents: Record<string, { border: string; text: string; bg: string }> = {
+  gold:  { border: "var(--gold)", text: "var(--gold)", bg: "var(--gold-muted)" },
+  white: { border: "var(--fg-muted)", text: "var(--fg)", bg: "rgba(240,237,230,0.05)" },
+  dim:   { border: "var(--fg-dim)", text: "var(--fg-muted)", bg: "rgba(240,237,230,0.03)" },
+};
+
+const ProjectCard = ({ title, description, role, timeline, status, techStack, image, color, highlights, metrics, liveUrl, sourceUrl, index }: ProjectCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isInView, setIsInView] = useState(false);
-  const cardRef = useRef(null);
+  const cardRef = useRef<HTMLDivElement>(null);
 
-  // Check if card is in viewport for animation
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsInView(entry.isIntersecting);
-      },
-      { threshold: 0.3 },
-    );
-
-    if (cardRef.current) {
-      observer.observe(cardRef.current);
-    }
-
-    return () => {
-      if (cardRef.current) {
-        observer.unobserve(cardRef.current);
-      }
-    };
+    const obs = new IntersectionObserver(([e]) => setIsInView(e.isIntersecting), { threshold: 0.3 });
+    if (cardRef.current) obs.observe(cardRef.current);
+    return () => { if (cardRef.current) obs.unobserve(cardRef.current); };
   }, []);
 
-  // Color schemes based on planet type
-  const colorSchemes: any = {
-    amber: {
-      primary: "from-amber-400 to-orange-600",
-      secondary: "amber-300",
-      accent: "amber-500",
-      darkAccent: "amber-900",
-      lightAccent: "amber-200",
-    },
-    blue: {
-      primary: "from-blue-400 to-indigo-600",
-      secondary: "blue-300",
-      accent: "blue-500",
-      darkAccent: "blue-900",
-      lightAccent: "blue-200",
-    },
-    red: {
-      primary: "from-red-400 to-rose-600",
-      secondary: "red-300",
-      accent: "red-500",
-      darkAccent: "red-900",
-      lightAccent: "red-200",
-    },
-    purple: {
-      primary: "from-purple-400 to-fuchsia-600",
-      secondary: "purple-300",
-      accent: "purple-500",
-      darkAccent: "purple-900",
-      lightAccent: "purple-200",
-    },
-  };
-
-  const scheme = colorSchemes[color] || colorSchemes.blue;
+  const a = accents[color] ?? accents.white;
   const isEven = index % 2 === 0;
 
   return (
     <div
       ref={cardRef}
-      className={`relative transition-all duration-1000 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-20"}`}
+      className={`relative transition-all duration-1000 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-16"}`}
     >
-      {/* Space coordinates */}
+      {/* Index number */}
       <div
-        className={`absolute ${isEven ? "-left-4 top-0" : "-right-4 top-0"} text-xs font-mono text-gray-500`}
+        className={`absolute ${isEven ? "-left-4 -top-6" : "-right-4 -top-6"} font-bebas leading-none select-none`}
+        style={{ fontSize: "5rem", color: "var(--rule-light)" }}
       >
-        SECTOR: X-{(index + 1) * 243} Y-{(index + 2) * 118}
+        {String(index + 1).padStart(2, "0")}
       </div>
 
-      {/* Planet badge */}
-      <PlanetBadge planetName={planet} color={color} isEven={isEven} />
-
-      {/* Main card */}
-      <div
-        className={`relative ${isEven ? "ml-12" : "mr-12"}`}
+      <motion.div
+        className={`relative ${isEven ? "ml-8" : "mr-8"} overflow-hidden`}
+        style={{ border: "1px solid var(--rule)", background: "var(--bg-surface)" }}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
+        whileHover={{ borderColor: a.border }}
+        transition={{ duration: 0.2 }}
       >
-        {/* Spaceship scanner beam effect */}
+        {/* Gold top accent on hover */}
+        <motion.div
+          className="h-[2px] w-full"
+          initial={{ scaleX: 0 }}
+          animate={isHovered ? { scaleX: 1 } : { scaleX: 0 }}
+          style={{ 
+            transformOrigin: "left", 
+            background: `linear-gradient(to right, ${a.border}, transparent)`, 
+            height: "2px" 
+          }}
+          transition={{ duration: 0.35 }}
+        />
 
-        {/* Card container */}
-        <div className="overflow-hidden rounded-xl border border-white/10 bg-[#07090d]/90 shadow-xl shadow-black/30 backdrop-blur-md transition-all duration-500 hover:border-white/20 hover:bg-[#0b0f15]/95">
-          <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 px-5 py-3">
-            <div className="flex items-center font-mono text-xs uppercase tracking-widest text-gray-500">
-              <div
-                className={`mr-3 h-2 w-2 rounded-full bg-${scheme.accent}`}
-              ></div>
-              CASE_{String(index + 1).padStart(2, "0")}
+        {/* Header bar */}
+        <div className="flex items-center justify-between px-5 py-3 border-b" style={{ borderColor: "var(--rule)" }}>
+          <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-widest" style={{ color: "var(--fg-dim)" }}>
+            <span style={{ color: a.text }}>◆</span>
+            CASE_{String(index + 1).padStart(2, "0")}
+          </div>
+          <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-widest">
+            <span style={{ color: "var(--fg-muted)" }}>{status}</span>
+            <span style={{ color: "var(--fg-dim)" }}>/</span>
+            <span style={{ color: "var(--fg-dim)" }}>{timeline}</span>
+          </div>
+        </div>
+
+        {/* Body */}
+        <div className={`grid gap-0 lg:grid-cols-[0.95fr_1.05fr] ${isEven ? "" : "lg:[&>*:first-child]:order-2"}`}>
+          {/* Text side */}
+          <div className="p-6 sm:p-8">
+            <h2 className="font-bebas text-4xl sm:text-5xl leading-tight mb-3" style={{ color: "var(--fg)" }}>
+              {title}
+            </h2>
+            <div className="h-px w-16 mb-5" style={{ background: `linear-gradient(to right, ${a.border}, transparent)` }} />
+
+            {/* Role + metric pills */}
+            <div className="flex flex-wrap gap-2 mb-5">
+              {[role, metrics[0]].map((label) => (
+                <span key={label} className="font-mono text-[10px] uppercase tracking-widest px-2.5 py-1" style={{ border: `1px solid var(--rule-light)`, color: "var(--fg-muted)" }}>
+                  {label}
+                </span>
+              ))}
             </div>
-            <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-widest">
-              <span className="text-green-400">{status}</span>
-              <span className="text-gray-600">/</span>
-              <span className="text-gray-500">{timeline}</span>
+
+            <p className="font-lora text-sm sm:text-base leading-relaxed mb-6" style={{ color: "var(--fg-muted)" }}>
+              {description}
+            </p>
+
+            {/* Highlights */}
+            <p className="font-mono text-[9px] uppercase tracking-[0.4em] mb-3" style={{ color: "var(--fg-dim)" }}>What built</p>
+            <ul className="space-y-2 mb-6">
+              {highlights.slice(0, 2).map((h) => (
+                <li key={h} className="flex gap-3 font-lora text-sm items-start" style={{ color: "var(--fg-muted)" }}>
+                  <span className="mt-2 h-1 w-4 shrink-0" style={{ background: a.border }} />
+                  {h}
+                </li>
+              ))}
+            </ul>
+
+            {/* Tech */}
+            <div className="flex flex-wrap gap-2 mb-8">
+              {techStack.map((t) => (
+                <span key={t} className="font-mono text-[10px] uppercase tracking-wider px-2.5 py-1" style={{ border: "1px solid var(--rule)", color: "var(--fg-dim)" }}>
+                  {t}
+                </span>
+              ))}
+            </div>
+
+            {/* CTAs */}
+            <div className="flex flex-wrap gap-3">
+              <a
+                href={liveUrl} target="_blank" rel="noreferrer"
+                className="group inline-flex items-center gap-2 px-4 py-2.5 font-mono text-xs uppercase tracking-widest transition-all"
+                style={{ background: a.bg, border: `1px solid ${a.border}`, color: a.text }}
+                onMouseEnter={(e) => { e.currentTarget.style.background = a.border; e.currentTarget.style.color = "var(--bg)"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.background = a.bg; e.currentTarget.style.color = a.text; }}
+              >
+                Live Preview <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </a>
+              <a
+                href={sourceUrl} target="_blank" rel="noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2.5 font-mono text-xs uppercase tracking-widest transition-all"
+                style={{ border: "1px solid var(--rule-light)", color: "var(--fg-muted)" }}
+                onMouseEnter={(e) => { e.currentTarget.style.borderColor = "var(--fg-muted)"; e.currentTarget.style.color = "var(--fg)"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.borderColor = "var(--rule-light)"; e.currentTarget.style.color = "var(--fg-muted)"; }}
+              >
+                <Github className="h-3.5 w-3.5" /> Source
+              </a>
             </div>
           </div>
 
-          <div
-            className={`grid gap-0 lg:grid-cols-[0.95fr_1.05fr] ${isEven ? "" : "lg:[&>*:first-child]:order-2"}`}
-          >
-            <div className="p-5 sm:p-6">
-              <div className="mb-5">
-                <h2
-                  className={`text-3xl font-semibold text-${scheme.secondary} leading-tight sm:text-4xl`}
-                >
-                  {title}
-                </h2>
-                <div
-                  className={`mt-3 h-px w-24 bg-gradient-to-r ${scheme.primary}`}
-                ></div>
-              </div>
-
-              <div className="mb-5 flex flex-wrap gap-2">
-                <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 font-mono text-[0.68rem] uppercase tracking-widest text-gray-300">
-                  {role}
-                </span>
-                <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 font-mono text-[0.68rem] uppercase tracking-widest text-gray-300">
-                  {metrics[0]}
-                </span>
-              </div>
-
-              <p className="mb-5 text-sm leading-relaxed text-gray-300 sm:text-base">
-                {description}
-              </p>
-
-              <div className="mb-6">
-                <div className="mb-3 flex items-center">
-                  <Radar className={`mr-2 h-4 w-4 text-${scheme.accent}`} />
-                  <h3 className="font-mono text-xs uppercase tracking-widest text-gray-500">
-                    What changed
-                  </h3>
-                </div>
-                <ul className="space-y-2 text-sm leading-relaxed text-gray-300">
-                  {highlights.slice(0, 2).map((highlight) => (
-                    <li key={highlight} className="flex gap-3">
-                      <span
-                        className={`mt-2 h-1 w-1 shrink-0 rounded-full bg-${scheme.accent}`}
-                      ></span>
-                      <span>{highlight}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="mb-6 flex flex-wrap gap-2">
-                {techStack.map((tech) => (
-                  <span
-                    key={tech}
-                    className={`rounded-full border border-${scheme.darkAccent} bg-black/30 px-3 py-1 text-xs text-${scheme.lightAccent}`}
-                  >
-                    {tech}
+          {/* Image side */}
+          <div className="relative p-4 border-t lg:border-t-0 lg:border-l" style={{ borderColor: "var(--rule)" }}>
+            <div className="relative aspect-[4/3] overflow-hidden" style={{ background: "var(--bg)" }}>
+              <img
+                src={image} alt={title}
+                className="h-full w-full object-cover transition-all duration-500"
+                style={{
+                  filter: isHovered ? "brightness(0.9) contrast(1.05) saturate(0.8)" : "brightness(0.7) contrast(1.05) saturate(0.5)",
+                  transform: isHovered ? "scale(1.03)" : "scale(1)",
+                }}
+              />
+              <div className="absolute inset-0" style={{ background: `linear-gradient(to top, var(--bg-surface) 0%, transparent 50%), linear-gradient(160deg, ${a.border}18 0%, transparent 45%)` }} />
+              <div className="absolute bottom-3 left-3 right-3 flex flex-wrap gap-1.5">
+                {metrics.map((m) => (
+                  <span key={m} className="font-mono text-[9px] uppercase tracking-widest px-2 py-0.5" style={{ background: "rgba(8,8,8,0.7)", color: "var(--fg-dim)", border: "1px solid var(--rule)" }}>
+                    {m}
                   </span>
                 ))}
-              </div>
-
-              <div className="flex flex-wrap gap-3">
-                <a
-                  href={liveUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className={`group inline-flex items-center gap-2 rounded-full bg-${scheme.darkAccent} px-4 py-2.5 text-sm text-${scheme.lightAccent} transition-colors duration-300 hover:bg-${scheme.accent}`}
-                >
-                  <span>Live Preview</span>
-                  <ArrowUpRight
-                    className={`h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 text-${scheme.lightAccent}`}
-                  />
-                </a>
-                <a
-                  href={sourceUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className={`inline-flex items-center rounded-full border border-${scheme.darkAccent} px-4 py-2.5 text-sm text-${scheme.secondary} transition-colors duration-300 hover:bg-${scheme.darkAccent}/30`}
-                >
-                  <Github className="mr-2 inline h-4 w-4" />
-                  Source Code
-                </a>
-              </div>
-            </div>
-
-            <div className="relative border-t border-white/10 p-4 lg:border-l lg:border-t-0">
-              <div className="relative aspect-[4/3] overflow-hidden rounded-lg bg-black">
-                <img
-                  src={image}
-                  alt={title}
-                  className={`h-full w-full object-cover transition-all duration-500 ${isHovered ? "scale-105 brightness-105" : "scale-100 brightness-75"}`}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/20"></div>
-                <div className="absolute left-4 right-4 top-4 flex items-center justify-between">
-                  <span className="rounded-full border border-white/10 bg-black/60 px-3 py-1 font-mono text-xs uppercase tracking-widest text-white/80 backdrop-blur">
-                    {planet}
-                  </span>
-                  <span className={`font-mono text-xs uppercase text-${scheme.accent}`}>
-                    Active
-                  </span>
-                </div>
-                <div className="absolute bottom-4 left-4 right-4 flex flex-wrap gap-2">
-                  {metrics.slice(0, 3).map((metric) => (
-                    <span
-                      key={metric}
-                      className="rounded-full border border-white/10 bg-black/60 px-3 py-1 text-xs text-white/75 backdrop-blur"
-                    >
-                      {metric}
-                    </span>
-                  ))}
-                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };

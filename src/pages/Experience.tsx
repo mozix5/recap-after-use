@@ -1,561 +1,314 @@
-import {
-  motion,
-  useInView,
-  useScroll,
-  useSpring,
-  useTransform,
-} from "framer-motion";
-import { Briefcase, Code2, GraduationCap, Rocket } from "lucide-react";
+import { motion, useInView, useScroll, useSpring } from "framer-motion";
 import { useRef } from "react";
+import { Briefcase, Code2, GraduationCap, Rocket } from "lucide-react";
 
-/* ─────────────────────────────────────────
-   Data
-───────────────────────────────────────── */
 const timeline = [
   {
     period: "2026",
+    issue: "03",
     title: "Portfolio Experience",
     label: "Currently Building",
     icon: Rocket,
     description:
       "Designing a motion-rich portfolio with scroll animation, case-study cards, responsive sections, and a strong personal identity.",
     points: ["Framer Motion scroll systems", "Responsive React layouts"],
-    flowerColor: "#67e8f9", // cyan-300
-    petalColor: "#22d3ee",
-    stemColor: "#06b6d4",
-    leafColor: "#065f46",
   },
   {
     period: "2025",
+    issue: "02",
     title: "Frontend Projects",
     label: "React / TypeScript",
     icon: Code2,
     description:
       "Built interactive interfaces focused on component structure, visual polish, hover states, and clean user flows.",
     points: ["Reusable UI components", "Tailwind interface systems"],
-    flowerColor: "#fcd34d", // amber-300
-    petalColor: "#f59e0b",
-    stemColor: "#d97706",
-    leafColor: "#064e3b",
   },
   {
     period: "2024",
+    issue: "01",
     title: "Full-Stack Foundations",
     label: "Learning Track",
     icon: Briefcase,
     description:
       "Expanded from frontend into backend fundamentals, API thinking, database basics, and deployable web apps.",
     points: ["Node.js and MongoDB basics", "GitHub and Vercel workflow"],
-    flowerColor: "#6ee7b7", // emerald-300
-    petalColor: "#10b981",
-    stemColor: "#059669",
-    leafColor: "#052e16",
   },
   {
     period: "∞",
+    issue: "00",
     title: "CS Growth",
     label: "Education",
     icon: GraduationCap,
     description:
       "Continuing to sharpen programming fundamentals, product thinking, and the craft of building memorable web experiences.",
     points: ["Problem solving", "UI engineering taste"],
-    flowerColor: "#fda4af", // rose-300
-    petalColor: "#f43f5e",
-    stemColor: "#e11d48",
-    leafColor: "#4a044e",
   },
 ];
 
-/* ─────────────────────────────────────────
-   SVG Petal — a single teardrop petal
-───────────────────────────────────────── */
-function Petal({
-  angle,
-  color,
-  delay,
-  inView,
-  size = 28,
-}: {
-  angle: number;
-  color: string;
-  delay: number;
-  inView: boolean;
-  size?: number;
-}) {
-  return (
-    <motion.g
-      transform={`rotate(${angle})`}
-      initial={{ scaleY: 0, opacity: 0 }}
-      animate={inView ? { scaleY: 1, opacity: 0.9 } : { scaleY: 0, opacity: 0 }}
-      transition={{ duration: 0.55, delay, ease: [0.34, 1.56, 0.64, 1] }}
-      style={{ transformOrigin: "center" }}
-    >
-      <ellipse
-        cx={0}
-        cy={-size}
-        rx={size * 0.42}
-        ry={size * 0.7}
-        fill={color}
-        opacity={0.85}
-        style={{ filter: `drop-shadow(0 0 6px ${color}88)` }}
-      />
-    </motion.g>
-  );
-}
-
-/* ─────────────────────────────────────────
-   SVG Flower — 6 petals in a ring
-───────────────────────────────────────── */
-function Flower({
-  color,
-  inView,
-  baseDelay,
-  size,
-}: {
-  color: string;
-  inView: boolean;
-  baseDelay: number;
-  size?: number;
-}) {
-  const count = 6;
-  return (
-    <svg
-      width={(size ?? 28) * 2.6}
-      height={(size ?? 28) * 2.6}
-      viewBox="-40 -40 80 80"
-      overflow="visible"
-      style={{ display: "block" }}
-    >
-      {Array.from({ length: count }).map((_, i) => (
-        <Petal
-          key={i}
-          angle={(360 / count) * i}
-          color={color}
-          delay={baseDelay + i * 0.07}
-          inView={inView}
-          size={size ?? 28}
-        />
-      ))}
-      {/* Centre pistil */}
-      <motion.circle
-        cx={0}
-        cy={0}
-        r={8}
-        fill="#fff8"
-        initial={{ scale: 0 }}
-        animate={inView ? { scale: 1 } : { scale: 0 }}
-        transition={{ delay: baseDelay + 0.5, duration: 0.3, ease: "backOut" }}
-      />
-    </svg>
-  );
-}
-
-/* ─────────────────────────────────────────
-   SVG Leaf — a pointed ellipse on a stem
-───────────────────────────────────────── */
-function Leaf({
-  flip,
-  inView,
-  delay,
-  yOffset,
-}: {
-  flip: boolean;
-  inView: boolean;
-  delay: number;
-  yOffset: number;
-}) {
-  const dir = flip ? -1 : 1;
-  return (
-    <motion.g
-      transform={`translate(0, ${yOffset})`}
-      initial={{ scaleX: 0, opacity: 0 }}
-      animate={inView ? { scaleX: 1, opacity: 1 } : { scaleX: 0, opacity: 0 }}
-      transition={{ duration: 0.5, delay, ease: [0.34, 1.56, 0.64, 1] }}
-      style={{ transformOrigin: "center" }}
-    >
-      {/* twig */}
-      <line
-        x1={0}
-        y1={0}
-        x2={dir * 22}
-        y2={-10}
-        stroke="#4ade80"
-        strokeWidth={1.5}
-        strokeLinecap="round"
-        opacity={0.6}
-      />
-      {/* leaf body */}
-      <ellipse
-        cx={dir * 28}
-        cy={-14}
-        rx={14}
-        ry={7}
-        fill="#16a34a"
-        opacity={0.8}
-        transform={`rotate(${dir * -18}, ${dir * 28}, -14)`}
-        style={{ filter: "drop-shadow(0 0 4px #16a34a66)" }}
-      />
-    </motion.g>
-  );
-}
-
-/* ─────────────────────────────────────────
-   Experience Entry Card — blooms open
-───────────────────────────────────────── */
-function EntryCard({
-  item,
-  index,
-  side,
-}: {
-  item: (typeof timeline)[0];
-  index: number;
-  side: "left" | "right";
-}) {
+/* ── Single timeline entry ── */
+function Entry({ item, index }: { item: (typeof timeline)[0]; index: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, amount: 0.3 });
   const Icon = item.icon;
+  const isEven = index % 2 === 0;
 
   return (
-    <div
+    <motion.div
       ref={ref}
-      className={`relative flex items-center gap-0 ${
-        side === "left" ? "flex-row-reverse" : "flex-row"
-      }`}
+      className="grid grid-cols-[1fr_auto_1fr] gap-0 items-start"
+      initial={{ opacity: 0 }}
+      animate={inView ? { opacity: 1 } : {}}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
     >
-      {/* ── Branch line ── */}
-      <motion.div
-        className="h-[2px] w-12 sm:w-20"
-        style={{ background: `linear-gradient(to ${side === "left" ? "left" : "right"}, transparent, ${item.stemColor}88)` }}
-        initial={{ scaleX: 0 }}
-        animate={inView ? { scaleX: 1 } : { scaleX: 0 }}
-        transition={{ duration: 0.4, delay: index * 0.15 + 0.2 }}
-        style={{
-          transformOrigin: side === "left" ? "right" : "left",
-          background: `linear-gradient(to ${side === "left" ? "left" : "right"}, transparent, ${item.stemColor}88)`,
-        }}
+      {/* ── Left cell ── */}
+      <div className={`pb-16 ${isEven ? "pr-10" : ""}`}>
+        {isEven && (
+          <motion.div
+            className="text-right"
+            initial={{ x: 30, opacity: 0 }}
+            animate={inView ? { x: 0, opacity: 1 } : {}}
+            transition={{ duration: 0.55, delay: index * 0.1 + 0.1 }}
+          >
+            <EntryCard item={item} inView={inView} delay={index * 0.1} />
+          </motion.div>
+        )}
+      </div>
+
+      {/* ── Centre: timeline axis ── */}
+      <div className="flex flex-col items-center" style={{ width: 48 }}>
+        {/* Icon node */}
+        <motion.div
+          className="relative z-10 flex h-10 w-10 items-center justify-center shrink-0"
+          style={{ border: "1px solid var(--rule-light)", background: "var(--bg)" }}
+          initial={{ scale: 0 }}
+          animate={inView ? { scale: 1 } : {}}
+          transition={{ type: "spring", stiffness: 200, delay: index * 0.1 + 0.05 }}
+          whileHover={{ borderColor: "var(--gold)" }}
+        >
+          <Icon className="h-4 w-4" style={{ color: "var(--fg-dim)" }} />
+          {/* Gold dot on active (first) */}
+          {index === 0 && (
+            <span
+              className="absolute -top-1 -right-1 h-2 w-2 animate-pulse"
+              style={{ background: "var(--gold)" }}
+            />
+          )}
+        </motion.div>
+        {/* Connector line (not on last item) */}
+        {index < timeline.length - 1 && (
+          <div className="w-px flex-1 mt-1" style={{ background: "var(--rule-light)", minHeight: 80 }} />
+        )}
+      </div>
+
+      {/* ── Right cell ── */}
+      <div className={`pb-16 ${!isEven ? "pl-10" : ""}`}>
+        {!isEven && (
+          <motion.div
+            initial={{ x: -30, opacity: 0 }}
+            animate={inView ? { x: 0, opacity: 1 } : {}}
+            transition={{ duration: 0.55, delay: index * 0.1 + 0.1 }}
+          >
+            <EntryCard item={item} inView={inView} delay={index * 0.1} />
+          </motion.div>
+        )}
+      </div>
+    </motion.div>
+  );
+}
+
+/* ── Card body ── */
+function EntryCard({
+  item,
+  inView,
+  delay,
+}: {
+  item: (typeof timeline)[0];
+  inView: boolean;
+  delay: number;
+}) {
+  return (
+    <div
+      className="relative text-left group"
+      style={{
+        border: "1px solid var(--rule)",
+        background: "var(--bg-surface)",
+        padding: "1.5rem",
+      }}
+    >
+      {/* Gold top bar on hover */}
+      <div
+        className="absolute top-0 inset-x-0 h-[2px] origin-left transition-transform duration-300 scale-x-0 group-hover:scale-x-100"
+        style={{ background: "linear-gradient(to right, var(--gold), transparent)" }}
       />
 
-      {/* ── Bloom node (flower) ── */}
-      <motion.div
-        className="relative shrink-0"
-        initial={{ scale: 0 }}
-        animate={inView ? { scale: 1 } : { scale: 0 }}
-        transition={{ duration: 0.35, delay: index * 0.15 + 0.35, ease: "backOut" }}
-      >
-        <Flower
-          color={item.flowerColor}
-          inView={inView}
-          baseDelay={index * 0.15 + 0.4}
-          size={22}
-        />
-        {/* Icon in centre */}
-        <div
-          className="absolute inset-0 flex items-center justify-center"
-          style={{ color: item.flowerColor }}
+      {/* Issue + period */}
+      <div className="flex items-baseline gap-3 mb-4">
+        <span
+          className="font-bebas leading-none"
+          style={{ fontSize: "3.5rem", color: "var(--rule-light)", lineHeight: 1 }}
         >
-          <Icon className="h-3.5 w-3.5" strokeWidth={2.5} />
-        </div>
-      </motion.div>
-
-      {/* ── Card (petal-shaped) ── */}
-      <motion.div
-        className={`relative max-w-xs sm:max-w-sm lg:max-w-md rounded-2xl border bg-[#05090f]/90 backdrop-blur-md p-5 sm:p-6 ${
-          side === "left" ? "mr-3 sm:mr-5" : "ml-3 sm:ml-5"
-        }`}
-        style={{ borderColor: `${item.flowerColor}30` }}
-        initial={{
-          opacity: 0,
-          x: side === "left" ? 40 : -40,
-          scale: 0.92,
-        }}
-        animate={
-          inView
-            ? { opacity: 1, x: 0, scale: 1 }
-            : { opacity: 0, x: side === "left" ? 40 : -40, scale: 0.92 }
-        }
-        transition={{ duration: 0.55, delay: index * 0.15 + 0.25, ease: [0.34, 1.2, 0.64, 1] }}
-        whileHover={{
-          scale: 1.025,
-          boxShadow: `0 0 28px ${item.flowerColor}22`,
-        }}
-      >
-        {/* Top glow line */}
-        <div
-          className="absolute inset-x-0 top-0 h-[1.5px] rounded-t-2xl"
-          style={{
-            background: `linear-gradient(to right, transparent, ${item.flowerColor}88, transparent)`,
-          }}
-        />
-
-        {/* Period badge */}
-        <div className="flex items-center gap-2 mb-3 flex-wrap">
-          <span
-            className="font-mono text-xs uppercase tracking-widest rounded-full px-3 py-1 border"
-            style={{
-              color: item.flowerColor,
-              borderColor: `${item.flowerColor}40`,
-              background: `${item.flowerColor}12`,
-            }}
-          >
-            {item.period}
+          {item.period}
+        </span>
+        <div className="flex flex-col">
+          <span className="font-mono text-[9px] uppercase tracking-[0.4em]" style={{ color: "var(--fg-dim)" }}>
+            Issue {item.issue}
           </span>
-          <span className="font-mono text-[10px] uppercase tracking-widest text-white/30">
+          <span className="font-mono text-[9px] uppercase tracking-[0.3em] mt-0.5" style={{ color: "var(--gold)", opacity: 0.7 }}>
             {item.label}
           </span>
         </div>
+      </div>
 
-        <h3 className="text-lg sm:text-xl font-bold text-white mb-2 leading-snug">
-          {item.title}
-        </h3>
+      {/* Rule */}
+      <div className="h-px mb-4" style={{ background: "var(--rule-light)" }} />
 
-        <p className="text-gray-400 text-sm leading-relaxed mb-4">
-          {item.description}
-        </p>
+      {/* Title */}
+      <motion.h3
+        className="font-bebas text-2xl sm:text-3xl mb-3"
+        style={{ color: "var(--fg)" }}
+        initial={{ opacity: 0, y: 8 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ delay: delay + 0.2, duration: 0.4 }}
+      >
+        {item.title}
+      </motion.h3>
 
-        {/* Skill chips */}
-        <div className="flex flex-wrap gap-2">
-          {item.points.map((pt) => (
-            <span
-              key={pt}
-              className="text-xs rounded-full px-2.5 py-1 border"
-              style={{
-                color: `${item.flowerColor}cc`,
-                borderColor: `${item.flowerColor}25`,
-                background: `${item.flowerColor}0d`,
-              }}
-            >
-              {pt}
-            </span>
-          ))}
-        </div>
+      <p className="font-lora text-sm leading-relaxed mb-4" style={{ color: "var(--fg-muted)" }}>
+        {item.description}
+      </p>
 
-        {/* Animated petal-glow on hover */}
-        <motion.div
-          className="pointer-events-none absolute inset-0 rounded-2xl opacity-0"
-          style={{ background: `radial-gradient(circle at 50% 0%, ${item.flowerColor}18 0%, transparent 70%)` }}
-          whileHover={{ opacity: 1 }}
-          transition={{ duration: 0.3 }}
-        />
-      </motion.div>
+      {/* Points */}
+      <div className="flex flex-wrap gap-2">
+        {item.points.map((pt) => (
+          <span
+            key={pt}
+            className="font-mono text-[10px] uppercase tracking-widest px-2.5 py-1"
+            style={{ border: "1px solid var(--rule)", color: "var(--fg-dim)" }}
+          >
+            {pt}
+          </span>
+        ))}
+      </div>
     </div>
   );
 }
 
-/* ─────────────────────────────────────────
-   Main Section
-───────────────────────────────────────── */
+/* ── Main section ── */
 const Experience = () => {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const stemRef = useRef<SVGPathElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ["start 0.85", "end 0.15"],
+    offset: ["start 0.9", "end 0.1"],
   });
 
-  const pathLength = useSpring(scrollYProgress, {
+  const lineScaleY = useSpring(scrollYProgress, {
     stiffness: 60,
     damping: 20,
-    restDelta: 0.001,
   });
-
-  // Subtle ambient glow that pulses with scroll
-  const glowOpacity = useTransform(scrollYProgress, [0, 0.5, 1], [0, 0.7, 0]);
-
-  // Vine SVG dimensions (drawn in a tall viewBox)
-  const VINE_H = 900;
-  const VINE_W = 12;
-
-  // Curved sinusoidal stem path
-  const stemPath = `M6 ${VINE_H} C6 ${VINE_H * 0.75} 2 ${VINE_H * 0.7} 6 ${VINE_H * 0.5} C10 ${VINE_H * 0.35} 2 ${VINE_H * 0.2} 6 0`;
 
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-hidden bg-black px-4 py-28 text-white sm:px-8 lg:px-12"
+      className="relative overflow-hidden border-t"
+      style={{ background: "var(--bg)", borderColor: "var(--rule)" }}
     >
-      {/* ── Ambient bokeh circles ── */}
-      {[
-        { x: "15%", y: "20%", r: 220, c: "#06b6d422" },
-        { x: "85%", y: "50%", r: 180, c: "#10b98118" },
-        { x: "50%", y: "85%", r: 200, c: "#f43f5e14" },
-      ].map((b, i) => (
-        <motion.div
-          key={i}
-          className="pointer-events-none absolute rounded-full"
-          style={{
-            left: b.x,
-            top: b.y,
-            width: b.r * 2,
-            height: b.r * 2,
-            transform: "translate(-50%,-50%)",
-            background: `radial-gradient(circle, ${b.c} 0%, transparent 70%)`,
-            opacity: glowOpacity,
-          }}
-        />
-      ))}
+      {/* Dot grid */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-30"
+        style={{
+          backgroundImage: "radial-gradient(circle, var(--rule-light) 1px, transparent 1px)",
+          backgroundSize: "32px 32px",
+        }}
+      />
 
-      {/* ── Soil / root texture at bottom ── */}
-      <div className="pointer-events-none absolute bottom-0 inset-x-0 h-24 bg-gradient-to-t from-[#0a0f06]/80 to-transparent" />
-
-      <div className="relative mx-auto max-w-5xl">
-        {/* ══ Header ══ */}
-        <div className="mb-20 text-center">
+      <div className="relative mx-auto max-w-5xl px-4 sm:px-8 lg:px-16 py-24">
+        {/* ── Header ── */}
+        <div className="mb-20">
           <motion.p
-            className="font-mono text-xs uppercase tracking-[0.35em] text-green-400/60 mb-4"
-            initial={{ opacity: 0, y: -6 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4 }}
-          >
-            Growth Log
-          </motion.p>
-          <motion.h2
-            className="text-5xl sm:text-7xl font-black uppercase leading-none tracking-tight"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.06 }}
-          >
-            Exper
-            <span className="text-green-400/30">ience</span>
-          </motion.h2>
-          <motion.p
-            className="mt-5 text-gray-500 text-base max-w-lg mx-auto leading-relaxed"
+            className="font-mono text-[10px] uppercase tracking-[0.45em] mb-6"
+            style={{ color: "var(--fg-dim)" }}
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: 0.15 }}
           >
-            A living vine — each branch a chapter, each bloom a milestone in my
-            journey as a developer.
+            Issue 03 · Growth Log
           </motion.p>
 
-          {/* Decorative small flower under heading */}
-          <motion.div
-            className="mt-6 flex justify-center"
-            initial={{ opacity: 0, scale: 0 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.45, delay: 0.25, ease: "backOut" }}
-          >
-            <svg width="60" height="30" viewBox="-30 -15 60 30" overflow="visible">
-              {Array.from({ length: 5 }).map((_, i) => (
-                <Petal
-                  key={i}
-                  angle={(360 / 5) * i}
-                  color="#4ade80"
-                  delay={0.3 + i * 0.05}
-                  inView={true}
-                  size={14}
-                />
-              ))}
-              <circle cx={0} cy={0} r={4} fill="#fff6" />
-            </svg>
-          </motion.div>
-        </div>
-
-        {/* ══ Vine + Entries ══ */}
-        <div className="relative flex">
-          {/* ── Growing Vine (centred) ── */}
-          <div className="relative mx-auto" style={{ width: VINE_W }}>
-            <svg
-              width={VINE_W}
-              height={VINE_H}
-              viewBox={`0 0 ${VINE_W} ${VINE_H}`}
-              className="absolute inset-0"
-              overflow="visible"
+          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
+            <motion.h2
+              className="font-bebas leading-none tracking-tight"
+              style={{ fontSize: "clamp(4.5rem,13vw,9rem)", color: "var(--fg)" }}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             >
-              {/* Static faint vine guide */}
-              <path
-                d={stemPath}
-                fill="none"
-                stroke="#1a3a1a"
-                strokeWidth={3}
-                strokeLinecap="round"
-              />
+              Exper
+              <br />
+              <span style={{ WebkitTextStroke: "1px var(--fg)", color: "transparent" }}>ience</span>
+            </motion.h2>
 
-              {/* Scroll-driven live vine */}
-              <motion.path
-                ref={stemRef}
-                d={stemPath}
-                fill="none"
-                stroke="url(#vineGrad)"
-                strokeWidth={3}
-                strokeLinecap="round"
-                pathLength={1}
-                style={{ pathLength }}
-              />
-
-              {/* Vine gradient */}
-              <defs>
-                <linearGradient id="vineGrad" x1="0" y1="1" x2="0" y2="0">
-                  <stop offset="0%" stopColor="#052e16" />
-                  <stop offset="30%" stopColor="#16a34a" />
-                  <stop offset="60%" stopColor="#4ade80" />
-                  <stop offset="100%" stopColor="#86efac" />
-                </linearGradient>
-              </defs>
-
-              {/* ── Decorative leaves dotted along stem ── */}
-              {[150, 320, 500, 650, 820].map((y, i) => (
-                <Leaf
-                  key={i}
-                  flip={i % 2 === 0}
-                  inView={true}
-                  delay={0.1 + i * 0.15}
-                  yOffset={VINE_H - y}
-                />
-              ))}
-            </svg>
+            <motion.p
+              className="font-lora text-base max-w-xs leading-relaxed sm:mb-4"
+              style={{ color: "var(--fg-muted)" }}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+            >
+              A mission-style timeline of what I&apos;m building, learning, and
+              shaping into stronger frontend work.
+            </motion.p>
           </div>
 
-          {/* ── Entry cards positioned absolutely beside the vine ── */}
-          <div
-            className="absolute inset-0"
-            style={{ pointerEvents: "none" }}
-          >
-            {timeline.map((item, index) => {
-              // Spread entries evenly along vine height
-              const top = (index / (timeline.length - 1)) * (VINE_H - 120) + 40;
-              const side: "left" | "right" = index % 2 === 0 ? "right" : "left";
-
-              return (
-                <div
-                  key={item.title}
-                  className="absolute"
-                  style={{
-                    top,
-                    left: side === "right" ? "50%" : undefined,
-                    right: side === "left" ? "50%" : undefined,
-                    transform: "translateY(-50%)",
-                    pointerEvents: "auto",
-                  }}
-                >
-                  <EntryCard item={item} index={index} side={side} />
-                </div>
-              );
-            })}
-          </div>
-
-          {/* Spacer so the section is tall enough for the vine */}
-          <div style={{ height: VINE_H, width: VINE_W, visibility: "hidden" }} />
+          {/* Gold rule divider */}
+          <motion.div
+            className="mt-8"
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            style={{ 
+              transformOrigin: "left", 
+              background: "linear-gradient(to right, var(--gold), var(--rule-light) 40%, transparent)", 
+              height: "1px", 
+              marginTop: "2rem" 
+            }}
+          />
         </div>
 
-        {/* ══ Root / footer ══ */}
-        <motion.div
-          className="mt-12 flex justify-center"
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
-          <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-white/20">
-            <span className="h-px w-12 bg-green-800/60" />
-            <span>Still growing</span>
-            <span className="h-1.5 w-1.5 rounded-full bg-green-400 animate-pulse" />
-            <span className="h-px w-12 bg-green-800/60" />
+        {/* ── Alternating timeline ── */}
+        <div className="relative">
+          {/* Scroll-driven vertical rule */}
+          <div
+            className="absolute left-1/2 top-0 -translate-x-1/2 w-px"
+            style={{ height: "100%", background: "var(--rule)" }}
+          >
+            <motion.div
+              className="w-full origin-top"
+              style={{ scaleY: lineScaleY, height: "100%", background: "linear-gradient(to bottom, var(--gold), var(--fg-dim))" }}
+            />
           </div>
+
+          {timeline.map((item, index) => (
+            <Entry key={item.title} item={item} index={index} />
+          ))}
+        </div>
+
+        {/* Footer */}
+        <motion.div
+          className="flex items-center gap-4 mt-4"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+        >
+          <div className="h-px flex-1" style={{ background: "var(--rule-light)" }} />
+          <span className="font-mono text-[9px] uppercase tracking-[0.4em]" style={{ color: "var(--fg-dim)" }}>
+            Still in print
+          </span>
+          <span style={{ color: "var(--gold)", fontSize: 8 }}>◆</span>
+          <div className="h-px flex-1" style={{ background: "var(--rule-light)" }} />
         </motion.div>
       </div>
     </section>
