@@ -91,7 +91,7 @@ const Profile = () => {
       <Ticker />
 
       {/* ── Main grid ── */}
-      <div className="mx-auto max-w-7xl px-4 sm:px-8 lg:px-16 py-20">
+      <div className="mx-auto max-w-6xl px-4 sm:px-8 lg:px-16 py-20">
         <div className="grid lg:grid-cols-[1fr_1.2fr] gap-12 lg:gap-20 items-start">
           {/* ══ LEFT: photo panel ══ */}
           <div ref={leftRef}>

@@ -15,29 +15,41 @@ const Projects = () => {
     let animationFrame = 0;
     const updateActive = () => {
       const mid = window.innerHeight / 2;
-      let closest = 0, minDist = Infinity;
+      let closest = 0,
+        minDist = Infinity;
       projectRefs.current.forEach((el, i) => {
         if (!el) return;
         const rect = el.getBoundingClientRect();
         const dist = Math.abs(rect.top + rect.height / 2 - mid);
-        if (dist < minDist) { minDist = dist; closest = i; }
+        if (dist < minDist) {
+          minDist = dist;
+          closest = i;
+        }
       });
-      setActiveProject((c) => c === closest ? c : closest);
+      setActiveProject((c) => (c === closest ? c : closest));
     };
     const schedule = () => {
       if (animationFrame) return;
-      animationFrame = window.requestAnimationFrame(() => { animationFrame = 0; updateActive(); });
+      animationFrame = window.requestAnimationFrame(() => {
+        animationFrame = 0;
+        updateActive();
+      });
     };
     updateActive();
     window.addEventListener("scroll", schedule, { passive: true });
     window.addEventListener("resize", schedule);
-    return () => { window.removeEventListener("scroll", schedule); window.removeEventListener("resize", schedule); if (animationFrame) window.cancelAnimationFrame(animationFrame); };
+    return () => {
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+      if (animationFrame) window.cancelAnimationFrame(animationFrame);
+    };
   }, []);
 
   const projects = [
     {
       title: "turboText",
-      description: "A focused writing interface built to make drafting, editing, and reviewing text feel fast instead of noisy.",
+      description:
+        "A focused writing interface built to make drafting, editing, and reviewing text feel fast instead of noisy.",
       role: "Frontend build, interaction design",
       timeline: "2025",
       status: "Live",
@@ -55,7 +67,8 @@ const Projects = () => {
     },
     {
       title: "Portfolio System",
-      description: "A personal portfolio experience with scroll-led animation, themed sections, and a memorable visual identity.",
+      description:
+        "A personal portfolio experience with scroll-led animation, themed sections, and a memorable visual identity.",
       role: "Creative direction, frontend engineering",
       timeline: "2026",
       status: "In progress",
@@ -67,13 +80,18 @@ const Projects = () => {
         "Added section navigation, project tracking, and responsive content layouts.",
         "Balanced decorative motion with readable project, skills, and contact sections.",
       ],
-      metrics: ["Scroll animation", "Responsive sections", "Portfolio storytelling"],
+      metrics: [
+        "Scroll animation",
+        "Responsive sections",
+        "Portfolio storytelling",
+      ],
       liveUrl: "https://portfolyo-amber.vercel.app/",
       sourceUrl: "https://github.com/mozix5",
     },
     {
       title: "Developer Profile",
-      description: "A characterful profile section that presents background, stack, and creative direction through an editorial interface.",
+      description:
+        "A characterful profile section that presents background, stack, and creative direction through an editorial interface.",
       role: "UI design, component implementation",
       timeline: "2026",
       status: "Shipped",
@@ -92,10 +110,16 @@ const Projects = () => {
   ];
 
   return (
-    <div ref={containerRef} className="min-h-screen px-4 sm:px-8 lg:px-16 xl:px-[120px]" style={{ background: "var(--bg)" }}>
-
+    <div
+      ref={containerRef}
+      className="min-h-screen px-4 sm:px-8 lg:px-16 xl:px-[190px]"
+      style={{ background: "var(--bg)" }}
+    >
       {/* ── Editorial Header ── */}
-      <header className="pt-32 pb-20 border-b" style={{ borderColor: "var(--rule)" }}>
+      <header
+        className="pt-32 pb-20 border-b"
+        style={{ borderColor: "var(--rule)" }}
+      >
         <motion.p
           className="font-mono text-[10px] uppercase tracking-[0.45em] mb-6"
           style={{ color: "var(--fg-dim)" }}
@@ -117,7 +141,14 @@ const Projects = () => {
           >
             Case
             <br />
-            <span style={{ WebkitTextStroke: "1px var(--fg)", color: "transparent" }}>Studies</span>
+            <span
+              style={{
+                WebkitTextStroke: "1px var(--fg)",
+                color: "transparent",
+              }}
+            >
+              Studies
+            </span>
           </motion.h1>
 
           <motion.p
@@ -142,7 +173,9 @@ const Projects = () => {
           {projects.map((project, index) => (
             <div
               key={project.title}
-              ref={(el) => { projectRefs.current[index] = el; }}
+              ref={(el) => {
+                projectRefs.current[index] = el;
+              }}
             >
               <ProjectCard {...project} index={index} />
             </div>
