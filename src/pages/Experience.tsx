@@ -12,7 +12,7 @@ function Entry({ item, index }: { item: (typeof timeline)[0]; index: number }) {
   return (
     <motion.div
       ref={ref}
-      className="grid grid-cols-[1fr_auto_1fr] gap-0 items-start"
+      className="grid grid-cols-[1fr_auto_1fr] gap-0 items-start transform-gpu will-change-transform"
       initial={{ opacity: 0 }}
       animate={inView ? { opacity: 1 } : {}}
       transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -21,7 +21,7 @@ function Entry({ item, index }: { item: (typeof timeline)[0]; index: number }) {
       <div className={`pb-16 ${isEven ? "pr-10" : ""}`}>
         {isEven && (
           <motion.div
-            className="text-right"
+            className="text-right transform-gpu will-change-transform"
             initial={{ x: 30, opacity: 0 }}
             animate={inView ? { x: 0, opacity: 1 } : {}}
             transition={{ duration: 0.55, delay: index * 0.1 + 0.1 }}
@@ -37,11 +37,20 @@ function Entry({ item, index }: { item: (typeof timeline)[0]; index: number }) {
         <motion.div
           className="relative z-10 flex h-10 w-10 items-center justify-center shrink-0"
           style={{
-            border: "1px solid var(--rule-light)",
+            borderWidth: "1px",
+            borderStyle: "solid",
             background: "var(--bg)",
           }}
-          initial={{ scale: 0 }}
-          animate={inView ? { scale: 1 } : {}}
+          initial={{ 
+            scale: 0, 
+            borderColor: "var(--rule-light)",
+            boxShadow: "0 0 0px rgba(212, 175, 55, 0)"
+          }}
+          animate={inView ? { 
+            scale: 1,
+            borderColor: "var(--gold)",
+            boxShadow: "0 0 16px 2px rgba(212, 175, 55, 0.2)"
+          } : {}}
           transition={{
             type: "spring",
             stiffness: 200,
@@ -49,7 +58,10 @@ function Entry({ item, index }: { item: (typeof timeline)[0]; index: number }) {
           }}
           whileHover={{ borderColor: "var(--gold)" }}
         >
-          <Icon className="h-4 w-4" style={{ color: "var(--fg-dim)" }} />
+          <Icon 
+            className="h-4 w-4 transition-colors duration-500" 
+            style={{ color: inView ? "var(--gold)" : "var(--fg-dim)" }} 
+          />
           {/* Gold dot on active (first) */}
           {index === 0 && (
             <span
@@ -58,19 +70,13 @@ function Entry({ item, index }: { item: (typeof timeline)[0]; index: number }) {
             />
           )}
         </motion.div>
-        {/* Connector line (not on last item) */}
-        {index < timeline.length - 1 && (
-          <div
-            className="w-px flex-1 mt-1"
-            style={{ background: "var(--rule-light)", minHeight: 80 }}
-          />
-        )}
       </div>
 
       {/* ── Right cell ── */}
       <div className={`pb-16 ${!isEven ? "pl-10" : ""}`}>
         {!isEven && (
           <motion.div
+            className="transform-gpu will-change-transform"
             initial={{ x: -30, opacity: 0 }}
             animate={inView ? { x: 0, opacity: 1 } : {}}
             transition={{ duration: 0.55, delay: index * 0.1 + 0.1 }}
@@ -143,7 +149,7 @@ function EntryCard({
 
       {/* Title */}
       <motion.h3
-        className="font-bebas text-2xl sm:text-3xl mb-3"
+        className="font-bebas text-2xl sm:text-3xl mb-3 transform-gpu will-change-transform"
         style={{ color: "var(--fg)" }}
         initial={{ opacity: 0, y: 8 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -177,11 +183,11 @@ function EntryCard({
 
 /* ── Main section ── */
 const Experience = () => {
-  const sectionRef = useRef<HTMLElement>(null);
+  const timelineRef = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start 0.9", "end 0.1"],
+    target: timelineRef,
+    offset: ["start 0.8", "end 0.5"],
   });
 
   const lineScaleY = useSpring(scrollYProgress, {
@@ -191,13 +197,12 @@ const Experience = () => {
 
   return (
     <section
-      ref={sectionRef}
       className="relative overflow-hidden border-t"
       style={{ background: "var(--bg)", borderColor: "var(--rule)" }}
     >
       {/* Dot grid */}
       <div
-        className="pointer-events-none absolute inset-0 opacity-30"
+        className="pointer-events-none absolute inset-0 opacity-30 transform-gpu"
         style={{
           backgroundImage:
             "radial-gradient(circle, var(--rule-light) 1px, transparent 1px)",
@@ -257,7 +262,7 @@ const Experience = () => {
 
           {/* Gold rule divider */}
           <motion.div
-            className="mt-8"
+            className="mt-8 transform-gpu will-change-transform"
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
             viewport={{ once: true }}
@@ -273,14 +278,14 @@ const Experience = () => {
         </div>
 
         {/* ── Alternating timeline ── */}
-        <div className="relative">
+        <div className="relative" ref={timelineRef}>
           {/* Scroll-driven vertical rule */}
           <div
             className="absolute left-1/2 top-0 -translate-x-1/2 w-px"
             style={{ height: "100%", background: "var(--rule)" }}
           >
             <motion.div
-              className="w-full origin-top"
+              className="w-full origin-top transform-gpu will-change-transform"
               style={{
                 scaleY: lineScaleY,
                 height: "100%",
