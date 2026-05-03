@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import React from "react";
+import React, { useState } from "react";
 
 export interface OrbitingCirclesProps
   extends React.HTMLAttributes<HTMLDivElement> {
@@ -25,6 +25,7 @@ export function OrbitingCircles({
   speed = 1,
   ...props
 }: OrbitingCirclesProps) {
+  const [isPaused, setIsPaused] = useState(false);
   const calculatedDuration = duration / speed;
   return (
     <>
@@ -59,8 +60,11 @@ export function OrbitingCircles({
               `absolute flex size-[var(--icon-size)] transform-gpu animate-orbit items-center justify-center rounded-full`,
               "will-change-transform",
               { "[animation-direction:reverse]": reverse },
+              isPaused ? "[animation-play-state:paused]" : "",
               className,
             )}
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
             {...props}
           >
             {child}
