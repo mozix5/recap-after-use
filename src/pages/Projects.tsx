@@ -18,7 +18,8 @@ const Projects = () => {
       let closest = 0, minDist = Infinity;
       projectRefs.current.forEach((el, i) => {
         if (!el) return;
-        const dist = Math.abs(el.getBoundingClientRect().top + el.getBoundingClientRect().height / 2 - mid);
+        const rect = el.getBoundingClientRect();
+        const dist = Math.abs(rect.top + rect.height / 2 - mid);
         if (dist < minDist) { minDist = dist; closest = i; }
       });
       setActiveProject((c) => c === closest ? c : closest);

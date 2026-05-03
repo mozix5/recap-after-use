@@ -16,20 +16,35 @@ const App = () => {
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
   const capRef = useRef<HTMLDivElement>(null);
   const bodyRef = useRef<HTMLDivElement>(null);
+  const measureFrameRef = useRef(0);
 
   const measureImageTravel = useCallback(() => {
+    if (measureFrameRef.current) {
+      window.cancelAnimationFrame(measureFrameRef.current);
+    }
+
+    measureFrameRef.current = window.requestAnimationFrame(() => {
+      measureFrameRef.current = 0;
+
     if (capRef.current && bodyRef.current) {
       const capRect = capRef.current.getBoundingClientRect();
       const bodyRect = bodyRef.current.getBoundingClientRect();
       setSpaceLeft(capRect.left + capRect.width / 2.1);
-      setSpaceRight(window.innerWidth - bodyRect.right + bodyRect.width / 1.2);
+      setSpaceRight(window.innerWidth - bodyRect.right + bodyRect.width / 1.25);
     }
+    });
   }, []);
 
   useEffect(() => {
     measureImageTravel();
     window.addEventListener("resize", measureImageTravel);
-    return () => window.removeEventListener("resize", measureImageTravel);
+    return () => {
+      window.removeEventListener("resize", measureImageTravel);
+
+      if (measureFrameRef.current) {
+        window.cancelAnimationFrame(measureFrameRef.current);
+      }
+    };
   }, [measureImageTravel]);
 
   const { scrollYProgress } = useScroll({
@@ -141,7 +156,7 @@ const App = () => {
         <div className="flex sticky top-1/2 -translate-y-1/2 items-start overflow-hidden z-50">
           <motion.div
             ref={capRef}
-            className="relative left-[20vw] z-20 w-[40%] md:w-[20%]"
+            className="relative left-[20vw] z-20 w-[40%] transform-gpu will-change-transform md:w-[20%]"
             style={{ x: x1 }}
           >
             <img
@@ -153,7 +168,7 @@ const App = () => {
           </motion.div>
           <motion.div
             ref={bodyRef}
-            className="z-10 relative left-[2vw] w-[80%] md:w-[56.5%]"
+            className="z-10 relative left-[2vw] w-[80%] transform-gpu will-change-transform md:w-[56.5%]"
             style={{ x: x2 }}
           >
             <img
