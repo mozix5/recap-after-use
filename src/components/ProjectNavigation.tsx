@@ -16,7 +16,10 @@ const ProjectNavigation = ({ projects, activeProject }: Props) => {
         {/* Fill indicator */}
         <div
           className="absolute top-0 left-0 w-full transition-all duration-400 ease-out"
-          style={{ height: `${cursor}%`, background: "linear-gradient(to bottom, var(--gold), rgba(201,168,76,0.3))" }}
+          style={{ 
+            height: `${projects.length <= 1 ? 0 : (activeProject / (projects.length - 1)) * 100}%`, 
+            background: "linear-gradient(to bottom, var(--gold), rgba(201,168,76,0.3))" 
+          }}
         />
       </div>
 
