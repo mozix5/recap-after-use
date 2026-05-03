@@ -1,9 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import ProjectCard from "@/components/ProjectCard";
 import ProjectNavigation from "@/components/ProjectNavigation";
-import bodyPreview from "@/assets/body.png";
-import mePreview from "@/assets/me3.png";
-import turboTextPreview from "@/assets/turboText.png";
+import { projects } from "@/data/content";
 import { motion } from "framer-motion";
 
 const Projects = () => {
@@ -45,69 +43,7 @@ const Projects = () => {
     };
   }, []);
 
-  const projects = [
-    {
-      title: "turboText",
-      description:
-        "A focused writing interface built to make drafting, editing, and reviewing text feel fast instead of noisy.",
-      role: "Frontend build, interaction design",
-      timeline: "2025",
-      status: "Live",
-      techStack: ["React", "TypeScript", "Tailwind", "Framer Motion"],
-      image: turboTextPreview,
-      color: "gold",
-      highlights: [
-        "Built a responsive dashboard-style layout with clear writing actions.",
-        "Designed hover states and visual feedback for a more tactile workflow.",
-        "Structured reusable UI pieces so the interface can grow into more editor tools.",
-      ],
-      metrics: ["Responsive UI", "Motion polish", "Reusable components"],
-      liveUrl: "https://portfolyo-amber.vercel.app/",
-      sourceUrl: "https://github.com/mozix5",
-    },
-    {
-      title: "Portfolio System",
-      description:
-        "A personal portfolio experience with scroll-led animation, themed sections, and a memorable visual identity.",
-      role: "Creative direction, frontend engineering",
-      timeline: "2026",
-      status: "In progress",
-      techStack: ["React", "TypeScript", "Tailwind", "Framer Motion"],
-      image: bodyPreview,
-      color: "white",
-      highlights: [
-        "Created a cinematic hero with a pen split animation tied to scroll progress.",
-        "Added section navigation, project tracking, and responsive content layouts.",
-        "Balanced decorative motion with readable project, skills, and contact sections.",
-      ],
-      metrics: [
-        "Scroll animation",
-        "Responsive sections",
-        "Portfolio storytelling",
-      ],
-      liveUrl: "https://portfolyo-amber.vercel.app/",
-      sourceUrl: "https://github.com/mozix5",
-    },
-    {
-      title: "Developer Profile",
-      description:
-        "A characterful profile section that presents background, stack, and creative direction through an editorial interface.",
-      role: "UI design, component implementation",
-      timeline: "2026",
-      status: "Shipped",
-      techStack: ["React", "Canvas", "Tailwind", "CSS Animation"],
-      image: mePreview,
-      color: "dim",
-      highlights: [
-        "Built a distinctive editorial layout that avoids a generic about section.",
-        "Used animated states to make skills and mission details feel interactive.",
-        "Kept the section modular so future experience and resume content can plug in.",
-      ],
-      metrics: ["Visual identity", "Interactive panels", "Personal brand"],
-      liveUrl: "https://portfolyo-amber.vercel.app/",
-      sourceUrl: "https://github.com/mozix5",
-    },
-  ];
+
 
   return (
     <div

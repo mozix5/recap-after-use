@@ -1,6 +1,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import me from "@/assets/me.png";
+import { profileData } from "@/data/content";
 
 /* Stat block — editorial number + label */
 function StatBlock({
@@ -39,17 +40,7 @@ function StatBlock({
 
 /* Scrolling ticker */
 function Ticker() {
-  const items = [
-    "Frontend Developer",
-    "React",
-    "TypeScript",
-    "Framer Motion",
-    "UI/UX",
-    "Node.js",
-    "Open to Work",
-    "Based in India",
-  ];
-  const doubled = [...items, ...items];
+  const doubled = [...profileData.tickerItems, ...profileData.tickerItems];
   return (
     <div
       className="overflow-hidden border-y py-2.5"
@@ -183,24 +174,15 @@ const Profile = () => {
               animate={leftInView ? { opacity: 1 } : {}}
               transition={{ delay: 0.4 }}
             >
-              <StatBlock
-                value="2+"
-                label="Years"
-                delay={0.45}
-                inView={leftInView}
-              />
-              <StatBlock
-                value="4+"
-                label="Projects"
-                delay={0.55}
-                inView={leftInView}
-              />
-              <StatBlock
-                value="∞"
-                label="Curiosity"
-                delay={0.65}
-                inView={leftInView}
-              />
+              {profileData.stats.map((stat, i) => (
+                <StatBlock
+                  key={stat.label}
+                  value={stat.value}
+                  label={stat.label}
+                  delay={0.45 + i * 0.1}
+                  inView={leftInView}
+                />
+              ))}
             </motion.div>
           </div>
 
@@ -262,8 +244,7 @@ const Profile = () => {
                 className="font-lora italic text-lg sm:text-xl leading-relaxed"
                 style={{ color: "var(--fg-muted)" }}
               >
-                &ldquo;I bridge creativity with code — building interfaces that
-                are not only functional but genuinely memorable.&rdquo;
+                {profileData.quote}
               </p>
             </motion.div>
 
@@ -275,10 +256,7 @@ const Profile = () => {
               animate={rightInView ? { opacity: 1 } : {}}
               transition={{ delay: 0.38, duration: 0.5 }}
             >
-              From the first line of HTML I wrote, I knew that web development
-              was where my heart and passion would thrive. I&apos;m a digital
-              craftsman who values craft, precision, and the details that make
-              an interface feel alive.
+              {profileData.description}
             </motion.p>
 
             {/* Objective block */}
@@ -299,8 +277,7 @@ const Profile = () => {
                 className="font-lora text-sm leading-relaxed"
                 style={{ color: "var(--fg-muted)" }}
               >
-                Making the web a better place — one pixel, one component, one
-                meaningful interaction at a time.
+                {profileData.objective}
               </p>
             </motion.div>
           </div>

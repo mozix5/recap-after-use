@@ -1,16 +1,8 @@
-import { FaGithubAlt, FaLinkedinIn, FaCode } from "react-icons/fa";
+import { socials } from "@/data/content";
 import me2 from "@/assets/me2.png";
 import { motion } from "framer-motion";
 
-const socials = [
-  { href: "https://github.com/mozix5", label: "GitHub", icon: FaGithubAlt },
-  {
-    href: "https://www.linkedin.com/in/mosin-md-86569a202/",
-    label: "LinkedIn",
-    icon: FaLinkedinIn,
-  },
-  { href: "https://github.com/mozix5", label: "Portfolio", icon: FaCode },
-];
+
 
 const Contact = () => (
   <section

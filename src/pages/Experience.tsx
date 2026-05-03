@@ -1,49 +1,6 @@
 import { motion, useInView, useScroll, useSpring } from "framer-motion";
 import { useRef } from "react";
-import { Briefcase, Code2, GraduationCap, Rocket } from "lucide-react";
-
-const timeline = [
-  {
-    period: "2026",
-    issue: "03",
-    title: "Portfolio Experience",
-    label: "Currently Building",
-    icon: Rocket,
-    description:
-      "Designing a motion-rich portfolio with scroll animation, case-study cards, responsive sections, and a strong personal identity.",
-    points: ["Framer Motion scroll systems", "Responsive React layouts"],
-  },
-  {
-    period: "2025",
-    issue: "02",
-    title: "Frontend Projects",
-    label: "React / TypeScript",
-    icon: Code2,
-    description:
-      "Built interactive interfaces focused on component structure, visual polish, hover states, and clean user flows.",
-    points: ["Reusable UI components", "Tailwind interface systems"],
-  },
-  {
-    period: "2024",
-    issue: "01",
-    title: "Full-Stack Foundations",
-    label: "Learning Track",
-    icon: Briefcase,
-    description:
-      "Expanded from frontend into backend fundamentals, API thinking, database basics, and deployable web apps.",
-    points: ["Node.js and MongoDB basics", "GitHub and Vercel workflow"],
-  },
-  {
-    period: "∞",
-    issue: "00",
-    title: "CS Growth",
-    label: "Education",
-    icon: GraduationCap,
-    description:
-      "Continuing to sharpen programming fundamentals, product thinking, and the craft of building memorable web experiences.",
-    points: ["Problem solving", "UI engineering taste"],
-  },
-];
+import { timeline } from "@/data/content";
 
 /* ── Single timeline entry ── */
 function Entry({ item, index }: { item: (typeof timeline)[0]; index: number }) {
