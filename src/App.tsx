@@ -8,6 +8,7 @@ import Footer from "@/components/Footer.tsx";
 import Contact from "@/pages/Contact.tsx";
 import Experience from "@/pages/Experience.tsx";
 import TechStack from "@/pages/TechStack.tsx";
+import { CustomCursor } from "@/components/ui/custom-cursor";
 
 const App = () => {
   const [spaceLeft, setSpaceLeft] = useState(0);
@@ -73,6 +74,7 @@ const App = () => {
 
   return (
     <div style={{ background: "var(--bg)" }}>
+      <CustomCursor />
       <div className="relative flex h-screen items-center justify-center px-6 overflow-hidden">
         <div
           className="pointer-events-none absolute inset-0"
