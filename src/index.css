@@ -31,7 +31,12 @@
 /* Base */
 @layer base {
   * { @apply border-border; }
-  body { background: var(--bg); color: var(--fg); }
+  body { 
+    background: var(--bg); 
+    color: var(--fg); 
+    user-select: none;
+    -webkit-user-select: none;
+  }
 }
 
 ::-webkit-scrollbar { width: 0; }
