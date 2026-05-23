@@ -1,6 +1,7 @@
 import { motion, useInView, useScroll, useSpring } from "framer-motion";
 import { useRef } from "react";
 import { timeline } from "@/data/content";
+import { TextWipe } from "@/components/ui/text-wipe";
 
 /* ── Single timeline entry ── */
 function Entry({ item, index }: { item: (typeof timeline)[0]; index: number }) {
@@ -224,28 +225,27 @@ const Experience = () => {
           </motion.p>
 
           <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
-            <motion.h2
+            <h2
               className="font-bebas leading-none tracking-tight"
               style={{
                 fontSize: "clamp(4.5rem,13vw,9rem)",
                 color: "var(--fg)",
               }}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             >
-              Exper
-              <br />
-              <span
-                style={{
-                  WebkitTextStroke: "1px var(--fg)",
-                  color: "transparent",
-                }}
-              >
-                ience
-              </span>
-            </motion.h2>
+              <TextWipe delay={0.1}>
+                <span>Exper</span>
+              </TextWipe>
+              <TextWipe delay={0.25}>
+                <span
+                  style={{
+                    WebkitTextStroke: "1px var(--fg)",
+                    color: "transparent",
+                  }}
+                >
+                  ience
+                </span>
+              </TextWipe>
+            </h2>
 
             <motion.p
               className="font-lora text-base max-w-xs leading-relaxed sm:mb-4"

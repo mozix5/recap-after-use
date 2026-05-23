@@ -13,6 +13,7 @@ import {
   SiTailwindcss
 } from "react-icons/si";
 import { motion } from "framer-motion";
+import { TextWipe } from "@/components/ui/text-wipe";
 
 const HoverIcon = ({ children, name }: { children: React.ReactNode; name: string }) => (
   <div className="group flex h-full w-full items-center justify-center cursor-pointer">
@@ -62,13 +63,16 @@ const TechStack = () => (
           className="font-bebas leading-none tracking-tight"
           style={{ fontSize: "clamp(4rem,12vw,8rem)", color: "var(--fg)" }}
         >
-          The
-          <br />
-          <span
-            style={{ WebkitTextStroke: "1px var(--fg)", color: "transparent" }}
-          >
-            Stack
-          </span>
+          <TextWipe delay={0.1}>
+            <span>The</span>
+          </TextWipe>
+          <TextWipe delay={0.25}>
+            <span
+              style={{ WebkitTextStroke: "1px var(--fg)", color: "transparent" }}
+            >
+              Stack
+            </span>
+          </TextWipe>
         </h2>
         <div
           className="h-px w-24 mt-4"

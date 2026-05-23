@@ -3,6 +3,7 @@ import ProjectCard from "@/components/ProjectCard";
 import ProjectNavigation from "@/components/ProjectNavigation";
 import { projects } from "@/data/content";
 import { motion } from "framer-motion";
+import { TextWipe } from "@/components/ui/text-wipe";
 
 const Projects = () => {
   const [activeProject, setActiveProject] = useState(0);
@@ -67,25 +68,24 @@ const Projects = () => {
         </motion.p>
 
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
-          <motion.h1
-            className="font-bebas leading-none tracking-tight"
+          <h1
+            className="font-bebas leading-none tracking-tight flex-1"
             style={{ fontSize: "clamp(5rem,14vw,10rem)", color: "var(--fg)" }}
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           >
-            Case
-            <br />
-            <span
-              style={{
-                WebkitTextStroke: "1px var(--fg)",
-                color: "transparent",
-              }}
-            >
-              Studies
-            </span>
-          </motion.h1>
+            <TextWipe delay={0.1}>
+              <span>Case</span>
+            </TextWipe>
+            <TextWipe delay={0.25}>
+              <span
+                style={{
+                  WebkitTextStroke: "1px var(--fg)",
+                  color: "transparent",
+                }}
+              >
+                Studies
+              </span>
+            </TextWipe>
+          </h1>
 
           <motion.p
             className="font-lora text-base max-w-xs leading-relaxed lg:mb-4"

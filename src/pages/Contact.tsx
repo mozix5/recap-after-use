@@ -2,6 +2,7 @@ import { socials } from "@/data/content";
 import me2 from "@/assets/me2.png";
 import { motion } from "framer-motion";
 import { Magnetic } from "@/components/ui/magnetic";
+import { TextWipe } from "@/components/ui/text-wipe";
 
 
 
@@ -26,25 +27,25 @@ const Contact = () => (
       <div className="grid lg:grid-cols-[1fr_auto] gap-12 lg:gap-20 items-start">
         {/* ── Left: typography ── */}
         <div>
-          <motion.div
+          <div
             className="font-bebas leading-none uppercase mb-8"
             style={{ fontSize: "clamp(4rem,14vw,10rem)", color: "var(--fg)" }}
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.55 }}
           >
-            <span className="block">Drop me</span>
-            <span
-              className="block"
-              style={{
-                WebkitTextStroke: "1px var(--fg)",
-                color: "transparent",
-              }}
-            >
-              a line
-            </span>
-          </motion.div>
+            <TextWipe delay={0.1}>
+              <span className="block">Drop me</span>
+            </TextWipe>
+            <TextWipe delay={0.25}>
+              <span
+                className="block"
+                style={{
+                  WebkitTextStroke: "1px var(--fg)",
+                  color: "transparent",
+                }}
+              >
+                a line
+              </span>
+            </TextWipe>
+          </div>
 
           {/* Gold rule */}
           <motion.div
