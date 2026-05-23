@@ -71,12 +71,26 @@ const Footer = () => {
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="font-mono text-sm flex gap-2 order-1 sm:order-2"
+            className="font-mono text-sm flex gap-2 order-1 sm:order-2 items-center"
             style={{ color: "var(--fg-dim)" }}
           >
-            <motion.span layout transition={spring} style={{ color: "var(--gold)", opacity: 0.5 }}>&#60;/</motion.span>
-            <span style={{ color: hover ? "var(--fg)" : "var(--fg-muted)", transition: "color 0.2s" }}>mozix</span>
-            <motion.span layout transition={spring} style={{ color: "var(--gold)", opacity: 0.5 }}>&#62;</motion.span>
+            <motion.span
+              animate={{ x: hover ? -14 : 0 }}
+              transition={spring}
+              style={{ color: "var(--gold)", opacity: 0.5 }}
+            >
+              &#60;/
+            </motion.span>
+            <span style={{ color: hover ? "var(--fg)" : "var(--fg-muted)", transition: "color 0.2s" }}>
+              mozix
+            </span>
+            <motion.span
+              animate={{ x: hover ? 14 : 0 }}
+              transition={spring}
+              style={{ color: "var(--gold)", opacity: 0.5 }}
+            >
+              &#62;
+            </motion.span>
           </button>
 
           <p className="font-mono text-[9px] uppercase tracking-[0.4em] order-3 hidden sm:block" style={{ color: "var(--fg-dim)" }}>
