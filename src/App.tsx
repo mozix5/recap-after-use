@@ -148,7 +148,7 @@ const App = () => {
       </div>
 
       <div className="relative py-20" ref={scrollContainerRef}>
-        <div className="flex sticky top-1/2 -translate-y-1/2 items-start overflow-hidden z-50">
+        <div className="flex sticky top-1/2 -translate-y-1/2 items-start overflow-hidden z-50 pointer-events-none">
           <motion.div
             ref={capRef}
             className="relative left-[20vw] z-20 w-[40%] transform-gpu will-change-transform md:w-[20%]"
