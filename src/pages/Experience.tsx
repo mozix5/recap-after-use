@@ -220,7 +220,7 @@ const Experience = () => {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
           >
-            Issue 03 · Growth Log
+            Issue 03 · Career & Education
           </motion.p>
 
           <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
@@ -255,8 +255,8 @@ const Experience = () => {
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
             >
-              A mission-style timeline of what I&apos;m building, learning, and
-              shaping into stronger frontend work.
+              A timeline of production work, real impact shipped, and the
+              education that built the foundation underneath it.
             </motion.p>
           </div>
 

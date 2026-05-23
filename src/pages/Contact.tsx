@@ -77,7 +77,7 @@ const Contact = () => (
               Email
             </p>
             <a
-              href="mailto:mozix5@icloud.com"
+              href="mailto:mosinmd827@gmail.com"
               className="font-lora text-xl transition-colors"
               style={{ color: "var(--fg-muted)" }}
               onMouseEnter={(e) => (e.currentTarget.style.color = "var(--fg)")}
@@ -85,7 +85,7 @@ const Contact = () => (
                 (e.currentTarget.style.color = "var(--fg-muted)")
               }
             >
-              mozix5@icloud.com
+              mosinmd827@gmail.com
             </a>
           </motion.div>
 
