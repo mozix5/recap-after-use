@@ -1,37 +1,90 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { FaGithubAlt, FaLinkedinIn } from "react-icons/fa";
+
+const spring = { type: "spring" as const, stiffness: 700, damping: 60 };
 
 const Footer = () => {
   const [hover, setHover] = useState(false);
-  const spring = { type: "spring" as const, stiffness: 700, damping: 60 };
 
   return (
-    <div
-      className="flex py-6 items-center justify-center px-8 border-t"
-      style={{ borderColor: "var(--rule-light)" }}
-    >
-      <div
-        onMouseEnter={() => setHover(true)}
-        onMouseLeave={() => setHover(false)}
-        className={`font-mono text-sm cursor-pointer flex gap-2 transition-all ${hover ? "justify-between flex-1" : "justify-center"}`}
-        style={{ color: "var(--fg-dim)" }}
-      >
-        <motion.span layout transition={spring} style={{ color: "var(--gold)", opacity: 0.5 }}>
-          &#60;/
-        </motion.span>
-        <a
-          href="https://portfolyo-amber.vercel.app/"
-          target="_blank"
-          rel="noreferrer"
-          style={{ color: hover ? "var(--fg)" : "var(--fg-muted)", transition: "color 0.2s" }}
+    <footer className="relative" style={{ background: "var(--bg)" }}>
+      <div className="mx-auto max-w-6xl px-4 sm:px-8 lg:px-16 py-10">
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-8">
+
+          <div>
+            <p
+              className="font-bebas leading-none tracking-tight"
+              style={{ fontSize: "clamp(2.5rem,7vw,4rem)", color: "var(--fg)" }}
+            >
+              MD{" "}
+              <span style={{ WebkitTextStroke: "1px var(--fg)", color: "transparent" }}>
+                Mosin
+              </span>
+            </p>
+            <p
+              className="font-mono text-[10px] uppercase tracking-[0.4em] mt-1"
+              style={{ color: "var(--fg-dim)" }}
+            >
+              Full Stack Developer · Open to Work
+            </p>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <a
+              href="https://github.com/mozix5"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="GitHub"
+              className="flex h-9 w-9 items-center justify-center transition-all duration-200"
+              style={{ border: "1px solid var(--rule-light)", color: "var(--fg-dim)" }}
+              onMouseEnter={(e) => { e.currentTarget.style.borderColor = "var(--gold)"; e.currentTarget.style.color = "var(--gold)"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.borderColor = "var(--rule-light)"; e.currentTarget.style.color = "var(--fg-dim)"; }}
+            >
+              <FaGithubAlt className="h-3.5 w-3.5" />
+            </a>
+            <a
+              href="https://www.linkedin.com/in/mosin-md-86569a202/"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="LinkedIn"
+              className="flex h-9 w-9 items-center justify-center transition-all duration-200"
+              style={{ border: "1px solid var(--rule-light)", color: "var(--fg-dim)" }}
+              onMouseEnter={(e) => { e.currentTarget.style.borderColor = "var(--gold)"; e.currentTarget.style.color = "var(--gold)"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.borderColor = "var(--rule-light)"; e.currentTarget.style.color = "var(--fg-dim)"; }}
+            >
+              <FaLinkedinIn className="h-3.5 w-3.5" />
+            </a>
+
+          </div>
+        </div>
+
+        <div
+          className="mt-8 pt-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4"
+          style={{ borderTop: "1px solid var(--rule-light)" }}
         >
-          mozix
-        </a>
-        <motion.span layout transition={spring} style={{ color: "var(--gold)", opacity: 0.5 }}>
-          &#62;
-        </motion.span>
+          <p className="font-mono text-[9px] uppercase tracking-[0.4em] order-2 sm:order-1" style={{ color: "var(--fg-dim)" }}>
+            © {new Date().getFullYear()} Md Mosin · All rights reserved
+          </p>
+
+          <button
+            onMouseEnter={() => setHover(true)}
+            onMouseLeave={() => setHover(false)}
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            className="font-mono text-sm flex gap-2 order-1 sm:order-2"
+            style={{ color: "var(--fg-dim)" }}
+          >
+            <motion.span layout transition={spring} style={{ color: "var(--gold)", opacity: 0.5 }}>&#60;/</motion.span>
+            <span style={{ color: hover ? "var(--fg)" : "var(--fg-muted)", transition: "color 0.2s" }}>mozix</span>
+            <motion.span layout transition={spring} style={{ color: "var(--gold)", opacity: 0.5 }}>&#62;</motion.span>
+          </button>
+
+          <p className="font-mono text-[9px] uppercase tracking-[0.4em] order-3 hidden sm:block" style={{ color: "var(--fg-dim)" }}>
+            Built with React · Framer Motion · TypeScript
+          </p>
+        </div>
       </div>
-    </div>
+    </footer>
   );
 };
 
