@@ -35,7 +35,6 @@ const TechStack = () => (
     className="relative overflow-hidden border-t"
     style={{ background: "var(--bg)", borderColor: "var(--rule)" }}
   >
-    {/* Dot grid bg */}
     <div
       className="pointer-events-none absolute inset-0 opacity-40"
       style={{
@@ -46,7 +45,6 @@ const TechStack = () => (
     />
 
     <div className="relative mx-auto max-w-6xl px-4 sm:px-8 lg:px-16 py-24">
-      {/* Header */}
       <motion.div
         className="mb-6"
         initial={{ opacity: 0, y: -8 }}
@@ -80,8 +78,7 @@ const TechStack = () => (
         />
       </motion.div>
 
-      {/* Orbit */}
-      <div className="relative flex h-[480px] w-full flex-col items-center justify-center overflow-hidden">
+      <div className="relative flex h-[480px] w-full flex-col items-center justify-center">
         <span
           className="pointer-events-none whitespace-pre-wrap bg-clip-text text-center text-7xl font-semibold leading-none text-transparent font-bebas"
           style={{
@@ -91,13 +88,13 @@ const TechStack = () => (
         >
           Tools
         </span>
-        <OrbitingCircles iconSize={38} radius={140}>
+        <OrbitingCircles iconSize={52} radius={140}>
           <HoverIcon name="JavaScript"><SiJavascript className="w-full h-full p-2 text-[var(--fg-dim)] group-hover:text-[var(--gold)] transition-colors duration-300" /></HoverIcon>
           <HoverIcon name="GitHub"><SiGithub className="w-full h-full p-2 text-[var(--fg-dim)] group-hover:text-[var(--gold)] transition-colors duration-300" /></HoverIcon>
           <HoverIcon name="MongoDB"><SiMongodb className="w-full h-full p-2 text-[var(--fg-dim)] group-hover:text-[var(--gold)] transition-colors duration-300" /></HoverIcon>
           <HoverIcon name="React"><SiReact className="w-full h-full p-2 text-[var(--fg-dim)] group-hover:text-[var(--gold)] transition-colors duration-300" /></HoverIcon>
         </OrbitingCircles>
-        <OrbitingCircles radius={200} reverse speed={2} iconSize={34}>
+        <OrbitingCircles radius={200} reverse speed={2} iconSize={46}>
           <HoverIcon name="Next.js"><SiNextdotjs className="w-full h-full p-[7px] text-[var(--fg-dim)] group-hover:text-[var(--gold)] transition-colors duration-300" /></HoverIcon>
           <HoverIcon name="Redux"><SiRedux className="w-full h-full p-[7px] text-[var(--fg-dim)] group-hover:text-[var(--gold)] transition-colors duration-300" /></HoverIcon>
           <HoverIcon name="Node.js"><SiNodedotjs className="w-full h-full p-[7px] text-[var(--fg-dim)] group-hover:text-[var(--gold)] transition-colors duration-300" /></HoverIcon>
@@ -108,7 +105,6 @@ const TechStack = () => (
         </OrbitingCircles>
       </div>
 
-      {/* Footer label */}
       <motion.div
         className="flex items-center gap-4 pt-12"
         initial={{ opacity: 0 }}
