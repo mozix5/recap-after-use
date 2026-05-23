@@ -8,7 +8,6 @@ import Footer from "@/components/Footer.tsx";
 import Contact from "@/pages/Contact.tsx";
 import Experience from "@/pages/Experience.tsx";
 import TechStack from "@/pages/TechStack.tsx";
-import { SmoothCursor } from "@/components/ui/smooth-cursor.tsx";
 
 const App = () => {
   const [spaceLeft, setSpaceLeft] = useState(0);
@@ -74,9 +73,7 @@ const App = () => {
 
   return (
     <div style={{ background: "var(--bg)" }}>
-      {/* ── Hero ── */}
       <div className="relative flex h-screen items-center justify-center px-6 overflow-hidden">
-        {/* Dot-grid background */}
         <div
           className="pointer-events-none absolute inset-0"
           style={{
@@ -85,7 +82,6 @@ const App = () => {
             backgroundSize: "36px 36px",
           }}
         />
-        {/* Gold vignette */}
         <div
           className="pointer-events-none absolute inset-0"
           style={{
@@ -93,20 +89,16 @@ const App = () => {
               "radial-gradient(ellipse 70% 60% at 50% 55%, rgba(201,168,76,0.04) 0%, transparent 70%)",
           }}
         />
-        {/* Top rule */}
         <div
           className="absolute top-0 inset-x-0 h-[1px]"
           style={{ background: "var(--rule-light)" }}
         />
-        {/* Bottom rule */}
         <div
           className="absolute bottom-0 inset-x-0 h-[1px]"
           style={{ background: "var(--rule-light)" }}
         />
 
-        {/* Hero text */}
         <div className="relative z-10 flex flex-col items-center">
-          {/* Running header label */}
           <motion.p
             className="font-mono text-[10px] uppercase tracking-[0.5em] mb-8"
             style={{ color: "var(--fg-muted)" }}
@@ -153,7 +145,6 @@ const App = () => {
         </div>
       </div>
 
-      {/* ── Pen split scroll ── */}
       <div className="relative py-20" ref={scrollContainerRef}>
         <div className="flex sticky top-1/2 -translate-y-1/2 items-start overflow-hidden z-50">
           <motion.div
@@ -179,7 +170,6 @@ const App = () => {
               alt="body"
               style={{ filter: "brightness(0.9) contrast(1.05)" }}
             />
-            {/* Signature */}
             <div
               className="absolute top-2 left-1/2 -translate-x-1/2 pointer-events-none opacity-40 whitespace-nowrap mix-blend-overlay"
               style={{
@@ -216,7 +206,6 @@ const App = () => {
         </div>
       </div>
 
-      <SmoothCursor />
     </div>
   );
 };
