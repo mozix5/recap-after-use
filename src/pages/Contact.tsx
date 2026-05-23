@@ -1,6 +1,7 @@
 import { socials } from "@/data/content";
 import me2 from "@/assets/me2.png";
 import { motion } from "framer-motion";
+import { Magnetic } from "@/components/ui/magnetic";
 
 
 
@@ -104,28 +105,29 @@ const Contact = () => (
             </p>
             <div className="flex gap-3">
               {socials.map(({ href, label, icon: Icon }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label={label}
-                  className="flex h-10 w-10 items-center justify-center transition-all"
-                  style={{
-                    border: "1px solid var(--rule-light)",
-                    color: "var(--fg-dim)",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor = "var(--gold)";
-                    e.currentTarget.style.color = "var(--gold)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.borderColor = "var(--rule-light)";
-                    e.currentTarget.style.color = "var(--fg-dim)";
-                  }}
-                >
-                  <Icon className="h-4 w-4" />
-                </a>
+                <Magnetic key={label}>
+                  <a
+                    href={href}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={label}
+                    className="flex h-10 w-10 items-center justify-center transition-all"
+                    style={{
+                      border: "1px solid var(--rule-light)",
+                      color: "var(--fg-dim)",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.borderColor = "var(--gold)";
+                      e.currentTarget.style.color = "var(--gold)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.borderColor = "var(--rule-light)";
+                      e.currentTarget.style.color = "var(--fg-dim)";
+                    }}
+                  >
+                    <Icon className="h-4 w-4" />
+                  </a>
+                </Magnetic>
               ))}
             </div>
           </motion.div>

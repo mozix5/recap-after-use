@@ -2,6 +2,7 @@ import { useState, useRef, useEffect, type MouseEvent } from "react";
 import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
+import { Magnetic } from "@/components/ui/magnetic";
 
 type ProjectCardProps = {
   title: string; description: string;
@@ -203,28 +204,32 @@ const ProjectCard = ({
           </div>
 
           <div className="flex items-center gap-2 ml-auto shrink-0">
-            <a
-              href={liveUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="group inline-flex items-center gap-1.5 px-3 py-1.5 font-mono text-[10px] uppercase tracking-widest transition-all duration-200"
-              style={{ background: a.bg, border: `1px solid ${a.border}`, color: a.text }}
-              onMouseEnter={(e) => { e.currentTarget.style.background = a.border; e.currentTarget.style.color = "var(--bg)"; }}
-              onMouseLeave={(e) => { e.currentTarget.style.background = a.bg; e.currentTarget.style.color = a.text; }}
-            >
-              Preview <ArrowUpRight className="h-3 w-3" />
-            </a>
-            <a
-              href={sourceUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 font-mono text-[10px] uppercase tracking-widest transition-all duration-200"
-              style={{ border: "1px solid var(--rule-light)", color: "var(--fg-muted)" }}
-              onMouseEnter={(e) => { e.currentTarget.style.borderColor = "var(--fg-muted)"; e.currentTarget.style.color = "var(--fg)"; }}
-              onMouseLeave={(e) => { e.currentTarget.style.borderColor = "var(--rule-light)"; e.currentTarget.style.color = "var(--fg-muted)"; }}
-            >
-              <FaGithub className="h-3 w-3" /> Source
-            </a>
+            <Magnetic>
+              <a
+                href={liveUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="group inline-flex items-center gap-1.5 px-3 py-1.5 font-mono text-[10px] uppercase tracking-widest transition-all duration-200"
+                style={{ background: a.bg, border: `1px solid ${a.border}`, color: a.text }}
+                onMouseEnter={(e) => { e.currentTarget.style.background = a.border; e.currentTarget.style.color = "var(--bg)"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.background = a.bg; e.currentTarget.style.color = a.text; }}
+              >
+                Preview <ArrowUpRight className="h-3 w-3" />
+              </a>
+            </Magnetic>
+            <Magnetic>
+              <a
+                href={sourceUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 font-mono text-[10px] uppercase tracking-widest transition-all duration-200"
+                style={{ border: "1px solid var(--rule-light)", color: "var(--fg-muted)" }}
+                onMouseEnter={(e) => { e.currentTarget.style.borderColor = "var(--fg-muted)"; e.currentTarget.style.color = "var(--fg)"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.borderColor = "var(--rule-light)"; e.currentTarget.style.color = "var(--fg-muted)"; }}
+              >
+                <FaGithub className="h-3 w-3" /> Source
+              </a>
+            </Magnetic>
           </div>
         </div>
       </motion.div>

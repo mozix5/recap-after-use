@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { FaGithubAlt, FaLinkedinIn } from "react-icons/fa";
+import { Magnetic } from "@/components/ui/magnetic";
 
 const spring = { type: "spring" as const, stiffness: 700, damping: 60 };
 
@@ -31,31 +32,34 @@ const Footer = () => {
           </div>
 
           <div className="flex items-center gap-3">
-            <a
-              href="https://github.com/mozix5"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="GitHub"
-              className="flex h-9 w-9 items-center justify-center transition-all duration-200"
-              style={{ border: "1px solid var(--rule-light)", color: "var(--fg-dim)" }}
-              onMouseEnter={(e) => { e.currentTarget.style.borderColor = "var(--gold)"; e.currentTarget.style.color = "var(--gold)"; }}
-              onMouseLeave={(e) => { e.currentTarget.style.borderColor = "var(--rule-light)"; e.currentTarget.style.color = "var(--fg-dim)"; }}
-            >
-              <FaGithubAlt className="h-3.5 w-3.5" />
-            </a>
-            <a
-              href="https://www.linkedin.com/in/mosin-md-86569a202/"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="LinkedIn"
-              className="flex h-9 w-9 items-center justify-center transition-all duration-200"
-              style={{ border: "1px solid var(--rule-light)", color: "var(--fg-dim)" }}
-              onMouseEnter={(e) => { e.currentTarget.style.borderColor = "var(--gold)"; e.currentTarget.style.color = "var(--gold)"; }}
-              onMouseLeave={(e) => { e.currentTarget.style.borderColor = "var(--rule-light)"; e.currentTarget.style.color = "var(--fg-dim)"; }}
-            >
-              <FaLinkedinIn className="h-3.5 w-3.5" />
-            </a>
-
+            <Magnetic>
+              <a
+                href="https://github.com/mozix5"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="GitHub"
+                className="flex h-9 w-9 items-center justify-center transition-all duration-200"
+                style={{ border: "1px solid var(--rule-light)", color: "var(--fg-dim)" }}
+                onMouseEnter={(e) => { e.currentTarget.style.borderColor = "var(--gold)"; e.currentTarget.style.color = "var(--gold)"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.borderColor = "var(--rule-light)"; e.currentTarget.style.color = "var(--fg-dim)"; }}
+              >
+                <FaGithubAlt className="h-3.5 w-3.5" />
+              </a>
+            </Magnetic>
+            <Magnetic>
+              <a
+                href="https://www.linkedin.com/in/mosin-md-86569a202/"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="LinkedIn"
+                className="flex h-9 w-9 items-center justify-center transition-all duration-200"
+                style={{ border: "1px solid var(--rule-light)", color: "var(--fg-dim)" }}
+                onMouseEnter={(e) => { e.currentTarget.style.borderColor = "var(--gold)"; e.currentTarget.style.color = "var(--gold)"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.borderColor = "var(--rule-light)"; e.currentTarget.style.color = "var(--fg-dim)"; }}
+              >
+                <FaLinkedinIn className="h-3.5 w-3.5" />
+              </a>
+            </Magnetic>
           </div>
         </div>
 
@@ -67,31 +71,33 @@ const Footer = () => {
             © {new Date().getFullYear()} Md Mosin · All rights reserved
           </p>
 
-          <button
-            onMouseEnter={() => setHover(true)}
-            onMouseLeave={() => setHover(false)}
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="font-mono text-sm flex gap-2 order-1 sm:order-2 items-center"
-            style={{ color: "var(--fg-dim)" }}
-          >
-            <motion.span
-              animate={{ x: hover ? -14 : 0 }}
-              transition={spring}
-              style={{ color: "var(--gold)", opacity: 0.5 }}
+          <Magnetic range={60} strength={0.3}>
+            <button
+              onMouseEnter={() => setHover(true)}
+              onMouseLeave={() => setHover(false)}
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              className="font-mono text-sm flex gap-2 order-1 sm:order-2 items-center"
+              style={{ color: "var(--fg-dim)" }}
             >
-              &#60;/
-            </motion.span>
-            <span style={{ color: hover ? "var(--fg)" : "var(--fg-muted)", transition: "color 0.2s" }}>
-              mozix
-            </span>
-            <motion.span
-              animate={{ x: hover ? 14 : 0 }}
-              transition={spring}
-              style={{ color: "var(--gold)", opacity: 0.5 }}
-            >
-              &#62;
-            </motion.span>
-          </button>
+              <motion.span
+                animate={{ x: hover ? -14 : 0 }}
+                transition={spring}
+                style={{ color: "var(--gold)", opacity: 0.5 }}
+              >
+                &#60;/
+              </motion.span>
+              <span style={{ color: hover ? "var(--fg)" : "var(--fg-muted)", transition: "color 0.2s" }}>
+                mozix
+              </span>
+              <motion.span
+                animate={{ x: hover ? 14 : 0 }}
+                transition={spring}
+                style={{ color: "var(--gold)", opacity: 0.5 }}
+              >
+                &#62;
+              </motion.span>
+            </button>
+          </Magnetic>
 
           <p className="font-mono text-[9px] uppercase tracking-[0.4em] order-3 hidden sm:block" style={{ color: "var(--fg-dim)" }}>
             Built with React · Framer Motion · TypeScript
