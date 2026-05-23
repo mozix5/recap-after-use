@@ -4,9 +4,11 @@ import ProjectNavigation from "@/components/ProjectNavigation";
 import { projects } from "@/data/content";
 import { motion } from "framer-motion";
 import { TextWipe } from "@/components/ui/text-wipe";
+import { ProjectListView } from "@/components/ProjectListView";
 
 const Projects = () => {
   const [activeProject, setActiveProject] = useState(0);
+  const [viewMode, setViewMode] = useState<"cards" | "list">("cards");
   const containerRef = useRef<HTMLDivElement | null>(null);
   const projectRefs = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -87,38 +89,74 @@ const Projects = () => {
             </TextWipe>
           </h1>
 
-          <motion.p
-            className="font-lora text-base max-w-xs leading-relaxed lg:mb-4"
-            style={{ color: "var(--fg-muted)" }}
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-          >
-            A curated selection of work — from interactive interfaces to
-            scroll-driven experiences built with intention.
-          </motion.p>
+          <div className="flex flex-col gap-4 max-w-xs lg:mb-4">
+            <motion.p
+              className="font-lora text-base leading-relaxed"
+              style={{ color: "var(--fg-muted)" }}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+            >
+              A curated selection of work — from interactive interfaces to
+              scroll-driven experiences built with intention.
+            </motion.p>
+
+            <motion.div
+              className="flex items-center gap-1.5 self-start pt-2"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+            >
+              <button
+                onClick={() => setViewMode("cards")}
+                className="font-mono text-[9px] uppercase tracking-[0.25em] px-3 py-1.5 transition-all duration-200"
+                style={{
+                  border: "1px solid var(--rule-light)",
+                  background: viewMode === "cards" ? "var(--fg)" : "transparent",
+                  color: viewMode === "cards" ? "var(--bg)" : "var(--fg-muted)",
+                }}
+              >
+                Cards
+              </button>
+              <button
+                onClick={() => setViewMode("list")}
+                className="font-mono text-[9px] uppercase tracking-[0.25em] px-3 py-1.5 transition-all duration-200"
+                style={{
+                  border: "1px solid var(--rule-light)",
+                  background: viewMode === "list" ? "var(--fg)" : "transparent",
+                  color: viewMode === "list" ? "var(--bg)" : "var(--fg-muted)",
+                }}
+              >
+                List
+              </button>
+            </motion.div>
+          </div>
         </div>
       </header>
 
-      {/* ── Project list + nav ── */}
-      <div className="relative flex">
-        <ProjectNavigation projects={projects} activeProject={activeProject} />
+      {viewMode === "cards" ? (
+        <div className="relative flex">
+          <ProjectNavigation projects={projects} activeProject={activeProject} />
 
-        <div className="container mx-auto space-y-40 px-6 pt-[100vh]">
-          {projects.map((project, index) => (
-            <div
-              key={project.title}
-              ref={(el) => {
-                projectRefs.current[index] = el;
-              }}
-            >
-              <ProjectCard {...project} index={index} />
-            </div>
-          ))}
-          <div className="h-screen" aria-hidden="true" />
+          <div className="container mx-auto space-y-40 px-6 pt-[100vh]">
+            {projects.map((project, index) => (
+              <div
+                key={project.title}
+                ref={(el) => {
+                  projectRefs.current[index] = el;
+                }}
+              >
+                <ProjectCard {...project} index={index} />
+              </div>
+            ))}
+            <div className="h-screen" aria-hidden="true" />
+          </div>
         </div>
-      </div>
+      ) : (
+        <ProjectListView projects={projects} />
+      )}
     </div>
   );
 };
