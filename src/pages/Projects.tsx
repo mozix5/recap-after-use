@@ -5,6 +5,7 @@ import { projects } from "@/data/content";
 import { motion } from "framer-motion";
 import { TextWipe } from "@/components/ui/text-wipe";
 import { ProjectListView } from "@/components/ProjectListView";
+import { Magnetic } from "@/components/ui/magnetic";
 
 const Projects = () => {
   const [activeProject, setActiveProject] = useState(0);
@@ -54,7 +55,6 @@ const Projects = () => {
       className="min-h-screen px-4 sm:px-8 lg:px-16 xl:px-[190px]"
       style={{ background: "var(--bg)" }}
     >
-      {/* ── Editorial Header ── */}
       <header
         className="pt-32 pb-20 border-b"
         style={{ borderColor: "var(--rule)" }}
@@ -109,28 +109,32 @@ const Projects = () => {
               viewport={{ once: true }}
               transition={{ delay: 0.3 }}
             >
-              <button
-                onClick={() => setViewMode("cards")}
-                className="font-mono text-[9px] uppercase tracking-[0.25em] px-3 py-1.5 transition-all duration-200"
-                style={{
-                  border: "1px solid var(--rule-light)",
-                  background: viewMode === "cards" ? "var(--fg)" : "transparent",
-                  color: viewMode === "cards" ? "var(--bg)" : "var(--fg-muted)",
-                }}
-              >
-                Cards
-              </button>
-              <button
-                onClick={() => setViewMode("list")}
-                className="font-mono text-[9px] uppercase tracking-[0.25em] px-3 py-1.5 transition-all duration-200"
-                style={{
-                  border: "1px solid var(--rule-light)",
-                  background: viewMode === "list" ? "var(--fg)" : "transparent",
-                  color: viewMode === "list" ? "var(--bg)" : "var(--fg-muted)",
-                }}
-              >
-                List
-              </button>
+              <Magnetic>
+                <button
+                  onClick={() => setViewMode("cards")}
+                  className="font-mono text-[9px] uppercase tracking-[0.25em] px-3 py-1.5 transition-all duration-200"
+                  style={{
+                    border: "1px solid var(--rule-light)",
+                    background: viewMode === "cards" ? "var(--fg)" : "transparent",
+                    color: viewMode === "cards" ? "var(--bg)" : "var(--fg-muted)",
+                  }}
+                >
+                  Cards
+                </button>
+              </Magnetic>
+              <Magnetic>
+                <button
+                  onClick={() => setViewMode("list")}
+                  className="font-mono text-[9px] uppercase tracking-[0.25em] px-3 py-1.5 transition-all duration-200"
+                  style={{
+                    border: "1px solid var(--rule-light)",
+                    background: viewMode === "list" ? "var(--fg)" : "transparent",
+                    color: viewMode === "list" ? "var(--bg)" : "var(--fg-muted)",
+                  }}
+                >
+                  List
+                </button>
+              </Magnetic>
             </motion.div>
           </div>
         </div>
