@@ -9,9 +9,13 @@ export const CustomCursor = () => {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  const springConfig = { damping: 30, stiffness: 300, mass: 0.5 };
-  const outerX = useSpring(mouseX, springConfig);
-  const outerY = useSpring(mouseY, springConfig);
+  const outerSpringConfig = { damping: 30, stiffness: 300, mass: 0.5 };
+  const outerX = useSpring(mouseX, outerSpringConfig);
+  const outerY = useSpring(mouseY, outerSpringConfig);
+
+  const glowSpringConfig = { damping: 35, stiffness: 120, mass: 1.2 };
+  const glowX = useSpring(mouseX, glowSpringConfig);
+  const glowY = useSpring(mouseY, glowSpringConfig);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(hover: hover) and (pointer: fine)");
@@ -86,6 +90,30 @@ export const CustomCursor = () => {
 
   return (
     <>
+      <motion.div
+        style={{
+          position: "fixed",
+          left: glowX,
+          top: glowY,
+          x: "-50%",
+          y: "-50%",
+          pointerEvents: "none",
+          zIndex: 9997,
+          width: 320,
+          height: 320,
+          borderRadius: "50%",
+          background: "radial-gradient(circle, rgba(201,168,76,0.16) 0%, rgba(168,85,247,0.08) 40%, rgba(99,102,241,0.04) 70%, transparent 100%)",
+          filter: "blur(24px)",
+          mixBlendMode: "screen",
+        }}
+        animate={{
+          scale: isHovered ? 1.5 : 1,
+          background: isHovered
+            ? "radial-gradient(circle, rgba(201,168,76,0.22) 0%, rgba(236,72,153,0.12) 35%, rgba(99,102,241,0.08) 70%, transparent 100%)"
+            : "radial-gradient(circle, rgba(201,168,76,0.16) 0%, rgba(168,85,247,0.08) 40%, rgba(99,102,241,0.04) 70%, transparent 100%)",
+        }}
+        transition={{ type: "spring", stiffness: 120, damping: 30 }}
+      />
       <motion.div
         style={{
           position: "fixed",
