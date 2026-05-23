@@ -75,7 +75,7 @@ export const CustomCursor = () => {
 
       mouseX.set(currentX);
       mouseY.set(currentY);
-      if (!isVisible) setIsVisible(true);
+      setIsVisible(true);
 
       const dx = currentX - lastX;
       const dy = currentY - lastY;
@@ -180,12 +180,18 @@ export const CustomCursor = () => {
       cancelAnimationFrame(animationFrameId);
       document.head.removeChild(style);
     };
-  }, [mouseX, mouseY, isVisible, isMobile]);
+  }, [isMobile]);
 
-  if (isMobile || !isVisible) return null;
+  if (isMobile) return null;
 
   return (
-    <>
+    <div
+      style={{
+        opacity: isVisible ? 1 : 0,
+        pointerEvents: "none",
+        transition: "opacity 0.3s ease",
+      }}
+    >
       <canvas
         ref={canvasRef}
         style={{
@@ -262,6 +268,6 @@ export const CustomCursor = () => {
         }}
         transition={{ type: "spring", stiffness: 280, damping: 25 }}
       />
-    </>
+    </div>
   );
 };
