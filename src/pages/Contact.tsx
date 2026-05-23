@@ -3,6 +3,7 @@ import me2 from "@/assets/me2.png";
 import { motion } from "framer-motion";
 import { Magnetic } from "@/components/ui/magnetic";
 import { TextWipe } from "@/components/ui/text-wipe";
+import { Signature } from "@/components/ui/signature";
 
 
 
@@ -158,6 +159,9 @@ const Contact = () => (
                 filter: "brightness(0.8) contrast(1.05) saturate(0.5)",
               }}
             />
+          </div>
+          <div className="flex justify-center mt-6">
+            <Signature className="w-40 h-16 opacity-85 hover:opacity-100 transition-opacity" />
           </div>
         </motion.div>
       </div>

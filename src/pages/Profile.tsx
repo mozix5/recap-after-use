@@ -2,6 +2,7 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import me from "@/assets/me.png";
 import { profileData } from "@/data/content";
+import { Signature } from "@/components/ui/signature";
 
 /* Stat block — editorial number + label */
 function StatBlock({
@@ -246,6 +247,9 @@ const Profile = () => {
               >
                 {profileData.quote}
               </p>
+              <div className="flex justify-end mt-4">
+                <Signature className="w-36 h-12 opacity-80 hover:opacity-100 transition-opacity" />
+              </div>
             </motion.div>
 
             {/* Body copy */}
