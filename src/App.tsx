@@ -95,10 +95,6 @@ const App = () => {
           className="absolute top-0 inset-x-0 h-[1px]"
           style={{ background: "var(--rule-light)" }}
         />
-        <div
-          className="absolute bottom-0 inset-x-0 h-[1px]"
-          style={{ background: "var(--rule-light)" }}
-        />
 
         <div className="relative z-10 flex flex-col items-center">
           <motion.p
@@ -133,17 +129,6 @@ const App = () => {
               </motion.span>
             ))}
           </div>
-
-          <motion.div
-            className="mt-4 h-[1px] w-full max-w-xs sm:max-w-sm"
-            style={{
-              background:
-                "linear-gradient(to right, transparent, var(--gold), transparent)",
-            }}
-            initial={{ scaleX: 0 }}
-            animate={{ scaleX: 1 }}
-            transition={{ duration: 0.8, delay: 0.7 }}
-          />
         </div>
       </div>
 

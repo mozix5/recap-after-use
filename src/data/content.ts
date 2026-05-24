@@ -36,23 +36,18 @@ import turboText2 from "@/assets/turbo-text/2026-05-23_16-51-16.png";
 // ── Profile Data ── //
 export const profileData = {
   tickerItems: [
-    "Full Stack Developer",
-    "React · Next.js · Node.js",
-    "TypeScript",
-    "Angular",
-    "MongoDB · PostgreSQL",
-    "Open to Opportunities",
-    "1+ Year Production Experience",
-    "Based in India",
+    "Software Engineer",
+    "System Architect",
+    "Performance Focused",
   ],
   stats: [
-    { value: "1+", label: "Years XP" },
-    { value: "3+", label: "Projects" },
-    { value: "25%", label: "Faster pipelines" },
+    { value: "1+", label: "Years" },
+    { value: "3+", label: "Systems" },
+    { value: "100%", label: "Intent" },
   ],
-  quote: "“I don’t just ship features — I own them end-to-end, from schema to screen, with performance and clarity as the baseline.”",
-  description: "Full Stack Developer with 1+ year of production experience building enterprise SaaS platforms and consumer-grade web applications. Shipped features that cut processing time by 25%, boosted platform configurability by 40%, and accelerated frontend delivery by 40%.",
-  objective: "Proven ability to own end-to-end features across the MERN stack and Next.js in fast-moving product environments — with a sharp eye for craft, accessibility, and security."
+  quote: "“Code is cheap. Impact is everything.”",
+  description: "I build high-performance systems and visceral interfaces. No unnecessary code. Just architecture that breathes.",
+  objective: "Engineering the inevitable."
 };
 
 // ── Experience Data ── //
@@ -60,48 +55,46 @@ export const timeline = [
   {
     period: "2025",
     issue: "03",
-    title: "Graduate Engineer Trainee",
+    title: "The SaaS Architect",
     label: "Sterling Software · CAMS Group",
     icon: Rocket,
     description:
-      "Delivered core modules of DICE (Distributor Commission Management SaaS), driving a 30% uplift in operational efficiency and making commission plans 40% more configurable for enterprise clients. Secured a live fintech platform by remediating 7 critical vulnerabilities including exposed AES keys, XSS surfaces, and insecure session architecture.",
+      "Remediated session architecture and API performance to secure a high-stakes, live distributor commission system. When the noise settled, efficiency rose by 30%.",
     points: [
-      "Node.js pipelines − 25% faster",
-      "Angular accessibility refactor",
-      "Scheduler concurrency & memory fix",
-      "7 fintech security vulns closed",
-      "Session-based auth with RBAC",
-      "CSP headers & XSS remediation",
+      "Architected high-velocity Node.js pipelines.",
+      "Engineered bulletproof session architectures.",
+      "Resolved deep concurrency bottlenecks.",
+      "Secured fintech surfaces against critical vulnerabilities.",
+      "Transformed accessibility into a default state."
     ],
   },
   {
     period: "2023",
     issue: "02",
-    title: "Frontend Developer Intern",
+    title: "The System Intern",
     label: "Celebal Technologies",
     icon: Code2,
     description:
-      "Built a 15-component React component library adopted across 3 internal projects, cutting feature delivery time by 40%. Integrated 8+ REST API endpoints into live UIs and resolved 30+ production frontend bugs, reducing site downtime by 15% and improving Core Web Vitals scores.",
+      "Authored a universal interface language, accelerating product delivery speeds. A translation of abstract design into robust, reusable components.",
     points: [
-      "15-component React library",
-      "8+ REST APIs integrated",
-      "30+ prod bugs resolved",
-      "Core Web Vitals improved",
+      "Curated a 15-component React design system.",
+      "Bridged complex systems with seamless REST APIs.",
+      "Eliminated friction across production environments.",
+      "Optimized digital performance to the millisecond."
     ],
   },
   {
-    period: "2024",
+    period: "2020–2024",
     issue: "01",
-    title: "B.Tech — CS Engineering",
+    title: "The Foundation",
     label: "Lovely Professional University",
     icon: GraduationCap,
     description:
-      "Bachelor of Technology in Computer Science Engineering with a CGPA of 7.5. Built strong foundations across data structures, algorithms, operating systems, databases, and full-stack development. Certified React Developer via Boardinfinity.",
+      "Mastered the core mathematics and logic of computation. The foundational rules of syntax, systems, and algorithms that guide the hand.",
     points: [
-      "CGPA 7.5",
-      "Phagwara, Punjab · 2020–2024",
-      "Certified React Developer",
-      "Full-Stack Bootcamp certified",
+      "Mastered the science of computation with a CGPA of 7.5.",
+      "Certified in React interface engineering.",
+      "Forged through rigorous full-stack training."
     ],
   },
 ];
@@ -111,7 +104,7 @@ export const projects = [
   {
     title: "View Box",
     description:
-      "Full-stack movie discovery and review platform with real-time search, watchlist, likes, and reviews. Architectured a service-oriented Redux state layer eliminating redundant API calls across 10+ components.",
+      "A cinematic film database. Architecting state layers to bridge the gap between heavy data feeds and immediate, immersive rendering.",
     role: "Full-Stack Developer",
     timeline: "2025",
     status: "Live",
@@ -127,18 +120,18 @@ export const projects = [
     ],
     color: "gold",
     highlights: [
-      "Architectured service-oriented Redux slices (reviewSlice, authSlice, searchMovieSlice) eliminating redundant API calls across 10+ components.",
-      "Built real-time movie search with debounced input and instant dropdown, integrated live with the TMDB API.",
-      "Designed glassmorphism + cinematic backdrop UI with async loading states for a premium, immersive experience.",
+      "Architected a service-oriented state layer, silencing redundant network chatter.",
+      "Engineered real-time discovery with debounced precision.",
+      "Sculpted an immersive, glassmorphic experience that breathes."
     ],
-    metrics: ["Redux State", "Real-time Search", "TMDB API"],
+    metrics: ["SaaS Caching", "Cinematic Motion", "State Design"],
     liveUrl: "https://viewbox-two.vercel.app/",
     sourceUrl: "https://github.com/mozix5/ViewBox",
   },
   {
     title: "Pet Pal",
     description:
-      "Full-stack multi-service pet marketplace covering adoption, grooming, boarding, vet consultation, and transport. Built with a unified MERN platform and Redux for scalable global state across a multi-feature product.",
+      "A multi-service veterinary interface. Integrating real-time WebSockets and algorithmic helpers to simplify care matching.",
     role: "Full-Stack Developer",
     timeline: "2025",
     status: "Shipped",
@@ -155,18 +148,18 @@ export const projects = [
     ],
     color: "white",
     highlights: [
-      "Engineered an AI-powered ethical breeding compatibility scorer and a real-time AI vet chatbot, adding intelligent automation to core user flows.",
-      "Implemented a Tinder-style playdate matching system with real-time chat — showcasing advanced UI patterns and WebSocket integration.",
-      "Integrated a secure pet essentials store with checkout flow, combining e-commerce and social features in a single cohesive product.",
+      "Infused intelligent automation into core user flows via AI.",
+      "Forged real-time, WebSocket-driven connections.",
+      "Unified social and commerce into a seamless digital ecosystem."
     ],
-    metrics: ["MERN Stack", "WebSocket Chat", "AI Features"],
+    metrics: ["Unified Platform", "WebSockets", "Intelligent Scoring"],
     liveUrl: "https://pet-pal-iota.vercel.app/auth",
     sourceUrl: "https://github.com/mozix5/PetPal",
   },
   {
     title: "Issue Tracker",
     description:
-      "Production-grade full-stack issue management system with role-based access control. Designed a normalized MySQL schema supporting multi-status workflows (Open → In Progress → Closed) with zero migration conflicts.",
+      "An analytical workflow tracker. Designing a robust PostgreSQL schema and role permissions to structure collaborative engineering pipelines.",
     role: "Full-Stack Developer",
     timeline: "2025",
     status: "Live · Vercel",
@@ -181,17 +174,17 @@ export const projects = [
     ],
     color: "dim",
     highlights: [
-      "Implemented NextAuth.js role-based access control, restricting create/edit/delete actions to authorized users only.",
-      "Built Recharts analytics dashboards to visualize issue resolution velocity and status distribution at a glance.",
-      "Deployed on Vercel with a Supabase PostgreSQL backend, handling schema migrations and environment configuration end-to-end.",
+      "Enforced unbreakable role-based access control.",
+      "Visualized complex data pipelines into intuitive analytics.",
+      "Architected a robust, scalable backend on PostgreSQL."
     ],
-    metrics: ["NextAuth RBAC", "Recharts Analytics", "Supabase + Vercel"],
+    metrics: ["NextAuth RBAC", "Relational Schema", "Pipeline Analytics"],
     liveUrl: "https://issue-tracker-umber-ten.vercel.app",
     sourceUrl: "https://github.com/mozix5/issue-tracker",
   },
   {
     title: "turboText",
-    description: "A distraction-free writing interface built for speed and focus.",
+    description: "A minimal, focused writing environment. Stripping away the noise of the interface to create room for deep thoughts.",
     role: "Frontend Developer",
     timeline: "2025",
     status: "Live",
@@ -202,11 +195,11 @@ export const projects = [
     ],
     color: "gold",
     highlights: [
-      "Built a clean, responsive dashboard-style layout with clear writing actions and focused mode.",
-      "Designed tactile hover states, visual feedback loops, and micro-animations for a premium writing feel.",
-      "Structured reusable UI components so the interface can grow into a full editor toolkit.",
+      "Stripped the interface to its essence for absolute focus.",
+      "Choreographed tactile micro-animations for a visceral writing feel.",
+      "Engineered a scalable foundation for future toolkits."
     ],
-    metrics: ["Responsive UI", "Motion Polish", "Clean UX"],
+    metrics: ["Minimal UI", "Motion Polish", "Focus Engine"],
     liveUrl: "https://turbo-text.vercel.app",
     sourceUrl: "https://github.com/mozix5",
   },

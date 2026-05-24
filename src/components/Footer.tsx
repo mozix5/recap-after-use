@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { FaGithubAlt, FaLinkedinIn } from "react-icons/fa";
 import { Magnetic } from "@/components/ui/magnetic";
+import { Signature } from "@/components/ui/signature";
 
 const spring = { type: "spring" as const, stiffness: 700, damping: 60 };
 
@@ -14,15 +15,9 @@ const Footer = () => {
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-8">
 
           <div>
-            <p
-              className="font-bebas leading-none tracking-tight"
-              style={{ fontSize: "clamp(2.5rem,7vw,4rem)", color: "var(--fg)" }}
-            >
-              MD{" "}
-              <span style={{ WebkitTextStroke: "1px var(--fg)", color: "transparent" }}>
-                Mosin
-              </span>
-            </p>
+            <div className="-ml-3 mb-1">
+              <Signature className="w-32 h-12 opacity-85 hover:opacity-100 transition-opacity" />
+            </div>
             <p
               className="font-mono text-[10px] uppercase tracking-[0.4em] mt-1"
               style={{ color: "var(--fg-dim)" }}

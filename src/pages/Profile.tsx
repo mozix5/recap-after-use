@@ -4,51 +4,19 @@ import me from "@/assets/me.png";
 import { profileData } from "@/data/content";
 import { Signature } from "@/components/ui/signature";
 
-/* Stat block — editorial number + label */
-function StatBlock({
-  value,
-  label,
-  delay,
-  inView,
-}: {
-  value: string;
-  label: string;
-  delay: number;
-  inView: boolean;
-}) {
-  return (
-    <motion.div
-      className="flex flex-col"
-      initial={{ opacity: 0, y: 16 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.5, delay }}
-    >
-      <span
-        className="font-bebas leading-none"
-        style={{ fontSize: "clamp(2.5rem,7vw,4.5rem)", color: "var(--fg)" }}
-      >
-        {value}
-      </span>
-      <span
-        className="font-mono text-[9px] uppercase tracking-[0.35em] mt-1"
-        style={{ color: "var(--fg-dim)" }}
-      >
-        {label}
-      </span>
-    </motion.div>
-  );
-}
 
-/* Scrolling ticker */
+
 function Ticker() {
-  const doubled = [...profileData.tickerItems, ...profileData.tickerItems];
+  // Repeat the items 10 times to ensure the content is wider than any screen,
+  // making the 50% translation a seamless infinite loop.
+  const doubled = Array(10).fill(profileData.tickerItems).flat();
   return (
     <div
       className="overflow-hidden border-y py-2.5"
       style={{ borderColor: "var(--rule)" }}
     >
       <motion.div
-        className="flex gap-10 whitespace-nowrap will-change-transform"
+        className="flex gap-10 whitespace-nowrap will-change-transform w-max"
         animate={{ x: ["0%", "-50%"] }}
         transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
       >
@@ -82,12 +50,9 @@ const Profile = () => {
     >
       <Ticker />
 
-      {/* ── Main grid ── */}
       <div className="mx-auto max-w-6xl px-4 sm:px-8 lg:px-16 py-20">
         <div className="grid lg:grid-cols-[1fr_1.2fr] gap-12 lg:gap-20 items-start">
-          {/* ══ LEFT: photo panel ══ */}
           <div ref={leftRef}>
-            {/* Page number + label */}
             <motion.div
               className="flex items-baseline gap-4 mb-6"
               initial={{ opacity: 0 }}
@@ -108,14 +73,12 @@ const Profile = () => {
               </span>
             </motion.div>
 
-            {/* Photo */}
             <motion.div
               className="relative overflow-hidden"
               initial={{ opacity: 0, scale: 0.98 }}
               animate={leftInView ? { opacity: 1, scale: 1 } : {}}
               transition={{ duration: 0.7, delay: 0.1 }}
             >
-              {/* Gold top accent */}
               <div
                 className="absolute top-0 inset-x-0 h-[2px] z-10"
                 style={{
@@ -135,7 +98,6 @@ const Profile = () => {
                 }}
               />
 
-              {/* Dark overlay */}
               <div
                 className="absolute inset-0"
                 style={{
@@ -144,7 +106,6 @@ const Profile = () => {
                 }}
               />
 
-              {/* Caption bar */}
               <div
                 className="absolute bottom-0 inset-x-0 px-4 py-3 flex items-center justify-between"
                 style={{ borderTop: "1px solid var(--rule)" }}
@@ -164,32 +125,10 @@ const Profile = () => {
               </div>
             </motion.div>
 
-            {/* Stats row */}
-            <motion.div
-              className="mt-6 grid grid-cols-3 gap-4"
-              style={{
-                borderTop: "1px solid var(--rule-light)",
-                paddingTop: "1.5rem",
-              }}
-              initial={{ opacity: 0 }}
-              animate={leftInView ? { opacity: 1 } : {}}
-              transition={{ delay: 0.4 }}
-            >
-              {profileData.stats.map((stat, i) => (
-                <StatBlock
-                  key={stat.label}
-                  value={stat.value}
-                  label={stat.label}
-                  delay={0.45 + i * 0.1}
-                  inView={leftInView}
-                />
-              ))}
-            </motion.div>
+
           </div>
 
-          {/* ══ RIGHT: content ══ */}
           <div ref={rightRef} className="lg:pt-20">
-            {/* Giant name */}
             <div className="overflow-hidden mb-2">
               <motion.h1
                 className="font-bebas leading-[0.9] tracking-tight"
@@ -214,7 +153,6 @@ const Profile = () => {
               </motion.h1>
             </div>
 
-            {/* Gold rule */}
             <motion.div
               className="flex items-center gap-3 mb-8"
               initial={{ opacity: 0 }}
@@ -233,7 +171,6 @@ const Profile = () => {
               </span>
             </motion.div>
 
-            {/* Pull quote */}
             <motion.div
               className="mb-8 pl-5"
               style={{ borderLeft: "2px solid var(--gold)" }}
@@ -252,7 +189,6 @@ const Profile = () => {
               </div>
             </motion.div>
 
-            {/* Body copy */}
             <motion.p
               className="font-lora text-base leading-relaxed mb-10"
               style={{ color: "var(--fg-muted)" }}
@@ -263,7 +199,6 @@ const Profile = () => {
               {profileData.description}
             </motion.p>
 
-            {/* Objective block */}
             <motion.div
               className="p-5 relative"
               style={{ border: "1px solid var(--rule-light)" }}
