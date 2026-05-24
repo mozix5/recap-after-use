@@ -11,6 +11,7 @@ export default {
       },
       fontFamily: {
         bebas: ["Bebas Neue", " sans serif"],
+        anton: ["Anton", "Impact", "sans-serif"],
         play: ["Play", "sans serif"],
         mono: ["Roboto Mono", "monospace"],
       },

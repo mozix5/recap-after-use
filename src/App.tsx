@@ -108,17 +108,23 @@ const App = () => {
           </motion.p>
 
           <div
-            className="font-bebas flex flex-col text-[clamp(4.5rem,20vw,11rem)] font-bold leading-none tracking-widest"
+            className="font-anton flex flex-col text-[clamp(4.5rem,20vw,11rem)] uppercase leading-none tracking-wide"
             style={{ color: "var(--fg)" }}
           >
             {["recap", "after", "use"].map((word, i) => (
               <motion.span
                 key={word}
                 className={
-                  i === 1 ? "pl-8 md:pl-16" : i === 2 ? "pl-20 md:pl-56" : ""
+                  (i === 1 ? "pl-8 md:pl-16" : i === 2 ? "pl-20 md:pl-56" : "") + 
+                  " block cursor-default transition-colors duration-500"
                 }
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
+                whileHover={i === 1 ? { color: "var(--fg)" } : {}}
+                style={{
+                  WebkitTextStroke: i === 1 ? "1px var(--fg)" : "none",
+                  color: i === 1 ? "transparent" : "var(--fg)",
+                }}
                 transition={{
                   duration: 0.6,
                   delay: 0.3 + i * 0.1,

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lora:ital,wght@0,400;0,600;1,400&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Mr+De+Haviland&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Lora:ital,wght@0,400;0,600;1,400&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Mr+De+Haviland&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -20,6 +20,7 @@
 
 /* ── Font helpers ── */
 .font-lora { font-family: 'Lora', Georgia, serif; }
+.font-anton { font-family: 'Anton', Impact, sans-serif; }
 
 /* Base */
 @layer base {
