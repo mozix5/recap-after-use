@@ -51,7 +51,7 @@ const Profile = () => {
       <Ticker />
 
       <div className="mx-auto max-w-6xl px-4 sm:px-8 lg:px-16 py-20">
-        <div className="grid lg:grid-cols-[1fr_1.2fr] gap-12 lg:gap-20 items-start">
+        <div className="grid lg:grid-cols-[1fr_1.5fr] gap-12 lg:gap-20 items-start">
           <div ref={leftRef}>
             <motion.div
               className="flex items-baseline gap-4 mb-6"
@@ -79,50 +79,23 @@ const Profile = () => {
               animate={leftInView ? { opacity: 1, scale: 1 } : {}}
               transition={{ duration: 0.7, delay: 0.1 }}
             >
-              <div
-                className="absolute top-0 inset-x-0 h-[2px] z-10"
-                style={{
-                  background:
-                    "linear-gradient(to right, var(--gold), transparent)",
-                }}
-              />
-
               <img
                 src={me}
                 alt="Md Mosin"
-                className="w-full object-cover"
+                className="w-full object-contain"
                 style={{
                   filter: "brightness(0.85) contrast(1.1) saturate(0.6)",
-                  maxHeight: 460,
-                  objectPosition: "top",
+                  maxHeight: "570px",
                 }}
               />
 
               <div
-                className="absolute inset-0"
+                className="absolute inset-0 pointer-events-none"
                 style={{
                   background:
-                    "linear-gradient(to top, var(--bg) 0%, rgba(8,8,8,0.2) 45%, transparent 70%)",
+                    "linear-gradient(to top, var(--bg) 0%, rgba(8,8,8,0.1) 45%, transparent 70%)",
                 }}
               />
-
-              <div
-                className="absolute bottom-0 inset-x-0 px-4 py-3 flex items-center justify-between"
-                style={{ borderTop: "1px solid var(--rule)" }}
-              >
-                <span
-                  className="font-mono text-[9px] uppercase tracking-widest"
-                  style={{ color: "var(--fg-muted)" }}
-                >
-                  Md Mosin — Developer
-                </span>
-                <span
-                  className="font-mono text-[9px] uppercase tracking-widest"
-                  style={{ color: "var(--gold)" }}
-                >
-                  Active ◉
-                </span>
-              </div>
             </motion.div>
 
 
