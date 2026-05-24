@@ -56,8 +56,7 @@ const Projects = () => {
       style={{ background: "var(--bg)" }}
     >
       <header
-        className="pt-32 pb-20 border-b"
-        style={{ borderColor: "var(--rule)" }}
+        className="pt-32 pb-20"
       >
         <motion.p
           className="font-mono text-[10px] uppercase tracking-[0.45em] mb-6"

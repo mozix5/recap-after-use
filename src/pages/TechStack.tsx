@@ -33,8 +33,8 @@ const HoverIcon = ({ children, name }: { children: React.ReactNode; name: string
 
 const TechStack = () => (
   <section
-    className="relative overflow-hidden border-t"
-    style={{ background: "var(--bg)", borderColor: "var(--rule)" }}
+    className="relative overflow-hidden"
+    style={{ background: "var(--bg)" }}
   >
     <div
       className="pointer-events-none absolute inset-0 opacity-40"
@@ -121,8 +121,7 @@ const TechStack = () => (
           style={{ background: "var(--rule-light)" }}
         />
         <span
-          className="font-mono text-[9px] uppercase tracking-[0.4em]"
-          style={{ color: "var(--fg-dim)" }}
+          className="font-mono text-[9px] uppercase tracking-[0.4em] text-[var(--fg-dim)] hover:text-[var(--gold)] hover:drop-shadow-[0_0_8px_var(--gold)] transition-all duration-500 cursor-default"
         >
           Always expanding
         </span>

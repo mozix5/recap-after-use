@@ -198,8 +198,8 @@ const Experience = () => {
 
   return (
     <section
-      className="relative overflow-hidden border-t"
-      style={{ background: "var(--bg)", borderColor: "var(--rule)" }}
+      className="relative overflow-hidden"
+      style={{ background: "var(--bg)" }}
     >
       {/* Dot grid */}
       <div

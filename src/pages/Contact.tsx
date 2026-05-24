@@ -10,8 +10,8 @@ import { Signature } from "@/components/ui/signature";
 const Contact = () => (
   <section
     id="contact"
-    className="relative overflow-hidden border-t"
-    style={{ background: "var(--bg)", borderColor: "var(--rule)" }}
+    className="relative overflow-hidden"
+    style={{ background: "var(--bg)" }}
   >
     <div className="mx-auto max-w-6xl px-4 sm:px-8 lg:px-16 py-24">
       {/* ── Section Label ── */}
