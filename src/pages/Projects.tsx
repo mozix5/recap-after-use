@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { ProjectListView } from "@/components/projects/ProjectListView";
 import { Magnetic } from "@/components/ui/magnetic";
 import { SectionHeader } from "@/components/ui/section-header";
+import { ProjectIceberg } from "@/components/projects/project-iceberg";
 
 const Projects = () => {
   const [activeProject, setActiveProject] = useState(0);
@@ -118,6 +119,8 @@ const Projects = () => {
       ) : (
         <ProjectListView projects={projects} />
       )}
+
+      <ProjectIceberg />
     </div>
   );
 };
