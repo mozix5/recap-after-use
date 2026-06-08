@@ -13,7 +13,7 @@ import {
   SiTailwindcss
 } from "react-icons/si";
 import { motion } from "framer-motion";
-import { TextWipe } from "@/components/ui/text-wipe";
+import { SectionHeader } from "@/components/ui/section-header";
 
 const HoverIcon = ({ children, name }: { children: React.ReactNode; name: string }) => (
   <div className="group flex h-full w-full items-center justify-center cursor-pointer">
@@ -46,41 +46,14 @@ const TechStack = () => (
     />
 
     <div className="relative mx-auto max-w-6xl px-4 sm:px-8 lg:px-16 py-24">
-      <motion.div
+      <SectionHeader
+        issueNumber="04"
+        issueTitle="Toolkit"
+        titlePrimary="The"
+        titleStroked="Stack"
         className="mb-6"
-        initial={{ opacity: 0, y: -8 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.4 }}
-      >
-        <p
-          className="font-mono text-[10px] uppercase tracking-[0.45em] mb-4"
-          style={{ color: "var(--fg-dim)" }}
-        >
-          Issue 04 · Toolkit
-        </p>
-        <h2
-          className="font-bebas leading-none tracking-tight"
-          style={{ fontSize: "clamp(4rem,12vw,8rem)", color: "var(--fg)" }}
-        >
-          <TextWipe delay={0.1}>
-            <span>The</span>
-          </TextWipe>
-          <TextWipe delay={0.25}>
-            <span
-              style={{ WebkitTextStroke: "1px var(--fg)", color: "transparent" }}
-            >
-              Stack
-            </span>
-          </TextWipe>
-        </h2>
-        <div
-          className="h-px w-24 mt-4"
-          style={{
-            background: "linear-gradient(to right, var(--gold), transparent)",
-          }}
-        />
-      </motion.div>
+        showShortDivider
+      />
 
       <div className="relative flex h-[480px] w-full flex-col items-center justify-center">
         <span
