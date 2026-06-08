@@ -12,8 +12,8 @@ import {
   SiVercel,
   SiTailwindcss
 } from "react-icons/si";
-import { motion } from "framer-motion";
 import { SectionHeader } from "@/components/ui/section-header";
+import { SectionDivider } from "@/components/ui/section-divider";
 
 const HoverIcon = ({ children, name }: { children: React.ReactNode; name: string }) => (
   <div className="group flex h-full w-full items-center justify-center cursor-pointer">
@@ -82,28 +82,7 @@ const TechStack = () => (
         </OrbitingCircles>
       </div>
 
-      <motion.div
-        className="flex items-center gap-4 pt-12"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ delay: 0.2 }}
-      >
-        <div
-          className="h-px flex-1"
-          style={{ background: "var(--rule-light)" }}
-        />
-        <span
-          className="font-mono text-[9px] uppercase tracking-[0.4em] text-[var(--fg-dim)] hover:text-[var(--gold)] hover:drop-shadow-[0_0_8px_var(--gold)] transition-all duration-500 cursor-default"
-        >
-          Always expanding
-        </span>
-        <span style={{ color: "var(--gold)", fontSize: 8 }}>◆</span>
-        <div
-          className="h-px flex-1"
-          style={{ background: "var(--rule-light)" }}
-        />
-      </motion.div>
+      <SectionDivider text="Always expanding" />
     </div>
   </section>
 );

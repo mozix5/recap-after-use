@@ -3,6 +3,7 @@ import { useRef } from "react";
 import { timeline } from "@/data/content";
 import { ExperienceEntry } from "@/components/experience/ExperienceEntry";
 import { SectionHeader } from "@/components/ui/section-header";
+import { SectionDivider } from "@/components/ui/section-divider";
 
 const Experience = () => {
   const timelineRef = useRef<HTMLDivElement>(null);
@@ -63,28 +64,7 @@ const Experience = () => {
           ))}
         </div>
 
-        <motion.div
-          className="flex items-center gap-4 mt-4"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-        >
-          <div
-            className="h-px flex-1"
-            style={{ background: "var(--rule-light)" }}
-          />
-          <span
-            className="font-mono text-[9px] uppercase tracking-[0.4em]"
-            style={{ color: "var(--fg-dim)" }}
-          >
-            Still in print
-          </span>
-          <span style={{ color: "var(--gold)", fontSize: 8 }}>◆</span>
-          <div
-            className="h-px flex-1"
-            style={{ background: "var(--rule-light)" }}
-          />
-        </motion.div>
+        <SectionDivider text="Still in print" className="mt-4" delay={0} />
       </div>
     </section>
   );
