@@ -9,10 +9,10 @@ interface ProjectIcebergProps {
 const WATERLINE_TOP = "22%";
 
 const belowStats = [
-  { side: "left" as const, label: "40+ personal repositories", top: "52%" },
-  { side: "left" as const, label: "System configs & CI pipelines", top: "68%" },
-  { side: "right" as const, label: "API backends & databases", top: "46%" },
-  { side: "right" as const, label: "Scripts & local toolkits", top: "62%" },
+  { side: "left" as const, label: "40+ personal repositories", top: "50%" },
+  { side: "left" as const, label: "System configs & CI pipelines", top: "66%" },
+  { side: "right" as const, label: "API backends & databases", top: "44%" },
+  { side: "right" as const, label: "Scripts & local toolkits", top: "60%" },
 ];
 
 export const ProjectIceberg = ({ className = "" }: ProjectIcebergProps) => {
@@ -38,15 +38,102 @@ export const ProjectIceberg = ({ className = "" }: ProjectIcebergProps) => {
       </motion.p>
 
       <div
-        className="relative w-full max-w-lg mx-auto"
+        className="relative w-full max-w-lg mx-auto aspect-[431/548]"
         style={{ cursor: "crosshair" }}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
+        {/* Glow behind the submerged base */}
+        <motion.div
+          className="absolute left-1/2 -translate-x-1/2 rounded-full pointer-events-none"
+          style={{
+            width: "80%",
+            height: "70%",
+            top: "25%",
+            background: "radial-gradient(circle, rgba(201, 168, 76, 0.15) 0%, transparent 70%)",
+            filter: "blur(30px)",
+            zIndex: 0,
+          }}
+          animate={{
+            opacity: isHovered ? 1 : 0.2,
+            scale: isHovered ? 1.05 : 0.95,
+          }}
+          transition={{ duration: 0.6, ease: "easeInOut" }}
+        />
+
+        {/* BELOW WATER: Submerged Base */}
+        <motion.div
+          className="absolute inset-0 z-10 pointer-events-none"
+          style={{
+            clipPath: "inset(22% 0 0 0)",
+          }}
+          animate={
+            isHovered
+              ? {
+                  y: [2, 10, 2],
+                  x: [0, -3, 3, 0],
+                  scale: 1.015,
+                }
+              : {
+                  y: [0, -4, 0],
+                  x: [-2, 2, -2],
+                  scale: 1,
+                }
+          }
+          transition={{
+            duration: isHovered ? 5 : 7,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        >
+          <motion.img
+            src={icebergImg}
+            alt="Submerged base of the iceberg"
+            className="w-full h-full object-cover select-none"
+            style={{
+              filter: isHovered
+                ? "brightness(0.95) saturate(0.85) drop-shadow(0 0 12px rgba(201,168,76,0.25))"
+                : "brightness(0.78) saturate(0.6) opacity(0.85)",
+              transition: "filter 0.5s ease",
+            }}
+            draggable={false}
+          />
+        </motion.div>
+
+        {/* ABOVE WATER: Tip */}
+        <motion.div
+          className="absolute inset-0 z-20 pointer-events-none"
+          style={{
+            clipPath: "inset(0 0 78% 0)",
+          }}
+          animate={{
+            y: [0, -3, 0],
+          }}
+          transition={{
+            duration: 4.5,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        >
+          <motion.img
+            src={icebergImg}
+            alt="Visible tip of the iceberg"
+            className="w-full h-full object-cover select-none"
+            style={{
+              filter: isHovered
+                ? "brightness(1) saturate(1)"
+                : "brightness(0.85) saturate(0.7)",
+              transition: "filter 0.5s ease",
+            }}
+            draggable={false}
+          />
+        </motion.div>
+
+        {/* Stat Labels */}
         {belowStats.map((stat, i) => (
           <motion.div
             key={i}
-            className="absolute hidden xl:flex items-center gap-2"
+            className="absolute hidden xl:flex items-center gap-2 z-30"
             style={{
               top: stat.top,
               ...(stat.side === "left" ? { left: "-210px" } : { right: "-210px" }),
@@ -58,7 +145,7 @@ export const ProjectIceberg = ({ className = "" }: ProjectIcebergProps) => {
                 ? { opacity: 1, x: 0 }
                 : { opacity: 0, x: stat.side === "left" ? 10 : -10 }
             }
-            transition={{ duration: 0.3, delay: i * 0.07 }}
+            transition={{ duration: 0.35, delay: i * 0.08 }}
           >
             <span
               className="font-mono text-[8px]"
@@ -80,30 +167,9 @@ export const ProjectIceberg = ({ className = "" }: ProjectIcebergProps) => {
           </motion.div>
         ))}
 
-        <motion.div
-          animate={{
-            y: [0, -7, 0],
-            transition: { duration: 3.5, repeat: Infinity, ease: "easeInOut" },
-          }}
-        >
-          <motion.img
-            src={icebergImg}
-            alt="Iceberg showing visible tip above water and large hidden mass below"
-            className="w-full select-none"
-            style={{
-              filter: isHovered
-                ? "drop-shadow(0 0 28px rgba(201,168,76,0.4)) drop-shadow(0 0 8px rgba(201,168,76,0.25))"
-                : "drop-shadow(0 10px 36px rgba(0,0,0,0.55)) brightness(0.85) saturate(0.65)",
-              transition: "filter 0.5s ease",
-              userSelect: "none",
-              pointerEvents: "none",
-            }}
-            draggable={false}
-          />
-        </motion.div>
-
+        {/* Waterline & 90% Hidden Indicators */}
         <div
-          className="absolute left-0 right-0 pointer-events-none"
+          className="absolute left-0 right-0 pointer-events-none z-30"
           style={{ top: WATERLINE_TOP }}
         >
           <motion.div
@@ -148,7 +214,7 @@ export const ProjectIceberg = ({ className = "" }: ProjectIcebergProps) => {
         href="https://github.com/mozix5"
         target="_blank"
         rel="noreferrer"
-        className="mt-12 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.5em] px-6 py-3"
+        className="mt-12 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.5em] px-6 py-3 z-30"
         style={{ border: "1px solid var(--rule-light)", color: "var(--fg-dim)" }}
         whileHover={{ borderColor: "var(--gold)", color: "var(--gold)" }}
         initial={{ opacity: 0, y: 10 }}
