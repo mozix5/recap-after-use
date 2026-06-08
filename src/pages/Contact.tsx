@@ -1,4 +1,4 @@
-import { socials } from "@/data/content";
+import { socials, sections } from "@/data/content";
 import me2 from "@/assets/me2.png";
 import { motion } from "framer-motion";
 import { Magnetic } from "@/components/ui/magnetic";
@@ -19,7 +19,7 @@ const Contact = () => (
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
       >
-        Issue 05 · Correspondence
+        Issue {sections.contact.issueNumber} · {sections.contact.issueTitle}
       </motion.p>
 
       <div className="grid lg:grid-cols-[1fr_auto] gap-12 lg:gap-20 items-start">
@@ -29,7 +29,7 @@ const Contact = () => (
             style={{ fontSize: "clamp(4rem,14vw,10rem)", color: "var(--fg)" }}
           >
             <TextWipe delay={0.1}>
-              <span className="block">Drop me</span>
+              <span className="block">{sections.contact.titlePrimary}</span>
             </TextWipe>
             <TextWipe delay={0.25}>
               <span
@@ -39,7 +39,7 @@ const Contact = () => (
                   color: "transparent",
                 }}
               >
-                a line
+                {sections.contact.titleStroked}
               </span>
             </TextWipe>
           </div>
@@ -56,7 +56,7 @@ const Contact = () => (
               className="font-mono text-[9px] uppercase tracking-[0.5em]"
               style={{ color: "var(--gold)" }}
             >
-              Open to opportunities
+              {sections.contact.objectiveLabel}
             </span>
           </motion.div>
 
@@ -74,7 +74,7 @@ const Contact = () => (
               Email
             </p>
             <a
-              href="mailto:mosinmd827@gmail.com"
+              href={`mailto:${sections.contact.email}`}
               className="font-lora text-xl transition-colors"
               style={{ color: "var(--fg-muted)" }}
               onMouseEnter={(e) => (e.currentTarget.style.color = "var(--fg)")}
@@ -82,7 +82,7 @@ const Contact = () => (
                 (e.currentTarget.style.color = "var(--fg-muted)")
               }
             >
-              mosinmd827@gmail.com
+              {sections.contact.email}
             </a>
           </motion.div>
 

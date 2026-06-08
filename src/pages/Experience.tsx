@@ -1,6 +1,6 @@
 import { motion, useScroll, useSpring } from "framer-motion";
 import { useRef } from "react";
-import { timeline } from "@/data/content";
+import { timeline, sections } from "@/data/content";
 import { ExperienceEntry } from "@/components/experience/ExperienceEntry";
 import { SectionHeader } from "@/components/ui/section-header";
 import { SectionDivider } from "@/components/ui/section-divider";
@@ -34,11 +34,11 @@ const Experience = () => {
 
       <div className="relative mx-auto max-w-6xl px-4 sm:px-8 lg:px-16 py-24">
         <SectionHeader
-          issueNumber="03"
-          issueTitle="Career & Education"
-          titlePrimary="Exper"
-          titleStroked="ience"
-          description="A timeline of production work, real impact shipped, and the education that built the foundation underneath it."
+          issueNumber={sections.experience.issueNumber}
+          issueTitle={sections.experience.issueTitle}
+          titlePrimary={sections.experience.titlePrimary}
+          titleStroked={sections.experience.titleStroked}
+          description={sections.experience.description}
           className="mb-20"
           showLongDivider
         />

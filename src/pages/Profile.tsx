@@ -1,7 +1,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import me from "@/assets/me.png";
-import { profileData } from "@/data/content";
+import { profileData, sections } from "@/data/content";
 import { Signature } from "@/components/ui/signature";
 
 function Ticker() {
@@ -59,13 +59,13 @@ const Profile = () => {
                 className="font-bebas text-6xl leading-none"
                 style={{ color: "var(--rule-light)" }}
               >
-                01
+                {sections.profile.issueNumber}
               </span>
               <span
                 className="font-mono text-[10px] uppercase tracking-[0.4em]"
                 style={{ color: "var(--fg-dim)" }}
               >
-                The Developer
+                {sections.profile.issueTitle}
               </span>
             </motion.div>
 
@@ -107,7 +107,7 @@ const Profile = () => {
                 animate={rightInView ? { y: 0 } : {}}
                 transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
               >
-                MD
+                {sections.profile.titlePrimary}
                 <br />
                 <span
                   style={{
@@ -115,7 +115,7 @@ const Profile = () => {
                     color: "transparent",
                   }}
                 >
-                  Mosin
+                  {sections.profile.titleStroked}
                 </span>
               </motion.h1>
             </div>
@@ -134,7 +134,7 @@ const Profile = () => {
                 className="font-mono text-[9px] uppercase tracking-[0.5em]"
                 style={{ color: "var(--gold)" }}
               >
-                Full Stack Developer
+                {sections.profile.role}
               </span>
             </motion.div>
 

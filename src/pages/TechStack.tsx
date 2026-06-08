@@ -14,6 +14,7 @@ import {
 } from "react-icons/si";
 import { SectionHeader } from "@/components/ui/section-header";
 import { SectionDivider } from "@/components/ui/section-divider";
+import { sections } from "@/data/content";
 
 const HoverIcon = ({ children, name }: { children: React.ReactNode; name: string }) => (
   <div className="group flex h-full w-full items-center justify-center cursor-pointer">
@@ -47,10 +48,10 @@ const TechStack = () => (
 
     <div className="relative mx-auto max-w-6xl px-4 sm:px-8 lg:px-16 py-24">
       <SectionHeader
-        issueNumber="04"
-        issueTitle="Toolkit"
-        titlePrimary="The"
-        titleStroked="Stack"
+        issueNumber={sections.techStack.issueNumber}
+        issueTitle={sections.techStack.issueTitle}
+        titlePrimary={sections.techStack.titlePrimary}
+        titleStroked={sections.techStack.titleStroked}
         className="mb-6"
         showShortDivider
       />

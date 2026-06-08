@@ -205,7 +205,6 @@ export const projects = [
   },
 ];
 
-// ── Contact Data ── //
 export const socials = [
   { href: "https://github.com/mozix5", label: "GitHub", icon: FaGithubAlt },
   {
@@ -215,3 +214,41 @@ export const socials = [
   },
   { href: "https://portfolyo-amber.vercel.app/", label: "Portfolio", icon: FaCode },
 ];
+
+export const sections = {
+  profile: {
+    issueNumber: "01",
+    issueTitle: "The Developer",
+    titlePrimary: "MD",
+    titleStroked: "Mosin",
+    role: "Full Stack Developer",
+  },
+  projects: {
+    issueNumber: "02",
+    issueTitle: "Selected Work",
+    titlePrimary: "Case",
+    titleStroked: "Studies",
+    description: "A curated selection of work — from interactive interfaces to scroll-driven experiences built with intention.",
+  },
+  experience: {
+    issueNumber: "03",
+    issueTitle: "Career & Education",
+    titlePrimary: "Exper",
+    titleStroked: "ience",
+    description: "A timeline of production work, real impact shipped, and the education that built the foundation underneath it.",
+  },
+  techStack: {
+    issueNumber: "04",
+    issueTitle: "Toolkit",
+    titlePrimary: "The",
+    titleStroked: "Stack",
+  },
+  contact: {
+    issueNumber: "05",
+    issueTitle: "Correspondence",
+    titlePrimary: "Drop me",
+    titleStroked: "a line",
+    email: "mosinmd827@gmail.com",
+    objectiveLabel: "Open to opportunities",
+  },
+};

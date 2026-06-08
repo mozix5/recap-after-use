@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import ProjectCard from "@/components/projects/ProjectCard";
 import ProjectNavigation from "@/components/projects/ProjectNavigation";
-import { projects } from "@/data/content";
+import { projects, sections } from "@/data/content";
 import { motion } from "framer-motion";
 import { ProjectListView } from "@/components/projects/ProjectListView";
 import { Magnetic } from "@/components/ui/magnetic";
@@ -54,11 +54,11 @@ const Projects = () => {
       style={{ background: "var(--bg)" }}
     >
       <SectionHeader
-        issueNumber="02"
-        issueTitle="Selected Work"
-        titlePrimary="Case"
-        titleStroked="Studies"
-        description="A curated selection of work — from interactive interfaces to scroll-driven experiences built with intention."
+        issueNumber={sections.projects.issueNumber}
+        issueTitle={sections.projects.issueTitle}
+        titlePrimary={sections.projects.titlePrimary}
+        titleStroked={sections.projects.titleStroked}
+        description={sections.projects.description}
         className="pt-32 pb-20"
       >
         <motion.div
