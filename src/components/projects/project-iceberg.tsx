@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import icebergImg from "@/assets/iceberg2.png";
 
 interface ProjectIcebergProps {
@@ -17,6 +17,37 @@ const belowStats = [
 
 export const ProjectIceberg = ({ className = "" }: ProjectIcebergProps) => {
   const [isHovered, setIsHovered] = useState(false);
+
+  // Mouse coordinate motion values (centered at 0.5)
+  const mouseX = useMotionValue(0.5);
+  const mouseY = useMotionValue(0.5);
+
+  // Smooth springs for rotation (stiffer for the tip above water, softer for the submerged base)
+  const tipRotateX = useSpring(useTransform(mouseY, [0, 1], [8, -8]), { damping: 25, stiffness: 120 });
+  const tipRotateY = useSpring(useTransform(mouseX, [0, 1], [-8, 8]), { damping: 25, stiffness: 120 });
+
+  const baseRotateX = useSpring(useTransform(mouseY, [0, 1], [4, -4]), { damping: 35, stiffness: 80 });
+  const baseRotateY = useSpring(useTransform(mouseX, [0, 1], [-4, 4]), { damping: 35, stiffness: 80 });
+
+  // Translation offset for water drag/parallax depth effect
+  const baseParallaxX = useSpring(useTransform(mouseX, [0, 1], [-12, 12]), { damping: 30, stiffness: 90 });
+  const baseParallaxY = useSpring(useTransform(mouseY, [0, 1], [-8, 12]), { damping: 30, stiffness: 90 });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    mouseX.set((e.clientX - rect.left) / rect.width);
+    mouseY.set((e.clientY - rect.top) / rect.height);
+  };
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    mouseX.set(0.5);
+    mouseY.set(0.5);
+  };
 
   return (
     <motion.div
@@ -39,9 +70,10 @@ export const ProjectIceberg = ({ className = "" }: ProjectIcebergProps) => {
 
       <div
         className="relative w-full max-w-lg mx-auto aspect-[431/548]"
-        style={{ cursor: "crosshair" }}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
+        style={{ cursor: "crosshair", perspective: "1000px" }}
+        onMouseMove={handleMouseMove}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
       >
         {/* Glow behind the submerged base */}
         <motion.div
@@ -53,6 +85,8 @@ export const ProjectIceberg = ({ className = "" }: ProjectIcebergProps) => {
             background: "radial-gradient(circle, rgba(201, 168, 76, 0.15) 0%, transparent 70%)",
             filter: "blur(30px)",
             zIndex: 0,
+            x: baseParallaxX,
+            y: baseParallaxY,
           }}
           animate={{
             opacity: isHovered ? 1 : 0.2,
@@ -63,54 +97,71 @@ export const ProjectIceberg = ({ className = "" }: ProjectIcebergProps) => {
 
         {/* BELOW WATER: Submerged Base */}
         <motion.div
-          className="absolute inset-0 z-10 pointer-events-none"
+          className="absolute inset-0 z-10 pointer-events-none origin-center"
           style={{
             clipPath: "inset(22% 0 0 0)",
+            rotateX: baseRotateX,
+            rotateY: baseRotateY,
+            x: baseParallaxX,
+            y: baseParallaxY,
+            transformStyle: "preserve-3d",
           }}
           animate={
             isHovered
               ? {
-                  y: [2, 10, 2],
-                  x: [0, -3, 3, 0],
-                  scale: 1.015,
+                  scale: 1.025,
                 }
               : {
-                  y: [0, -4, 0],
-                  x: [-2, 2, -2],
                   scale: 1,
                 }
           }
           transition={{
-            duration: isHovered ? 5 : 7,
-            repeat: Infinity,
-            ease: "easeInOut",
+            duration: 0.5,
+            ease: "easeOut",
           }}
         >
-          <motion.img
-            src={icebergImg}
-            alt="Submerged base of the iceberg"
-            className="w-full h-full object-cover select-none"
-            style={{
-              filter: isHovered
-                ? "brightness(0.95) saturate(0.85) drop-shadow(0 0 12px rgba(201,168,76,0.25))"
-                : "brightness(0.78) saturate(0.6) opacity(0.85)",
-              transition: "filter 0.5s ease",
+          {/* Internal floating sway animation */}
+          <motion.div
+            className="w-full h-full"
+            animate={{
+              y: isHovered ? [0, 4, 0] : [0, -4, 0],
+              x: isHovered ? [0, -1, 1, 0] : [-2, 2, -2],
             }}
-            draggable={false}
-          />
+            transition={{
+              duration: isHovered ? 6 : 8,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          >
+            <motion.img
+              src={icebergImg}
+              alt="Submerged base of the iceberg"
+              className="w-full h-full object-cover select-none"
+              style={{
+                filter: isHovered
+                  ? "brightness(0.95) saturate(0.85) drop-shadow(0 0 12px rgba(201,168,76,0.25))"
+                  : "brightness(0.78) saturate(0.6) opacity(0.85)",
+                transition: "filter 0.5s ease",
+              }}
+              draggable={false}
+            />
+          </motion.div>
         </motion.div>
 
         {/* ABOVE WATER: Tip */}
         <motion.div
-          className="absolute inset-0 z-20 pointer-events-none"
+          className="absolute inset-0 z-20 pointer-events-none origin-center"
           style={{
             clipPath: "inset(0 0 78% 0)",
+            rotateX: tipRotateX,
+            rotateY: tipRotateY,
+            transformStyle: "preserve-3d",
           }}
           animate={{
-            y: [0, -3, 0],
+            y: [0, -2, 0],
           }}
           transition={{
-            duration: 4.5,
+            duration: 5,
             repeat: Infinity,
             ease: "easeInOut",
           }}
