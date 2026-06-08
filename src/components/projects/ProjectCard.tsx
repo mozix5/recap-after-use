@@ -4,6 +4,7 @@ import { FaGithub } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { Magnetic } from "@/components/ui/magnetic";
 import { ProjectCardCarousel } from "./ProjectCardCarousel";
+import { TagList } from "@/components/ui/tag-list";
 
 type ProjectCardProps = {
   title: string;
@@ -97,22 +98,7 @@ const ProjectCard = ({
             {description.split(".")[0].trim()}.
           </p>
 
-          <div className="hidden lg:flex items-center gap-1.5 shrink-0">
-            {techStack.slice(0, 4).map((t) => (
-              <span
-                key={t}
-                className="font-mono text-[9px] uppercase tracking-wider px-2 py-0.5"
-                style={{ border: "1px solid var(--rule)", color: "var(--fg-dim)" }}
-              >
-                {t}
-              </span>
-            ))}
-            {techStack.length > 4 && (
-              <span className="font-mono text-[9px]" style={{ color: "var(--fg-dim)" }}>
-                +{techStack.length - 4}
-              </span>
-            )}
-          </div>
+          <TagList tags={techStack} limit={4} size="sm" className="hidden lg:flex shrink-0" />
 
           <div className="flex items-center gap-2 ml-auto shrink-0">
             <Magnetic>

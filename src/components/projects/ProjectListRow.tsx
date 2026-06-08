@@ -2,6 +2,7 @@ import React from "react";
 import { ArrowUpRight } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 import { Magnetic } from "@/components/ui/magnetic";
+import { TagList } from "@/components/ui/tag-list";
 
 export type ProjectItem = {
   title: string;
@@ -51,22 +52,7 @@ export const ProjectListRow = React.forwardRef<HTMLDivElement, ProjectListRowPro
           >
             {project.description.split(".")[0].trim()}.
           </p>
-          <div className="flex flex-wrap gap-2 mt-1">
-            {project.techStack.slice(0, 4).map((t) => (
-              <span
-                key={t}
-                className="font-mono text-[10px] uppercase tracking-wider px-2.5 py-1"
-                style={{
-                  border: "1px solid var(--rule)",
-                  color: isHovered ? "var(--gold)" : "var(--fg-dim)",
-                  borderColor: isHovered ? "var(--gold-muted)" : "var(--rule-light)",
-                  transition: "all 0.3s"
-                }}
-              >
-                {t}
-              </span>
-            ))}
-          </div>
+          <TagList tags={project.techStack} limit={4} isHovered={isHovered} className="mt-1" />
         </div>
 
         <div className="flex items-center gap-3 shrink-0 md:ml-6 z-10">
