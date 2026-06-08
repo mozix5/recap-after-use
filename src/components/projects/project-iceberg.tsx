@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { useState, useRef } from "react";
+import { motion, useMotionValue, useSpring, useTransform, useScroll } from "framer-motion";
 import icebergImg from "@/assets/iceberg2.png";
 
 interface ProjectIcebergProps {
@@ -17,12 +17,24 @@ const belowStats = [
 
 export const ProjectIceberg = ({ className = "" }: ProjectIcebergProps) => {
   const [isHovered, setIsHovered] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  // Mouse coordinate motion values (centered at 0.5)
+  // 1. Scroll Parallax: Track position relative to viewport
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  });
+
+  // Scroll offsets (waterline stays centered, tip rises faster, base sinks slower/resists scroll)
+  const tipScrollY = useTransform(scrollYProgress, [0, 1], [-30, 30]);
+  const baseScrollY = useTransform(scrollYProgress, [0, 1], [25, -25]);
+  const waterlineScrollY = useTransform(scrollYProgress, [0, 1], [-10, 10]);
+
+  // 2. Mouse Coordinate Motion Values
   const mouseX = useMotionValue(0.5);
   const mouseY = useMotionValue(0.5);
 
-  // Smooth springs for rotation (stiffer for the tip above water, softer for the submerged base)
+  // Smooth springs for 3D rotation
   const tipRotateX = useSpring(useTransform(mouseY, [0, 1], [8, -8]), { damping: 25, stiffness: 120 });
   const tipRotateY = useSpring(useTransform(mouseX, [0, 1], [-8, 8]), { damping: 25, stiffness: 120 });
 
@@ -51,6 +63,7 @@ export const ProjectIceberg = ({ className = "" }: ProjectIcebergProps) => {
 
   return (
     <motion.div
+      ref={containerRef}
       className={`relative w-full flex flex-col items-center py-20 ${className}`}
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -75,7 +88,7 @@ export const ProjectIceberg = ({ className = "" }: ProjectIcebergProps) => {
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        {/* Glow behind the submerged base */}
+        {/* Glow behind the submerged base (follows base scroll & mouse movement) */}
         <motion.div
           className="absolute left-1/2 -translate-x-1/2 rounded-full pointer-events-none"
           style={{
@@ -86,7 +99,7 @@ export const ProjectIceberg = ({ className = "" }: ProjectIcebergProps) => {
             filter: "blur(30px)",
             zIndex: 0,
             x: baseParallaxX,
-            y: baseParallaxY,
+            y: useTransform(() => baseScrollY.get() + baseParallaxY.get()),
           }}
           animate={{
             opacity: isHovered ? 1 : 0.2,
@@ -100,51 +113,58 @@ export const ProjectIceberg = ({ className = "" }: ProjectIcebergProps) => {
           className="absolute inset-0 z-10 pointer-events-none origin-center"
           style={{
             clipPath: "inset(22% 0 0 0)",
-            rotateX: baseRotateX,
-            rotateY: baseRotateY,
-            x: baseParallaxX,
-            y: baseParallaxY,
-            transformStyle: "preserve-3d",
-          }}
-          animate={
-            isHovered
-              ? {
-                  scale: 1.025,
-                }
-              : {
-                  scale: 1,
-                }
-          }
-          transition={{
-            duration: 0.5,
-            ease: "easeOut",
+            y: baseScrollY,
           }}
         >
-          {/* Internal floating sway animation */}
           <motion.div
-            className="w-full h-full"
-            animate={{
-              y: isHovered ? [0, 4, 0] : [0, -4, 0],
-              x: isHovered ? [0, -1, 1, 0] : [-2, 2, -2],
+            className="w-full h-full origin-center"
+            style={{
+              rotateX: baseRotateX,
+              rotateY: baseRotateY,
+              x: baseParallaxX,
+              y: baseParallaxY,
+              transformStyle: "preserve-3d",
             }}
+            animate={
+              isHovered
+                ? {
+                    scale: 1.025,
+                  }
+                : {
+                    scale: 1,
+                  }
+            }
             transition={{
-              duration: isHovered ? 6 : 8,
-              repeat: Infinity,
-              ease: "easeInOut",
+              duration: 0.5,
+              ease: "easeOut",
             }}
           >
-            <motion.img
-              src={icebergImg}
-              alt="Submerged base of the iceberg"
-              className="w-full h-full object-cover select-none"
-              style={{
-                filter: isHovered
-                  ? "brightness(0.95) saturate(0.85) drop-shadow(0 0 12px rgba(201,168,76,0.25))"
-                  : "brightness(0.78) saturate(0.6) opacity(0.85)",
-                transition: "filter 0.5s ease",
+            {/* Internal floating sway animation */}
+            <motion.div
+              className="w-full h-full"
+              animate={{
+                y: isHovered ? [0, 4, 0] : [0, -4, 0],
+                x: isHovered ? [0, -1, 1, 0] : [-2, 2, -2],
               }}
-              draggable={false}
-            />
+              transition={{
+                duration: isHovered ? 6 : 8,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            >
+              <motion.img
+                src={icebergImg}
+                alt="Submerged base of the iceberg"
+                className="w-full h-full object-cover select-none"
+                style={{
+                  filter: isHovered
+                    ? "brightness(0.95) saturate(0.85) drop-shadow(0 0 12px rgba(201,168,76,0.25))"
+                    : "brightness(0.78) saturate(0.6) opacity(0.85)",
+                  transition: "filter 0.5s ease",
+                }}
+                draggable={false}
+              />
+            </motion.div>
           </motion.div>
         </motion.div>
 
@@ -153,31 +173,42 @@ export const ProjectIceberg = ({ className = "" }: ProjectIcebergProps) => {
           className="absolute inset-0 z-20 pointer-events-none origin-center"
           style={{
             clipPath: "inset(0 0 78% 0)",
-            rotateX: tipRotateX,
-            rotateY: tipRotateY,
-            transformStyle: "preserve-3d",
-          }}
-          animate={{
-            y: [0, -2, 0],
-          }}
-          transition={{
-            duration: 5,
-            repeat: Infinity,
-            ease: "easeInOut",
+            y: tipScrollY,
           }}
         >
-          <motion.img
-            src={icebergImg}
-            alt="Visible tip of the iceberg"
-            className="w-full h-full object-cover select-none"
+          <motion.div
+            className="w-full h-full origin-center"
             style={{
-              filter: isHovered
-                ? "brightness(1) saturate(1)"
-                : "brightness(0.85) saturate(0.7)",
-              transition: "filter 0.5s ease",
+              rotateX: tipRotateX,
+              rotateY: tipRotateY,
+              transformStyle: "preserve-3d",
             }}
-            draggable={false}
-          />
+          >
+            <motion.div
+              className="w-full h-full"
+              animate={{
+                y: [0, -2, 0],
+              }}
+              transition={{
+                duration: 5,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            >
+              <motion.img
+                src={icebergImg}
+                alt="Visible tip of the iceberg"
+                className="w-full h-full object-cover select-none"
+                style={{
+                  filter: isHovered
+                    ? "brightness(1) saturate(1)"
+                    : "brightness(0.85) saturate(0.7)",
+                  transition: "filter 0.5s ease",
+                }}
+                draggable={false}
+              />
+            </motion.div>
+          </motion.div>
         </motion.div>
 
         {/* Stat Labels */}
@@ -189,6 +220,7 @@ export const ProjectIceberg = ({ className = "" }: ProjectIcebergProps) => {
               top: stat.top,
               ...(stat.side === "left" ? { left: "-210px" } : { right: "-210px" }),
               flexDirection: stat.side === "left" ? "row-reverse" : "row",
+              y: baseScrollY,
             }}
             initial={{ opacity: 0, x: stat.side === "left" ? 10 : -10 }}
             animate={
@@ -219,9 +251,9 @@ export const ProjectIceberg = ({ className = "" }: ProjectIcebergProps) => {
         ))}
 
         {/* Waterline & 90% Hidden Indicators */}
-        <div
+        <motion.div
           className="absolute left-0 right-0 pointer-events-none z-30"
-          style={{ top: WATERLINE_TOP }}
+          style={{ top: WATERLINE_TOP, y: waterlineScrollY }}
         >
           <motion.div
             className="w-full h-px"
@@ -258,7 +290,7 @@ export const ProjectIceberg = ({ className = "" }: ProjectIcebergProps) => {
               ~90% hidden
             </p>
           </motion.div>
-        </div>
+        </motion.div>
       </div>
 
       <motion.a
