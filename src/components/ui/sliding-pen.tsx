@@ -1,14 +1,14 @@
-import { motion, useScroll, useSpring, useTransform } from "framer-motion";
+import { motion, MotionValue, useSpring, useTransform } from "framer-motion";
 import { useCallback, useEffect, useRef, useState } from "react";
 import cap from "@/assets/cap.png";
 import body from "@/assets/body.png";
 
 interface SlidingPenProps {
-  containerRef: React.RefObject<HTMLDivElement | null>;
+  scrollYProgress: MotionValue<number>;
   loading: boolean;
 }
 
-export const SlidingPen = ({ containerRef, loading }: SlidingPenProps) => {
+export const SlidingPen = ({ scrollYProgress, loading }: SlidingPenProps) => {
   const [spaceLeft, setSpaceLeft] = useState(0);
   const [spaceRight, setSpaceRight] = useState(0);
   const capRef = useRef<HTMLDivElement>(null);
@@ -48,10 +48,6 @@ export const SlidingPen = ({ containerRef, loading }: SlidingPenProps) => {
     };
   }, [measureImageTravel, loading]);
 
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["0 0.42", "end end"],
-  });
 
   const x1 = useSpring(
     useTransform(

@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useScroll } from "framer-motion";
 import { useRef, useState } from "react";
 import Profile from "@/pages/Profile.tsx";
 import Projects from "@/pages/Projects.tsx";
@@ -13,6 +13,11 @@ import { SlidingPen } from "@/components/ui/sliding-pen";
 const App = () => {
   const [loading, setLoading] = useState(true);
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: scrollContainerRef,
+    offset: ["0 0.42", "end end"],
+  });
 
   return (
     <div style={{ background: "var(--bg)" }}>
@@ -94,7 +99,7 @@ const App = () => {
         </div>
 
         <div className="relative py-20" ref={scrollContainerRef}>
-          <SlidingPen containerRef={scrollContainerRef} loading={loading} />
+          <SlidingPen scrollYProgress={scrollYProgress} loading={loading} />
           <div className="h-[100vh]" />
 
           <Profile />
