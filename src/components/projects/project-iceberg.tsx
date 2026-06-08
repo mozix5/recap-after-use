@@ -6,11 +6,6 @@ interface ProjectIcebergProps {
   className?: string;
 }
 
-const aboveStats = [
-  { label: "Featured case studies" },
-  { label: "What you see here" },
-];
-
 const belowStats = [
   { side: "left" as const, label: "40+ personal repositories", top: "62%" },
   { side: "left" as const, label: "System configs & CI pipelines", top: "76%" },
@@ -52,23 +47,31 @@ export const ProjectIceberg = ({ className = "" }: ProjectIcebergProps) => {
             className="absolute hidden xl:flex items-center gap-2"
             style={{
               top: stat.top,
-              ...(stat.side === "left" ? { left: "-215px" } : { right: "-215px" }),
+              ...(stat.side === "left" ? { left: "-210px" } : { right: "-210px" }),
               flexDirection: stat.side === "left" ? "row-reverse" : "row",
             }}
-            initial={{ opacity: 0, x: stat.side === "left" ? 12 : -12 }}
+            initial={{ opacity: 0, x: stat.side === "left" ? 10 : -10 }}
             animate={
               isHovered
                 ? { opacity: 1, x: 0 }
-                : { opacity: 0, x: stat.side === "left" ? 12 : -12 }
+                : { opacity: 0, x: stat.side === "left" ? 10 : -10 }
             }
             transition={{ duration: 0.3, delay: i * 0.07 }}
           >
-            <span className="font-mono text-[8px]" style={{ color: "var(--gold)", opacity: 0.7 }}>
+            <span
+              className="font-mono text-[8px]"
+              style={{ color: "var(--gold)", opacity: 0.75 }}
+            >
               ◆
             </span>
             <span
-              className="font-mono text-[9px] uppercase tracking-[0.3em] whitespace-nowrap"
-              style={{ color: "var(--fg-dim)" }}
+              className="font-mono text-[9px] uppercase tracking-[0.25em] whitespace-nowrap px-2 py-0.5"
+              style={{
+                color: "var(--fg)",
+                background: "var(--bg-surface)",
+                border: "1px solid var(--rule-light)",
+                letterSpacing: "0.2em",
+              }}
             >
               {stat.label}
             </span>
@@ -76,77 +79,67 @@ export const ProjectIceberg = ({ className = "" }: ProjectIcebergProps) => {
         ))}
 
         <motion.div
-          className="relative"
-          animate={{ y: isHovered ? -6 : 0 }}
-          transition={{ duration: 1.8, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" }}
+          animate={{
+            y: [0, -7, 0],
+            transition: { duration: 3.5, repeat: Infinity, ease: "easeInOut" },
+          }}
         >
           <motion.img
             src={icebergImg}
-            alt="Iceberg diagram showing the visible tip and the hidden mass below water"
+            alt="Iceberg showing visible tip above water and large hidden mass below"
             className="w-full select-none"
             style={{
               filter: isHovered
-                ? "drop-shadow(0 0 24px rgba(201,168,76,0.35)) drop-shadow(0 0 8px rgba(201,168,76,0.2))"
-                : "drop-shadow(0 8px 32px rgba(0,0,0,0.5)) brightness(0.82) saturate(0.7)",
+                ? "drop-shadow(0 0 28px rgba(201,168,76,0.4)) drop-shadow(0 0 8px rgba(201,168,76,0.25))"
+                : "drop-shadow(0 10px 36px rgba(0,0,0,0.55)) brightness(0.85) saturate(0.65)",
               transition: "filter 0.5s ease",
               userSelect: "none",
               pointerEvents: "none",
             }}
             draggable={false}
           />
-
-          {aboveStats.map((stat, i) => (
-            <motion.div
-              key={i}
-              className="absolute left-1/2 font-mono text-[9px] uppercase tracking-[0.35em] whitespace-nowrap"
-              style={{
-                top: `${16 + i * 10}%`,
-                transform: "translateX(-50%)",
-                color: "var(--fg-dim)",
-              }}
-              animate={{ opacity: isHovered ? 0.5 : 0 }}
-              transition={{ duration: 0.3, delay: i * 0.1 }}
-            >
-              {stat.label}
-            </motion.div>
-          ))}
         </motion.div>
 
-        <motion.div
-          className="absolute left-0 right-0"
-          style={{ top: "40.5%", pointerEvents: "none" }}
-          animate={{ opacity: isHovered ? 1 : 0.35 }}
-          transition={{ duration: 0.4 }}
+        <div
+          className="absolute left-0 right-0 pointer-events-none"
+          style={{ top: "40%" }}
         >
-          <div
+          <motion.div
             className="w-full h-px"
-            style={{ background: "linear-gradient(to right, transparent, var(--gold), transparent)" }}
+            style={{
+              background:
+                "linear-gradient(to right, transparent, var(--gold), transparent)",
+            }}
+            animate={{ opacity: isHovered ? 0.9 : 0.4 }}
+            transition={{ duration: 0.4 }}
           />
-          <p
-            className="font-mono text-[8px] uppercase tracking-[0.45em] text-center mt-2"
-            style={{ color: "var(--gold)", opacity: 0.6 }}
+          <motion.div
+            className="flex justify-between items-center mt-2 px-1"
+            animate={{ opacity: isHovered ? 1 : 0.45 }}
+            transition={{ duration: 0.4 }}
           >
-            Waterline
-          </p>
-        </motion.div>
-
-        <motion.div
-          className="absolute font-mono text-[8px] uppercase tracking-[0.3em] whitespace-nowrap"
-          style={{
-            right: "-8px",
-            top: "44%",
-            bottom: "4%",
-            display: "flex",
-            alignItems: "center",
-            writingMode: "vertical-rl",
-            color: "var(--fg-dim)",
-            opacity: 0,
-          }}
-          animate={{ opacity: isHovered ? 0.45 : 0 }}
-          transition={{ duration: 0.4 }}
-        >
-          ~90% hidden
-        </motion.div>
+            <p
+              className="font-mono text-[8px] uppercase tracking-[0.5em]"
+              style={{
+                color: "var(--gold)",
+                background: "var(--bg-base)",
+                padding: "1px 6px",
+              }}
+            >
+              Waterline
+            </p>
+            <p
+              className="font-mono text-[8px] uppercase tracking-[0.4em]"
+              style={{
+                color: "var(--fg-dim)",
+                background: "var(--bg-base)",
+                padding: "1px 6px",
+              }}
+            >
+              ~90% hidden
+            </p>
+          </motion.div>
+        </div>
       </div>
 
       <motion.a
