@@ -8,12 +8,10 @@ const ProjectNavigation = ({ projects, activeProject }: Props) => {
 
   return (
     <div className="sticky left-0 top-0 w-12 z-20 pointer-events-none h-[100vh]">
-      {/* Vertical track */}
       <div
         className="absolute left-5 top-[8%] bottom-[8%] w-px"
         style={{ background: "var(--rule-light)" }}
       >
-        {/* Fill indicator */}
         <div
           className="absolute top-0 left-0 w-full transition-all duration-400 ease-out"
           style={{ 
@@ -23,7 +21,6 @@ const ProjectNavigation = ({ projects, activeProject }: Props) => {
         />
       </div>
 
-      {/* Node markers */}
       {projects.map((project, i) => {
         const pos = getPos(i, projects.length);
         const active = i === activeProject;
@@ -54,7 +51,6 @@ const ProjectNavigation = ({ projects, activeProject }: Props) => {
         );
       })}
 
-      {/* Travelling cursor — small square */}
       <div
         className="absolute left-[14px] -translate-x-1/2 -translate-y-1/2 transition-all duration-400 ease-out"
         style={{ top: `${cursor}%` }}

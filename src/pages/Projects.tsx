@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import ProjectCard from "@/components/ProjectCard";
-import ProjectNavigation from "@/components/ProjectNavigation";
+import ProjectCard from "@/components/projects/ProjectCard";
+import ProjectNavigation from "@/components/projects/ProjectNavigation";
 import { projects } from "@/data/content";
 import { motion } from "framer-motion";
 import { TextWipe } from "@/components/ui/text-wipe";
-import { ProjectListView } from "@/components/ProjectListView";
+import { ProjectListView } from "@/components/projects/ProjectListView";
 import { Magnetic } from "@/components/ui/magnetic";
 
 const Projects = () => {
