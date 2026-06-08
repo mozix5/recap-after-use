@@ -22,7 +22,6 @@ const Experience = () => {
       className="relative overflow-hidden"
       style={{ background: "var(--bg)" }}
     >
-      {/* Dot grid */}
       <div
         className="pointer-events-none absolute inset-0 opacity-30 transform-gpu"
         style={{
@@ -33,7 +32,6 @@ const Experience = () => {
       />
 
       <div className="relative mx-auto max-w-6xl px-4 sm:px-8 lg:px-16 py-24">
-        {/* ── Header ── */}
         <div className="mb-20">
           <motion.p
             className="font-mono text-[10px] uppercase tracking-[0.45em] mb-6"
@@ -81,7 +79,6 @@ const Experience = () => {
             </motion.p>
           </div>
 
-          {/* Gold rule divider */}
           <motion.div
             className="mt-8 transform-gpu will-change-transform"
             initial={{ scaleX: 0 }}
@@ -98,9 +95,7 @@ const Experience = () => {
           />
         </div>
 
-        {/* ── Alternating timeline ── */}
         <div className="relative" ref={timelineRef}>
-          {/* Scroll-driven vertical rule */}
           <div
             className="absolute left-1/2 top-0 -translate-x-1/2 w-px"
             style={{ height: "100%", background: "var(--rule)" }}
@@ -121,7 +116,6 @@ const Experience = () => {
           ))}
         </div>
 
-        {/* Footer */}
         <motion.div
           className="flex items-center gap-4 mt-4"
           initial={{ opacity: 0 }}

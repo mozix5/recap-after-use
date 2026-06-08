@@ -18,7 +18,6 @@ export const ExperienceCard = ({ item, inView, delay }: ExperienceCardProps) => 
         padding: "1.5rem",
       }}
     >
-      {/* Gold top bar on hover */}
       <div
         className="absolute top-0 inset-x-0 h-[2px] origin-left transition-transform duration-300 scale-x-0 group-hover:scale-x-100"
         style={{
@@ -26,7 +25,6 @@ export const ExperienceCard = ({ item, inView, delay }: ExperienceCardProps) => 
         }}
       />
 
-      {/* Issue + period */}
       <div className="flex items-baseline gap-3 mb-4">
         <span
           className="font-bebas leading-none"
@@ -54,10 +52,8 @@ export const ExperienceCard = ({ item, inView, delay }: ExperienceCardProps) => 
         </div>
       </div>
 
-      {/* Rule */}
       <div className="h-px mb-4" style={{ background: "var(--rule-light)" }} />
 
-      {/* Title */}
       <motion.h3
         className="font-bebas text-2xl sm:text-3xl mb-3 transform-gpu will-change-transform"
         style={{ color: "var(--fg)" }}
@@ -75,7 +71,6 @@ export const ExperienceCard = ({ item, inView, delay }: ExperienceCardProps) => 
         {item.description}
       </p>
 
-      {/* Points */}
       <TagList tags={item.points} />
     </div>
   );

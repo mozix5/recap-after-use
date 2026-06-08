@@ -5,8 +5,6 @@ import { Magnetic } from "@/components/ui/magnetic";
 import { TextWipe } from "@/components/ui/text-wipe";
 import { Signature } from "@/components/ui/signature";
 
-
-
 const Contact = () => (
   <section
     id="contact"
@@ -14,7 +12,6 @@ const Contact = () => (
     style={{ background: "var(--bg)" }}
   >
     <div className="mx-auto max-w-6xl px-4 sm:px-8 lg:px-16 py-24">
-      {/* ── Section Label ── */}
       <motion.p
         className="font-mono text-[10px] uppercase tracking-[0.45em] mb-6"
         style={{ color: "var(--fg-dim)" }}
@@ -26,7 +23,6 @@ const Contact = () => (
       </motion.p>
 
       <div className="grid lg:grid-cols-[1fr_auto] gap-12 lg:gap-20 items-start">
-        {/* ── Left: typography ── */}
         <div>
           <div
             className="font-bebas leading-none uppercase mb-8"
@@ -48,7 +44,6 @@ const Contact = () => (
             </TextWipe>
           </div>
 
-          {/* Gold rule */}
           <motion.div
             className="flex items-center gap-3 mb-10"
             initial={{ opacity: 0 }}
@@ -65,7 +60,6 @@ const Contact = () => (
             </span>
           </motion.div>
 
-          {/* Email */}
           <motion.div
             className="mb-8"
             initial={{ opacity: 0, y: 8 }}
@@ -92,7 +86,6 @@ const Contact = () => (
             </a>
           </motion.div>
 
-          {/* Socials */}
           <motion.div
             initial={{ opacity: 0, y: 8 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -135,7 +128,6 @@ const Contact = () => (
           </motion.div>
         </div>
 
-        {/* ── Right: image ── */}
         <motion.div
           className="relative shrink-0 hidden lg:block"
           initial={{ opacity: 0, x: 30 }}

@@ -4,11 +4,7 @@ import me from "@/assets/me.png";
 import { profileData } from "@/data/content";
 import { Signature } from "@/components/ui/signature";
 
-
-
 function Ticker() {
-  // Repeat the items 10 times to ensure the content is wider than any screen,
-  // making the 50% translation a seamless infinite loop.
   const doubled = Array(10).fill(profileData.tickerItems).flat();
   return (
     <div
@@ -97,8 +93,6 @@ const Profile = () => {
                 }}
               />
             </motion.div>
-
-
           </div>
 
           <div ref={rightRef} className="lg:pt-20">

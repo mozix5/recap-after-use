@@ -22,7 +22,6 @@ export const ExperienceEntry = ({ item, index }: ExperienceEntryProps) => {
       animate={inView ? { opacity: 1 } : {}}
       transition={{ duration: 0.5, delay: index * 0.1 }}
     >
-      {/* ── Left cell ── */}
       <div className={`pb-16 ${isEven ? "pr-10" : ""}`}>
         {isEven && (
           <motion.div
@@ -36,9 +35,7 @@ export const ExperienceEntry = ({ item, index }: ExperienceEntryProps) => {
         )}
       </div>
 
-      {/* ── Centre: timeline axis ── */}
       <div className="flex flex-col items-center" style={{ width: 48 }}>
-        {/* Icon node */}
         <motion.div
           className="relative z-10 flex h-10 w-10 items-center justify-center shrink-0"
           style={{
@@ -67,7 +64,6 @@ export const ExperienceEntry = ({ item, index }: ExperienceEntryProps) => {
             className="h-4 w-4 transition-colors duration-500" 
             style={{ color: inView ? "var(--gold)" : "var(--fg-dim)" }} 
           />
-          {/* Gold dot on active (first) */}
           {index === 0 && (
             <span
               className="absolute -top-1 -right-1 h-2 w-2 animate-pulse"
@@ -77,7 +73,6 @@ export const ExperienceEntry = ({ item, index }: ExperienceEntryProps) => {
         </motion.div>
       </div>
 
-      {/* ── Right cell ── */}
       <div className={`pb-16 ${!isEven ? "pl-10" : ""}`}>
         {!isEven && (
           <motion.div
