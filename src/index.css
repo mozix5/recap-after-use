@@ -34,3 +34,14 @@
 }
 
 ::-webkit-scrollbar { width: 0; }
+
+.preloader-dot {
+  display: block;
+  position: absolute;
+  border-radius: 50%;
+  background: white;
+  left: -30px;
+  top: 47%;
+  width: calc(clamp(16px, 1.2vw, 19px) / 1.65);
+  height: calc(clamp(16px, 1.2vw, 19px) / 1.65);
+}

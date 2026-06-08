@@ -1,4 +1,4 @@
-import { motion, useScroll, useSpring, useTransform } from "framer-motion";
+import { AnimatePresence, motion, useScroll, useSpring, useTransform } from "framer-motion";
 import { useCallback, useEffect, useRef, useState } from "react";
 import cap from "@/assets/cap.png";
 import body from "@/assets/body.png";
@@ -9,8 +9,10 @@ import Contact from "@/pages/Contact.tsx";
 import Experience from "@/pages/Experience.tsx";
 import TechStack from "@/pages/TechStack.tsx";
 import { CustomCursor } from "@/components/ui/custom-cursor";
+import PreLoader from "@/components/PreLoader.tsx";
 
 const App = () => {
+  const [loading, setLoading] = useState(true);
   const [spaceLeft, setSpaceLeft] = useState(0);
   const [spaceRight, setSpaceRight] = useState(0);
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
@@ -38,7 +40,9 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    measureImageTravel();
+    if (!loading) {
+      measureImageTravel();
+    }
     window.addEventListener("resize", measureImageTravel);
     return () => {
       window.removeEventListener("resize", measureImageTravel);
@@ -47,7 +51,7 @@ const App = () => {
         window.cancelAnimationFrame(measureFrameRef.current);
       }
     };
-  }, [measureImageTravel]);
+  }, [measureImageTravel, loading]);
 
   const { scrollYProgress } = useScroll({
     target: scrollContainerRef,
@@ -75,130 +79,143 @@ const App = () => {
   return (
     <div style={{ background: "var(--bg)" }}>
       <CustomCursor />
-      <div className="relative flex h-screen items-center justify-center px-6 overflow-hidden">
-        <div
-          className="pointer-events-none absolute inset-0"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle, rgba(240,237,230,0.06) 1px, transparent 1px)",
-            backgroundSize: "36px 36px",
-          }}
-        />
-        <div
-          className="pointer-events-none absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(ellipse 70% 60% at 50% 55%, rgba(201,168,76,0.04) 0%, transparent 70%)",
-          }}
-        />
-        <div
-          className="absolute top-0 inset-x-0 h-[1px]"
-          style={{ background: "var(--rule-light)" }}
-        />
+      <AnimatePresence>
+        {loading && (
+          <PreLoader key="preloader" onComplete={() => setLoading(false)} />
+        )}
+      </AnimatePresence>
 
-        <div className="relative z-10 flex flex-col items-center">
-          <motion.p
-            className="font-mono text-[10px] uppercase tracking-[0.5em] mb-8"
-            style={{ color: "var(--fg-muted)" }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            Portfolio · 2026
-          </motion.p>
-
+      <div
+        style={{
+          opacity: loading ? 0 : 1,
+          pointerEvents: loading ? "none" : "auto",
+          transition: "opacity 0.8s cubic-bezier(0.76, 0, 0.24, 1)",
+        }}
+      >
+        <div className="relative flex h-screen items-center justify-center px-6 overflow-hidden">
           <div
-            className="font-anton flex flex-col text-[clamp(4.5rem,20vw,11rem)] uppercase leading-none tracking-wide"
-            style={{ color: "var(--fg)" }}
-          >
-            {["recap", "after", "use"].map((word, i) => (
-              <motion.span
-                key={word}
-                className={
-                  (i === 1 ? "pl-8 md:pl-16" : i === 2 ? "pl-20 md:pl-56" : "") + 
-                  " block cursor-default transition-colors duration-500"
-                }
-                initial={{ opacity: 0, y: 40 }}
-                animate={{ opacity: 1, y: 0 }}
-                whileHover={i === 1 ? { color: "var(--fg)" } : {}}
+            className="pointer-events-none absolute inset-0"
+            style={{
+              backgroundImage:
+                "radial-gradient(circle, rgba(240,237,230,0.06) 1px, transparent 1px)",
+              backgroundSize: "36px 36px",
+            }}
+          />
+          <div
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background:
+                "radial-gradient(ellipse 70% 60% at 50% 55%, rgba(201,168,76,0.04) 0%, transparent 70%)",
+            }}
+          />
+          <div
+            className="absolute top-0 inset-x-0 h-[1px]"
+            style={{ background: "var(--rule-light)" }}
+          />
+
+          <div className="relative z-10 flex flex-col items-center">
+            <motion.p
+              className="font-mono text-[10px] uppercase tracking-[0.5em] mb-8"
+              style={{ color: "var(--fg-muted)" }}
+              initial={{ opacity: 0 }}
+              animate={loading ? { opacity: 0 } : { opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              Portfolio · 2026
+            </motion.p>
+
+            <div
+              className="font-anton flex flex-col text-[clamp(4.5rem,20vw,11rem)] uppercase leading-none tracking-wide"
+              style={{ color: "var(--fg)" }}
+            >
+              {["recap", "after", "use"].map((word, i) => (
+                <motion.span
+                  key={word}
+                  className={
+                    (i === 1 ? "pl-8 md:pl-16" : i === 2 ? "pl-20 md:pl-56" : "") + 
+                    " block cursor-default transition-colors duration-500"
+                  }
+                  initial={{ opacity: 0, y: 40 }}
+                  animate={loading ? { opacity: 0, y: 40 } : { opacity: 1, y: 0 }}
+                  whileHover={i === 1 ? { color: "var(--fg)" } : {}}
+                  style={{
+                    WebkitTextStroke: i === 1 ? "1px var(--fg)" : "none",
+                    color: i === 1 ? "transparent" : "var(--fg)",
+                  }}
+                  transition={{
+                    duration: 0.6,
+                    delay: 0.3 + i * 0.1,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                >
+                  {word}
+                </motion.span>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="relative py-20" ref={scrollContainerRef}>
+          <div className="flex sticky top-1/2 -translate-y-1/2 items-start overflow-hidden z-50 pointer-events-none">
+            <motion.div
+              ref={capRef}
+              className="relative left-[20vw] z-20 w-[40%] transform-gpu will-change-transform md:w-[20%]"
+              style={{ x: x1 }}
+            >
+              <img
+                className="object-contain h-full w-full"
+                src={cap}
+                alt="cap"
+                style={{ filter: "brightness(0.9) contrast(1.05)" }}
+              />
+            </motion.div>
+            <motion.div
+              ref={bodyRef}
+              className="z-10 relative left-[2vw] w-[80%] transform-gpu will-change-transform md:w-[56.5%]"
+              style={{ x: x2 }}
+            >
+              <img
+                className="object-contain h-full w-full"
+                src={body}
+                alt="body"
+                style={{ filter: "brightness(0.9) contrast(1.05)" }}
+              />
+              <div
+                className="absolute top-2 left-1/2 -translate-x-1/2 pointer-events-none opacity-40 whitespace-nowrap mix-blend-overlay"
                 style={{
-                  WebkitTextStroke: i === 1 ? "1px var(--fg)" : "none",
-                  color: i === 1 ? "transparent" : "var(--fg)",
-                }}
-                transition={{
-                  duration: 0.6,
-                  delay: 0.3 + i * 0.1,
-                  ease: [0.22, 1, 0.36, 1],
+                  fontFamily: "'Mr De Haviland', cursive",
+                  fontSize: "clamp(1.2rem, 3.5vw, 3.5rem)",
+                  color: "var(--fg)",
+                  transform: "rotate(-8deg)",
+                  filter: "blur(0.3px)",
                 }}
               >
-                {word}
-              </motion.span>
-            ))}
+                Mosin
+              </div>
+            </motion.div>
+          </div>
+          <div className="h-[100vh]" />
+
+          <Profile />
+          <section id="projects">
+            <Projects />
+          </section>
+          <section id="experience">
+            <Experience />
+          </section>
+          <TechStack />
+          <section id="contact">
+            <Contact />
+          </section>
+          <div className="h-screen" />
+        </div>
+
+        <div className="relative">
+          <div className="absolute bottom-0 left-0 right-0">
+            <Footer />
           </div>
         </div>
       </div>
-
-      <div className="relative py-20" ref={scrollContainerRef}>
-        <div className="flex sticky top-1/2 -translate-y-1/2 items-start overflow-hidden z-50 pointer-events-none">
-          <motion.div
-            ref={capRef}
-            className="relative left-[20vw] z-20 w-[40%] transform-gpu will-change-transform md:w-[20%]"
-            style={{ x: x1 }}
-          >
-            <img
-              className="object-contain h-full w-full"
-              src={cap}
-              alt="cap"
-              style={{ filter: "brightness(0.9) contrast(1.05)" }}
-            />
-          </motion.div>
-          <motion.div
-            ref={bodyRef}
-            className="z-10 relative left-[2vw] w-[80%] transform-gpu will-change-transform md:w-[56.5%]"
-            style={{ x: x2 }}
-          >
-            <img
-              className="object-contain h-full w-full"
-              src={body}
-              alt="body"
-              style={{ filter: "brightness(0.9) contrast(1.05)" }}
-            />
-            <div
-              className="absolute top-2 left-1/2 -translate-x-1/2 pointer-events-none opacity-40 whitespace-nowrap mix-blend-overlay"
-              style={{
-                fontFamily: "'Mr De Haviland', cursive",
-                fontSize: "clamp(1.2rem, 3.5vw, 3.5rem)",
-                color: "var(--fg)",
-                transform: "rotate(-8deg)",
-                filter: "blur(0.3px)",
-              }}
-            >
-              Mosin
-            </div>
-          </motion.div>
-        </div>
-        <div className="h-[100vh]" />
-
-        <Profile />
-        <section id="projects">
-          <Projects />
-        </section>
-        <section id="experience">
-          <Experience />
-        </section>
-        <TechStack />
-        <section id="contact">
-          <Contact />
-        </section>
-        <div className="h-screen" />
-      </div>
-
-      <div className="relative">
-        <div className="absolute bottom-0 left-0 right-0">
-          <Footer />
-        </div>
-      </div>
-
     </div>
   );
 };
