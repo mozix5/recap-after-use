@@ -1,16 +1,18 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import icebergImg from "@/assets/iceberg.png";
+import icebergImg from "@/assets/iceberg2.png";
 
 interface ProjectIcebergProps {
   className?: string;
 }
 
+const WATERLINE_TOP = "22%";
+
 const belowStats = [
-  { side: "left" as const, label: "40+ personal repositories", top: "62%" },
-  { side: "left" as const, label: "System configs & CI pipelines", top: "76%" },
-  { side: "right" as const, label: "API backends & databases", top: "58%" },
-  { side: "right" as const, label: "Scripts & local toolkits", top: "73%" },
+  { side: "left" as const, label: "40+ personal repositories", top: "52%" },
+  { side: "left" as const, label: "System configs & CI pipelines", top: "68%" },
+  { side: "right" as const, label: "API backends & databases", top: "46%" },
+  { side: "right" as const, label: "Scripts & local toolkits", top: "62%" },
 ];
 
 export const ProjectIceberg = ({ className = "" }: ProjectIcebergProps) => {
@@ -102,7 +104,7 @@ export const ProjectIceberg = ({ className = "" }: ProjectIcebergProps) => {
 
         <div
           className="absolute left-0 right-0 pointer-events-none"
-          style={{ top: "40%" }}
+          style={{ top: WATERLINE_TOP }}
         >
           <motion.div
             className="w-full h-px"
