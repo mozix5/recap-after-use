@@ -33,7 +33,10 @@ export const ProjectIceberg = ({ className = "" }: ProjectIcebergProps) => {
   } = useIcebergScroll();
 
   return (
-    <div ref={wrapperRef} className="relative w-full h-[300vh]">
+    <div
+      ref={wrapperRef}
+      className="relative mx-[-4px] sm:mx-[-8px] lg:mx-[-16px] xl:mx-[-190px] w-[calc(100%+8px)] sm:w-[calc(100%+16px)] lg:w-[calc(100%+32px)] xl:w-[calc(100%+380px)] h-[300vh]"
+    >
       <motion.div
         className={`sticky top-0 h-[100dvh] w-full flex flex-col justify-center items-center overflow-hidden ${className}`}
         initial={{ opacity: 0 }}
