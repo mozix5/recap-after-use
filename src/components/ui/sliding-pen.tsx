@@ -73,7 +73,7 @@ export const SlidingPen = ({ scrollYProgress, loading }: SlidingPenProps) => {
     <div className="flex sticky top-1/2 -translate-y-1/2 items-start overflow-hidden z-50 pointer-events-none">
       <motion.div
         ref={capRef}
-        className="relative left-[20vw] z-20 w-[40%] transform-gpu will-change-transform md:w-[20%]"
+        className="relative left-[28.3vw] md:left-[20vw] z-20 w-[28.3%] md:w-[20%] transform-gpu will-change-transform"
         style={{ x: x1 }}
       >
         <img
@@ -85,7 +85,7 @@ export const SlidingPen = ({ scrollYProgress, loading }: SlidingPenProps) => {
       </motion.div>
       <motion.div
         ref={bodyRef}
-        className="z-10 relative left-[2vw] w-[80%] transform-gpu will-change-transform md:w-[56.5%]"
+        className="z-10 relative left-[2.8vw] md:left-[2vw] w-[80%] md:w-[56.5%] transform-gpu will-change-transform"
         style={{ x: x2 }}
       >
         <img
