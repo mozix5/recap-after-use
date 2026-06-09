@@ -12,10 +12,10 @@ import {
 export const WATERLINE_TOP = "22%";
 
 export const BELOW_STATS = [
-  { side: "left" as const, label: "40+ personal repositories", top: "50%" },
-  { side: "left" as const, label: "System configs & CI pipelines", top: "66%" },
-  { side: "right" as const, label: "API backends & databases", top: "44%" },
-  { side: "right" as const, label: "Scripts & local toolkits", top: "60%" },
+  { side: "left" as const, label: "48 codebases under the surface", top: "50%" },
+  { side: "left" as const, label: "Silent system pipelines", top: "66%" },
+  { side: "right" as const, label: "Invisible backend engines", top: "44%" },
+  { side: "right" as const, label: "Raw developer toolkits", top: "60%" },
 ];
 
 const SPRING = { stiffness: 90, damping: 20 };
