@@ -102,28 +102,38 @@ export function IcebergVisual({
       {BELOW_STATS.map((stat, i) => (
         <motion.div
           key={i}
-          className="absolute hidden xl:flex items-center gap-2 z-30"
+          className="absolute hidden xl:flex items-center gap-2 z-30 group cursor-pointer pointer-events-auto"
           style={{
             top: stat.top,
-            ...(stat.side === "left" ? { left: "-210px" } : { right: "-210px" }),
+            ...(stat.side === "left"
+              ? { right: "calc(100% + 20px)" }
+              : { left: "calc(100% + 20px)" }),
             flexDirection: stat.side === "left" ? "row-reverse" : "row",
             opacity: statTransforms[i].opacity,
             x: statTransforms[i].x,
           }}
         >
-          <span className="font-mono text-[8px]" style={{ color: "var(--gold)", opacity: 0.75 }}>
-            ◆
-          </span>
           <span
-            className="font-mono text-[9px] uppercase tracking-[0.25em] whitespace-nowrap px-2 py-0.5"
+            className="font-mono text-[8px] transition-all duration-300 group-hover:scale-125 select-none"
             style={{
-              color: "var(--fg)",
-              background: "var(--bg-surface)",
-              border: "1px solid var(--rule-light)",
-              letterSpacing: "0.2em",
+              color: "var(--gold)",
+              filter: "drop-shadow(0 0 3px rgba(201, 168, 76, 0.7))",
             }}
           >
-            {stat.label}
+            ◆
+          </span>
+          <div className="h-[1px] w-8 border-t border-dashed border-[var(--rule-light)] group-hover:border-solid group-hover:border-[var(--gold)] transition-all duration-300" />
+          <span
+            className="font-mono text-[10px] uppercase tracking-[0.2em] whitespace-nowrap px-3 py-1.5 rounded transition-all duration-300 border border-[var(--rule-light)] group-hover:border-[var(--gold)] group-hover:shadow-[0_0_12px_rgba(201,168,76,0.15)]"
+            style={{
+              color: "var(--fg)",
+              background: "rgba(16, 16, 16, 0.85)",
+              backdropFilter: "blur(4px)",
+            }}
+          >
+            <span className="text-[var(--gold)] mr-2 font-semibold">0{i + 1}</span>
+            <span className="text-[var(--fg-dim)] mr-2">/</span>
+            <span>{stat.label}</span>
           </span>
         </motion.div>
       ))}
