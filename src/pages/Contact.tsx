@@ -1,7 +1,6 @@
 import { socials, sections } from "@/data/content";
 import me2 from "@/assets/me2.png";
 import { motion } from "framer-motion";
-import { Magnetic } from "@/components/ui/magnetic";
 import { TextWipe } from "@/components/ui/text-wipe";
 
 const Contact = () => (
@@ -21,121 +20,74 @@ const Contact = () => (
         Issue {sections.contact.issueNumber} · {sections.contact.issueTitle}
       </motion.p>
 
-      <div className="grid lg:grid-cols-[1fr_auto] gap-12 lg:gap-20 items-start">
+      <div className="grid lg:grid-cols-[1fr_auto] gap-12 lg:gap-20 items-center">
         <div>
-          {/* Objective status label */}
-          <motion.div
-            className="flex items-center gap-3 mb-6"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-          >
-            <div className="h-px w-12" style={{ background: "var(--gold)" }} />
-            <span
-              className="font-mono text-[9px] uppercase tracking-[0.5em] font-bold"
-              style={{ color: "var(--gold)" }}
-            >
-              {sections.contact.objectiveLabel}
-            </span>
-          </motion.div>
-
-          {/* First Line of Title */}
-          <div
-            className="font-bebas leading-none uppercase mb-2"
-            style={{ color: "var(--fg)" }}
-          >
+          {/* Primary Title Line: "Drop me" */}
+          <div className="font-bebas leading-none uppercase">
             <TextWipe delay={0.1}>
-              <span className="block font-black text-[clamp(3.5rem,11vw,12rem)]">
+              <span className="block font-black text-[5.5rem] min-[380px]:text-[7rem] sm:text-[9rem] md:text-[11rem] lg:text-[12rem] text-[var(--fg)]">
                 {sections.contact.titlePrimary}
               </span>
             </TextWipe>
           </div>
 
-          {/* Second Line of Title + Email + Socials Inline on Desktop */}
-          <div className="flex flex-col xl:flex-row xl:items-end justify-between gap-8 mb-12">
-            <div
-              className="font-bebas leading-none uppercase"
-              style={{ color: "var(--fg)" }}
-            >
-              <TextWipe delay={0.15}>
-                <span className="block font-black text-[clamp(3.5rem,11vw,12rem)]">
-                  {sections.contact.titleStroked}
-                </span>
-              </TextWipe>
-            </div>
+          {/* Stroked Title Line + Vertically Stacked Info Panel */}
+          <div className="font-bebas leading-none uppercase mb-8 flex flex-col md:flex-row md:items-end gap-6 md:gap-10">
+            <TextWipe delay={0.15}>
+              <span className="block font-black text-[5.5rem] min-[380px]:text-[7rem] sm:text-[9rem] md:text-[11rem] lg:text-[12rem] text-[var(--fg)]">
+                {sections.contact.titleStroked}
+              </span>
+            </TextWipe>
 
-            {/* Main Email and Elsewhere Links aligned in the same row on desktop */}
-            <div className="flex flex-wrap gap-12 xl:mb-2 shrink-0">
-              {/* Email */}
-              <motion.div
-                className="shrink-0"
-                initial={{ opacity: 0, y: 8 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.25 }}
-              >
-                <p
-                  className="font-mono text-[9px] uppercase tracking-[0.4em] mb-2"
-                  style={{ color: "var(--fg-dim)" }}
-                >
-                  Email
-                </p>
+            {/* Email and Social Details stacked vertically */}
+            <motion.div
+              className="flex flex-col gap-3 pb-2 font-mono text-[10px] sm:text-xs uppercase tracking-[0.2em] text-[var(--fg-dim)] shrink-0 select-none mb-1 md:mb-4"
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3, duration: 0.5 }}
+            >
+              {/* Objective Tag */}
+              <div className="flex items-center gap-2 mb-1">
+                <span className="h-[2px] w-6 bg-[var(--gold)] shrink-0" />
+                <span className="text-[var(--gold)] font-bold tracking-[0.3em]">
+                  {sections.contact.objectiveLabel}
+                </span>
+              </div>
+
+              {/* Email Address */}
+              <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
+                <span className="text-[var(--fg)] font-semibold">Direct ·</span>
                 <a
                   href={`mailto:${sections.contact.email}`}
-                  className="font-lora text-xl transition-colors hover:text-[var(--gold)]"
-                  style={{ color: "var(--fg-muted)" }}
+                  className="hover:text-[var(--gold)] transition-colors duration-300 select-all normal-case font-sans text-sm tracking-normal text-[var(--fg-muted)]"
                 >
                   {sections.contact.email}
                 </a>
-              </motion.div>
+              </div>
 
-              {/* Elsewhere */}
-              <motion.div
-                className="shrink-0"
-                initial={{ opacity: 0, y: 8 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.35 }}
-              >
-                <p
-                  className="font-mono text-[9px] uppercase tracking-[0.4em] mb-4"
-                  style={{ color: "var(--fg-dim)" }}
-                >
-                  Elsewhere
-                </p>
+              {/* Social Links */}
+              <div className="flex items-center gap-2">
+                <span className="text-[var(--fg)] font-semibold">Elsewhere ·</span>
                 <div className="flex gap-3">
-                  {socials.map(({ href, label, icon: Icon }) => (
-                    <Magnetic key={label}>
-                      <a
-                        href={href}
-                        target="_blank"
-                        rel="noreferrer"
-                        aria-label={label}
-                        className="flex h-10 w-10 items-center justify-center transition-all"
-                        style={{
-                          border: "1px solid var(--rule-light)",
-                          color: "var(--fg-dim)",
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.borderColor = "var(--gold)";
-                          e.currentTarget.style.color = "var(--gold)";
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.borderColor = "var(--rule-light)";
-                          e.currentTarget.style.color = "var(--fg-dim)";
-                        }}
-                      >
-                        <Icon className="h-4 w-4" />
-                      </a>
-                    </Magnetic>
+                  {socials.map(({ href, label }) => (
+                    <a
+                      key={label}
+                      href={href}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="hover:text-[var(--gold)] transition-colors duration-300 font-bold text-[var(--fg-muted)]"
+                    >
+                      {label}
+                    </a>
                   ))}
                 </div>
-              </motion.div>
-            </div>
+              </div>
+            </motion.div>
           </div>
         </div>
 
+        {/* Right column portrait image */}
         <motion.div
           className="relative shrink-0 hidden lg:block"
           initial={{ opacity: 0, x: 30 }}
