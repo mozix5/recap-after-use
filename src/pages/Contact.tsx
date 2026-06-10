@@ -26,14 +26,14 @@ const Contact = () => (
         <div>
           <div
             className="font-bebas leading-none uppercase mb-8"
-            style={{ fontSize: "clamp(4rem,14vw,10rem)", color: "var(--fg)" }}
+            style={{ fontSize: "clamp(2.8rem, 9vw, 8rem)", color: "var(--fg)" }}
           >
             <TextWipe delay={0.1}>
-              <span className="block">{sections.contact.titlePrimary}</span>
+              <span className="block font-black whitespace-nowrap">{sections.contact.titlePrimary}</span>
             </TextWipe>
             <TextWipe delay={0.25}>
               <span
-                className="block"
+                className="block font-black whitespace-nowrap"
                 style={{
                   WebkitTextStroke: "1px var(--fg)",
                   color: "transparent",
@@ -53,7 +53,7 @@ const Contact = () => (
           >
             <div className="h-px w-12" style={{ background: "var(--gold)" }} />
             <span
-              className="font-mono text-[9px] uppercase tracking-[0.5em]"
+              className="font-mono text-[9px] uppercase tracking-[0.5em] font-bold"
               style={{ color: "var(--gold)" }}
             >
               {sections.contact.objectiveLabel}
