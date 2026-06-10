@@ -56,9 +56,9 @@ const TechStack = () => (
         showShortDivider
       />
 
-      <div className="relative flex h-[480px] w-full flex-col items-center justify-center">
+      <div className="relative flex h-[480px] w-full flex-col items-center justify-center overflow-visible">
         <span
-          className="pointer-events-none whitespace-pre-wrap bg-clip-text text-center text-7xl font-semibold leading-none text-transparent font-bebas"
+          className="pointer-events-none whitespace-pre-wrap bg-clip-text text-center text-7xl font-semibold leading-none text-transparent font-bebas z-10"
           style={{
             backgroundImage:
               "linear-gradient(to bottom, var(--fg), var(--fg-dim))",
@@ -66,21 +66,25 @@ const TechStack = () => (
         >
           Tools
         </span>
-        <OrbitingCircles iconSize={52} radius={140}>
-          <HoverIcon name="JavaScript"><SiJavascript className="w-full h-full p-2 text-[var(--fg-dim)] group-hover:text-[var(--gold)] transition-colors duration-300" /></HoverIcon>
-          <HoverIcon name="GitHub"><SiGithub className="w-full h-full p-2 text-[var(--fg-dim)] group-hover:text-[var(--gold)] transition-colors duration-300" /></HoverIcon>
-          <HoverIcon name="MongoDB"><SiMongodb className="w-full h-full p-2 text-[var(--fg-dim)] group-hover:text-[var(--gold)] transition-colors duration-300" /></HoverIcon>
-          <HoverIcon name="React"><SiReact className="w-full h-full p-2 text-[var(--fg-dim)] group-hover:text-[var(--gold)] transition-colors duration-300" /></HoverIcon>
-        </OrbitingCircles>
-        <OrbitingCircles radius={200} reverse speed={2} iconSize={46}>
-          <HoverIcon name="Next.js"><SiNextdotjs className="w-full h-full p-[7px] text-[var(--fg-dim)] group-hover:text-[var(--gold)] transition-colors duration-300" /></HoverIcon>
-          <HoverIcon name="Redux"><SiRedux className="w-full h-full p-[7px] text-[var(--fg-dim)] group-hover:text-[var(--gold)] transition-colors duration-300" /></HoverIcon>
-          <HoverIcon name="Node.js"><SiNodedotjs className="w-full h-full p-[7px] text-[var(--fg-dim)] group-hover:text-[var(--gold)] transition-colors duration-300" /></HoverIcon>
-          <HoverIcon name="Tailwind CSS"><SiTailwindcss className="w-full h-full p-[7px] text-[var(--fg-dim)] group-hover:text-[var(--gold)] transition-colors duration-300" /></HoverIcon>
-          <HoverIcon name="MySQL"><SiMysql className="w-full h-full p-[7px] text-[var(--fg-dim)] group-hover:text-[var(--gold)] transition-colors duration-300" /></HoverIcon>
-          <HoverIcon name="TypeScript"><SiTypescript className="w-full h-full p-[7px] text-[var(--fg-dim)] group-hover:text-[var(--gold)] transition-colors duration-300" /></HoverIcon>
-          <HoverIcon name="Vercel"><SiVercel className="w-full h-full p-[7px] text-[var(--fg-dim)] group-hover:text-[var(--gold)] transition-colors duration-300" /></HoverIcon>
-        </OrbitingCircles>
+        <div className="absolute inset-0 flex items-center justify-center scale-[0.6] min-[380px]:scale-[0.7] min-[440px]:scale-[0.8] sm:scale-90 md:scale-100 origin-center pointer-events-none">
+          <div className="relative w-full h-full flex items-center justify-center pointer-events-auto">
+            <OrbitingCircles iconSize={52} radius={140}>
+              <HoverIcon name="JavaScript"><SiJavascript className="w-full h-full p-2 text-[var(--fg-dim)] group-hover:text-[var(--gold)] transition-colors duration-300" /></HoverIcon>
+              <HoverIcon name="GitHub"><SiGithub className="w-full h-full p-2 text-[var(--fg-dim)] group-hover:text-[var(--gold)] transition-colors duration-300" /></HoverIcon>
+              <HoverIcon name="MongoDB"><SiMongodb className="w-full h-full p-2 text-[var(--fg-dim)] group-hover:text-[var(--gold)] transition-colors duration-300" /></HoverIcon>
+              <HoverIcon name="React"><SiReact className="w-full h-full p-2 text-[var(--fg-dim)] group-hover:text-[var(--gold)] transition-colors duration-300" /></HoverIcon>
+            </OrbitingCircles>
+            <OrbitingCircles radius={200} reverse speed={2} iconSize={46}>
+              <HoverIcon name="Next.js"><SiNextdotjs className="w-full h-full p-[7px] text-[var(--fg-dim)] group-hover:text-[var(--gold)] transition-colors duration-300" /></HoverIcon>
+              <HoverIcon name="Redux"><SiRedux className="w-full h-full p-[7px] text-[var(--fg-dim)] group-hover:text-[var(--gold)] transition-colors duration-300" /></HoverIcon>
+              <HoverIcon name="Node.js"><SiNodedotjs className="w-full h-full p-[7px] text-[var(--fg-dim)] group-hover:text-[var(--gold)] transition-colors duration-300" /></HoverIcon>
+              <HoverIcon name="Tailwind CSS"><SiTailwindcss className="w-full h-full p-[7px] text-[var(--fg-dim)] group-hover:text-[var(--gold)] transition-colors duration-300" /></HoverIcon>
+              <HoverIcon name="MySQL"><SiMysql className="w-full h-full p-[7px] text-[var(--fg-dim)] group-hover:text-[var(--gold)] transition-colors duration-300" /></HoverIcon>
+              <HoverIcon name="TypeScript"><SiTypescript className="w-full h-full p-[7px] text-[var(--fg-dim)] group-hover:text-[var(--gold)] transition-colors duration-300" /></HoverIcon>
+              <HoverIcon name="Vercel"><SiVercel className="w-full h-full p-[7px] text-[var(--fg-dim)] group-hover:text-[var(--gold)] transition-colors duration-300" /></HoverIcon>
+            </OrbitingCircles>
+          </div>
+        </div>
       </div>
 
       <SectionDivider text="Always expanding" />
