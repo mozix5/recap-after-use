@@ -9,8 +9,7 @@ const SmoothScroll = ({ children }: SmoothScrollProps) => {
   const lenisOptions = {
     lerp: 0.05,
     smoothWheel: true,
-    syncTouch: true,
-    smoothTouch: false,
+    syncTouch: false,
   };
   return (
     <ReactLenis root options={lenisOptions}>
