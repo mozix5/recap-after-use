@@ -15,40 +15,6 @@ export const SlidingPen = ({ scrollYProgress, loading }: SlidingPenProps) => {
   const bodyRef = useRef<HTMLDivElement>(null);
   const measureFrameRef = useRef(0);
 
-  const measureImageTravel = useCallback(() => {
-    if (measureFrameRef.current) {
-      window.cancelAnimationFrame(measureFrameRef.current);
-    }
-
-    measureFrameRef.current = window.requestAnimationFrame(() => {
-      measureFrameRef.current = 0;
-
-      if (capRef.current && bodyRef.current) {
-        const capRect = capRef.current.getBoundingClientRect();
-        const bodyRect = bodyRef.current.getBoundingClientRect();
-        setSpaceLeft(capRect.left + capRect.width / 2.1);
-        setSpaceRight(
-          window.innerWidth - bodyRect.right + bodyRect.width / 1.25,
-        );
-      }
-    });
-  }, []);
-
-  useEffect(() => {
-    if (!loading) {
-      measureImageTravel();
-    }
-    window.addEventListener("resize", measureImageTravel);
-    return () => {
-      window.removeEventListener("resize", measureImageTravel);
-
-      if (measureFrameRef.current) {
-        window.cancelAnimationFrame(measureFrameRef.current);
-      }
-    };
-  }, [measureImageTravel, loading]);
-
-
   const x1 = useSpring(
     useTransform(
       scrollYProgress,
@@ -68,6 +34,47 @@ export const SlidingPen = ({ scrollYProgress, loading }: SlidingPenProps) => {
     ),
     { stiffness: 100, damping: 20 },
   );
+
+  const measureImageTravel = useCallback(() => {
+    if (measureFrameRef.current) {
+      window.cancelAnimationFrame(measureFrameRef.current);
+    }
+
+    measureFrameRef.current = window.requestAnimationFrame(() => {
+      measureFrameRef.current = 0;
+
+      if (capRef.current && bodyRef.current) {
+        const capRect = capRef.current.getBoundingClientRect();
+        const bodyRect = bodyRef.current.getBoundingClientRect();
+        
+        // Subtract current spring translations to get the original un-animated layout positions
+        const currentX1 = x1.get();
+        const currentX2 = x2.get();
+        
+        const originalCapLeft = capRect.left - currentX1;
+        const originalBodyRight = bodyRect.right - currentX2;
+        
+        setSpaceLeft(originalCapLeft + capRect.width / 2.1);
+        setSpaceRight(
+          window.innerWidth - originalBodyRight + bodyRect.width / 1.25,
+        );
+      }
+    });
+  }, [x1, x2]);
+
+  useEffect(() => {
+    if (!loading) {
+      measureImageTravel();
+    }
+    window.addEventListener("resize", measureImageTravel);
+    return () => {
+      window.removeEventListener("resize", measureImageTravel);
+
+      if (measureFrameRef.current) {
+        window.cancelAnimationFrame(measureFrameRef.current);
+      }
+    };
+  }, [measureImageTravel, loading]);
 
   return (
     <div className="flex sticky top-1/2 -translate-y-1/2 items-start overflow-hidden z-50 pointer-events-none">
