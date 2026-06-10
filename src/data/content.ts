@@ -55,46 +55,45 @@ export const timeline = [
   {
     period: "2025",
     issue: "03",
-    title: "The SaaS Architect",
+    title: "Software Engineer",
     label: "Sterling Software · CAMS Group",
     icon: Rocket,
     description:
-      "Remediated session architecture and API performance to secure a high-stakes, live distributor commission system. When the noise settled, efficiency rose by 30%.",
+      "Optimized session handling and API performance to secure a live distributor commission system, boosting processing efficiency by 30%.",
     points: [
-      "Architected high-velocity Node.js pipelines.",
-      "Engineered bulletproof session architectures.",
-      "Resolved deep concurrency bottlenecks.",
-      "Secured fintech surfaces against critical vulnerabilities.",
-      "Transformed accessibility into a default state."
+      "Built high-speed Node.js APIs to handle heavy transaction workloads.",
+      "Designed secure session management for reliable user authentication.",
+      "Resolved concurrency bottlenecks to ensure system stability under peak traffic.",
+      "Identified and patched critical security exploits across financial interfaces.",
     ],
   },
   {
     period: "2023",
     issue: "02",
-    title: "The System Intern",
+    title: "Software Engineer Intern",
     label: "Celebal Technologies",
     icon: Code2,
     description:
-      "Authored a universal interface language, accelerating product delivery speeds. A translation of abstract design into robust, reusable components.",
+      "Created a unified React component library, transforming designs into reusable code and accelerating product delivery speeds.",
     points: [
-      "Curated a 15-component React design system.",
-      "Bridged complex systems with seamless REST APIs.",
-      "Eliminated friction across production environments.",
-      "Optimized digital performance to the millisecond."
+      "Developed a library of 15+ reusable React components to standardize interface styling.",
+      "Built REST APIs to seamlessly connect frontend layouts with database services.",
+      "Streamlined production workflows and deployment environments.",
+      "Optimized web performance and assets to significantly improve page load speeds.",
     ],
   },
   {
     period: "2020–2024",
     issue: "01",
-    title: "The Foundation",
+    title: "Education",
     label: "Lovely Professional University",
     icon: GraduationCap,
     description:
-      "Mastered the core mathematics and logic of computation. The foundational rules of syntax, systems, and algorithms that guide the hand.",
+      "Studied the core logic and principles of computer science, focusing on algorithms, data structures, and system design.",
     points: [
-      "Mastered the science of computation with a CGPA of 7.5.",
-      "Certified in React interface engineering.",
-      "Forged through rigorous full-stack training."
+      "Graduated with a degree in Computer Science & Engineering.",
+      "Earned industry certifications in React and frontend development.",
+      "Completed intensive training programs in modern full-stack web technologies.",
     ],
   },
 ];
