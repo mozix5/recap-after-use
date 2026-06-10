@@ -45,7 +45,7 @@ const Experience = () => {
 
         <div className="relative" ref={timelineRef}>
           <div
-            className="absolute left-1/2 top-0 -translate-x-1/2 w-px"
+            className="absolute left-6 md:left-1/2 top-0 -translate-x-1/2 w-px"
             style={{ height: "100%", background: "var(--rule)" }}
           >
             <motion.div

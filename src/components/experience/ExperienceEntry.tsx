@@ -17,12 +17,13 @@ export const ExperienceEntry = ({ item, index }: ExperienceEntryProps) => {
   return (
     <motion.div
       ref={ref}
-      className="grid grid-cols-[1fr_auto_1fr] gap-0 items-start transform-gpu will-change-transform"
+      className="grid grid-cols-[48px_1fr] md:grid-cols-[1fr_48px_1fr] gap-0 items-start transform-gpu will-change-transform"
       initial={{ opacity: 0 }}
       animate={inView ? { opacity: 1 } : {}}
       transition={{ duration: 0.5, delay: index * 0.1 }}
     >
-      <div className={`pb-16 ${isEven ? "pr-10" : ""}`}>
+      {/* Left Column (Desktop Only) */}
+      <div className={`hidden md:block pb-16 ${isEven ? "pr-10" : ""}`}>
         {isEven && (
           <motion.div
             className="text-right transform-gpu will-change-transform"
@@ -35,7 +36,8 @@ export const ExperienceEntry = ({ item, index }: ExperienceEntryProps) => {
         )}
       </div>
 
-      <div className="flex flex-col items-center" style={{ width: 48 }}>
+      {/* Center Column (Timeline Icon Node) */}
+      <div className="flex flex-col items-center w-12 shrink-0">
         <motion.div
           className="relative z-10 flex h-10 w-10 items-center justify-center shrink-0"
           style={{
@@ -73,11 +75,23 @@ export const ExperienceEntry = ({ item, index }: ExperienceEntryProps) => {
         </motion.div>
       </div>
 
-      <div className={`pb-16 ${!isEven ? "pl-10" : ""}`}>
-        {!isEven && (
+      {/* Right Column (Desktop Odd / Mobile All) */}
+      <div className={`pb-16 pl-4 md:pl-10 ${isEven ? "md:hidden" : ""}`}>
+        {isEven ? (
+          <div className="block md:hidden">
+            <motion.div
+              className="transform-gpu will-change-transform"
+              initial={{ x: -20, opacity: 0 }}
+              animate={inView ? { x: 0, opacity: 1 } : {}}
+              transition={{ duration: 0.55, delay: index * 0.1 + 0.1 }}
+            >
+              <ExperienceCard item={item} inView={inView} delay={index * 0.1} />
+            </motion.div>
+          </div>
+        ) : (
           <motion.div
             className="transform-gpu will-change-transform"
-            initial={{ x: -30, opacity: 0 }}
+            initial={{ x: -20, opacity: 0 }}
             animate={inView ? { x: 0, opacity: 1 } : {}}
             transition={{ duration: 0.55, delay: index * 0.1 + 0.1 }}
           >
