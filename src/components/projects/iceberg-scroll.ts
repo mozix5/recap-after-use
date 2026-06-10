@@ -45,6 +45,16 @@ export interface IcebergScrollValues {
 export function useIcebergScroll(): IcebergScrollValues {
   const [isHovered, setIsHovered] = useState(false);
   const [charHighlight, setCharHighlight] = useState(0);
+  const [isCompact, setIsCompact] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const media = window.matchMedia("(max-width: 1279px)");
+    setIsCompact(media.matches);
+    const listener = (e: MediaQueryListEvent) => setIsCompact(e.matches);
+    media.addEventListener("change", listener);
+    return () => media.removeEventListener("change", listener);
+  }, []);
 
   const wrapperRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -54,12 +64,50 @@ export function useIcebergScroll(): IcebergScrollValues {
 
   const rawTipY = useTransform(scrollYProgress, [0.10, 0.30], [-80, 0]);
   const rawTipOpacity = useTransform(scrollYProgress, [0.10, 0.26], [0, 1]);
-  const rawBaseY = useTransform(scrollYProgress, [0.28, 0.45], [300, 0]);
-  const rawBaseOpacity = useTransform(scrollYProgress, [0.28, 0.45], [0, 1]);
-  const rawWaterlineScaleX = useTransform(scrollYProgress, [0.43, 0.52], [0, 1]);
-  const rawWaterlineOpacity = useTransform(scrollYProgress, [0.43, 0.52], [0, 0.4]);
-  const rawLabelsOpacity = useTransform(scrollYProgress, [0.48, 0.62], [0, 0.85]);
-  const rawLabelsY = useTransform(scrollYProgress, [0.48, 0.62], [5, 0]);
+  const rawBaseY = useTransform(scrollYProgress, (v) => {
+    const start = 0.28;
+    const end = isCompact ? 0.48 : 0.45;
+    if (v < start) return 300;
+    if (v > end) return 0;
+    const pct = (v - start) / (end - start);
+    return 300 - pct * 300;
+  });
+  const rawBaseOpacity = useTransform(scrollYProgress, (v) => {
+    const start = 0.28;
+    const end = isCompact ? 0.48 : 0.45;
+    if (v < start) return 0;
+    if (v > end) return 1;
+    return (v - start) / (end - start);
+  });
+  const rawWaterlineScaleX = useTransform(scrollYProgress, (v) => {
+    const start = isCompact ? 0.45 : 0.43;
+    const end = isCompact ? 0.55 : 0.52;
+    if (v < start) return 0;
+    if (v > end) return 1;
+    return (v - start) / (end - start);
+  });
+  const rawWaterlineOpacity = useTransform(scrollYProgress, (v) => {
+    const start = isCompact ? 0.45 : 0.43;
+    const end = isCompact ? 0.55 : 0.52;
+    if (v < start) return 0;
+    if (v > end) return 0.4;
+    return ((v - start) / (end - start)) * 0.4;
+  });
+  const rawLabelsOpacity = useTransform(scrollYProgress, (v) => {
+    const start = isCompact ? 0.50 : 0.48;
+    const end = isCompact ? 0.65 : 0.62;
+    if (v < start) return 0;
+    if (v > end) return 0.85;
+    return ((v - start) / (end - start)) * 0.85;
+  });
+  const rawLabelsY = useTransform(scrollYProgress, (v) => {
+    const start = isCompact ? 0.50 : 0.48;
+    const end = isCompact ? 0.65 : 0.62;
+    if (v < start) return 5;
+    if (v > end) return 0;
+    const pct = (v - start) / (end - start);
+    return 5 - pct * 5;
+  });
 
   const tipY = useSpring(rawTipY, SPRING);
   const tipOpacity = useSpring(rawTipOpacity, SPRING);
@@ -113,7 +161,13 @@ export function useIcebergScroll(): IcebergScrollValues {
     };
   }, [isHovered, hoverWaterlineOpacity, hoverLabelsOpacity]);
 
-  const assemblyFactor = useTransform(scrollYProgress, [0.45, 0.52], [0, 1]);
+  const assemblyFactor = useTransform(scrollYProgress, (v) => {
+    const start = isCompact ? 0.58 : 0.45;
+    const end = isCompact ? 0.70 : 0.52;
+    if (v < start) return 0;
+    if (v > end) return 1;
+    return (v - start) / (end - start);
+  });
 
   const finalTipY = useTransform(
     [tipY, tipBobY, assemblyFactor],
@@ -154,8 +208,23 @@ export function useIcebergScroll(): IcebergScrollValues {
     return { opacity, x };
   });
 
-  const rawCtaOpacity = useTransform(scrollYProgress, [0.95, 0.99], [0, 1]);
-  const rawCtaY = useTransform(scrollYProgress, [0.95, 0.99], [15, 0]);
+  const rawCtaOpacity = useTransform(scrollYProgress, (v) => {
+    const start = isCompact ? 0.78 : 0.95;
+    const end = isCompact ? 0.90 : 0.99;
+    if (v < start) return 0;
+    if (v > end) return 1;
+    return (v - start) / (end - start);
+  });
+
+  const rawCtaY = useTransform(scrollYProgress, (v) => {
+    const start = isCompact ? 0.78 : 0.95;
+    const end = isCompact ? 0.90 : 0.99;
+    if (v < start) return 15;
+    if (v > end) return 0;
+    const pct = (v - start) / (end - start);
+    return 15 - pct * 15;
+  });
+
   const ctaOpacity = useSpring(rawCtaOpacity, SPRING);
   const ctaY = useSpring(rawCtaY, SPRING);
 

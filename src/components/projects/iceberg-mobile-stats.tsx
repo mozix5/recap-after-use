@@ -8,7 +8,7 @@ interface IcebergMobileStatsProps {
 export function IcebergMobileStats({ assemblyFactor }: IcebergMobileStatsProps) {
   return (
     <motion.div
-      className="flex xl:hidden flex-col gap-2 mt-6 max-w-[340px] w-full px-4"
+      className="flex xl:hidden flex-col gap-2 mt-4 max-w-[270px] sm:max-w-[320px] md:max-w-[340px] w-full px-4"
       style={{ opacity: assemblyFactor }}
     >
       {BELOW_STATS.map((stat, i) => (

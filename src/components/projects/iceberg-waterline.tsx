@@ -72,7 +72,7 @@ export function IcebergWaterline({
       </div>
 
       <motion.div
-        className="flex justify-between items-center mt-2 px-1"
+        className="flex justify-between items-center mt-2 px-1 mx-16 md:mx-24"
         style={{ opacity: finalLabelsOpacity, y: labelsY }}
       >
         <p

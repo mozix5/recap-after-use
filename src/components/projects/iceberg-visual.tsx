@@ -40,7 +40,7 @@ export function IcebergVisual({
 }: IcebergVisualProps) {
   return (
     <div
-      className="relative w-full max-w-[340px] md:max-w-[400px] mx-auto aspect-[431/548]"
+      className="relative w-full max-w-[270px] sm:max-w-[320px] md:max-w-[400px] mx-auto aspect-[431/548]"
       style={{ cursor: "crosshair" }}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
