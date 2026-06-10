@@ -7,8 +7,7 @@ type SmoothScrollProps = {
 
 const SmoothScroll = ({ children }: SmoothScrollProps) => {
   const lenisOptions = {
-    lerp: 0.08,
-    duration: 1.2,
+    lerp: 0.05,
     smoothWheel: true,
     syncTouch: true,
     smoothTouch: false,
