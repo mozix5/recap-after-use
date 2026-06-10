@@ -57,16 +57,6 @@ const App = () => {
           />
 
           <div className="relative z-10 flex flex-col items-center">
-            <motion.p
-              className="font-mono text-[10px] uppercase tracking-[0.5em] mb-8"
-              style={{ color: "var(--fg-muted)" }}
-              initial={{ opacity: 0 }}
-              animate={loading ? { opacity: 0 } : { opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              Portfolio · 2026
-            </motion.p>
-
             <div
               className="font-anton flex flex-col text-[clamp(4.5rem,20vw,11rem)] uppercase leading-none tracking-wide"
               style={{ color: "var(--fg)" }}
