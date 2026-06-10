@@ -27,19 +27,17 @@ export const ProjectListRow = React.forwardRef<HTMLDivElement, ProjectListRowPro
     return (
       <div
         ref={ref}
-        className="relative flex flex-col md:flex-row md:items-center justify-between gap-8 py-14 border-b transition-colors duration-300 group"
+        className="relative flex flex-col md:flex-row md:items-center justify-between gap-4 md:gap-8 py-8 md:py-14 border-b transition-colors duration-300 group"
         style={{ borderColor: "var(--rule-light)" }}
       >
-        <div className="flex items-center gap-8">
+        <div className="flex items-center gap-4 md:gap-8">
           <span
-            className="font-bebas text-3xl md:text-4xl transition-colors duration-300"
-            style={{ color: isHovered ? "var(--gold)" : "var(--fg-dim)" }}
+            className="font-bebas text-3xl md:text-4xl transition-colors duration-300 text-[var(--gold)] md:text-[var(--fg-dim)] md:group-hover:text-[var(--gold)]"
           >
             {formattedIndex}
           </span>
           <h3
-            className="font-bebas text-4xl md:text-6xl uppercase tracking-wider transition-colors duration-300"
-            style={{ color: isHovered ? "var(--fg)" : "var(--fg-muted)" }}
+            className="font-bebas text-3xl sm:text-4xl md:text-6xl uppercase tracking-wider transition-colors duration-300 text-[var(--fg)] md:text-[var(--fg-muted)] md:group-hover:text-[var(--fg)]"
           >
             {project.title}
           </h3>
@@ -47,8 +45,7 @@ export const ProjectListRow = React.forwardRef<HTMLDivElement, ProjectListRowPro
 
         <div className="flex flex-col gap-2.5 max-w-xl md:px-6">
           <p
-            className="font-lora text-[13px] leading-relaxed transition-colors duration-300"
-            style={{ color: isHovered ? "var(--fg)" : "var(--fg-dim)" }}
+            className="font-lora text-[13px] leading-relaxed transition-colors duration-300 text-[var(--fg)] md:text-[var(--fg-dim)] md:group-hover:text-[var(--fg)]"
           >
             {project.description.split(".")[0].trim()}.
           </p>

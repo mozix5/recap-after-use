@@ -22,7 +22,7 @@ export const ProjectHoverPreview = ({
     <AnimatePresence>
       {hoveredIndex !== null && (
         <motion.div
-          className="pointer-events-none"
+          className="pointer-events-none hidden lg:block"
           style={{
             position: "fixed",
             left: floatX,
