@@ -8,13 +8,13 @@ interface IcebergMobileStatsProps {
 export function IcebergMobileStats({ assemblyFactor }: IcebergMobileStatsProps) {
   return (
     <motion.div
-      className="flex xl:hidden flex-col gap-2 mt-4 max-w-[270px] sm:max-w-[320px] md:max-w-[340px] w-full px-4"
+      className="flex xl:hidden flex-col gap-2 mt-4 max-w-[300px] sm:max-w-[340px] w-full px-4"
       style={{ opacity: assemblyFactor }}
     >
       {BELOW_STATS.map((stat, i) => (
         <div
           key={i}
-          className="flex items-center gap-2 justify-center font-mono text-[9px] uppercase tracking-[0.15em] whitespace-nowrap px-3 py-1.5 rounded border border-[var(--rule-light)]"
+          className="flex items-center gap-2 justify-center font-mono text-[9px] uppercase tracking-[0.15em] min-[360px]:whitespace-nowrap px-3 py-1.5 rounded border border-[var(--rule-light)] text-center"
           style={{
             color: "var(--fg)",
             background: "rgba(16, 16, 16, 0.85)",
